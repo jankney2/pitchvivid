@@ -28,24 +28,25 @@ massive(CONNECTION_STRING).then(db => {
 // auth
 app.post('/auth/registerUser', authCtrl.registerUser)
 app.post('/auth/registerAdmin', authCtrl.registerAdmin)
-app.get('/auth/login', authCtrl.login)
-app.delete('/auth/logout', authCtrl.logout)
-app.put('/auth/updateUser', authCtrl.updateUser)
-app.put('/auth/updateAdmin', authCtrl.updateAdmin)
+app.post('/auth/loginUser', authCtrl.loginUser)
+app.post('/auth/loginAdmin', authCtrl.loginAdmin)
+// app.delete('/auth/logout', authCtrl.logout)
+// app.put('/auth/updateUser', authCtrl.updateUser)
+// app.put('/auth/updateAdmin', authCtrl.updateAdmin)
 
-// jobs
-app.get('/api/postings/all', adminCtrl.getPostings)
-app.get('/api/postings/:id', adminCtrl.getPosting)
-app.post('/api/postings/new', adminCtrl.newPosting)
-app.delete('/api/postings/:id', adminCtrl.deletePosting)
-app.put('/api/postings/:id', adminCtrl.updatePosting)
-app.post('/api/postings/archive', adminCtrl.archivePosting)
+// // jobs
+// app.get('/api/postings/all', adminCtrl.getPostings)
+// app.get('/api/postings/:id', adminCtrl.getPosting)
+// app.post('/api/postings/new', adminCtrl.newPosting)
+// app.delete('/api/postings/:id', adminCtrl.deletePosting)
+// app.put('/api/postings/:id', adminCtrl.updatePosting)
+// app.post('/api/postings/archive', adminCtrl.archivePosting)
 
-// admins
-app.get('/api/admins/:id', adminCtrl.getAdmins)
-app.post('/api/admins/new', adminCtrl.newAdmin)
-app.delete('/api/admins/:id', adminCtrl.deleteAdmin)
-app.put('/api/admins/:id', adminCtrl.updateAdmin)
+// // admins
+// app.get('/api/admins/:id', adminCtrl.getAdmins)
+// app.post('/api/admins/new', adminCtrl.newAdmin)
+// app.delete('/api/admins/:id', adminCtrl.deleteAdmin)
+// app.put('/api/admins/:id', adminCtrl.updateAdmin)
 
 // users
 // app.get()
