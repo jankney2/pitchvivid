@@ -11,8 +11,6 @@ export default class Register extends Component {
             company: '',
             owner: false,
             admin: false,
-
-
         }
     }
 
@@ -33,28 +31,34 @@ export default class Register extends Component {
 
     
     render() {
-
-        
-
         return (
-            <>
+            <div className='register-container'>
                 <input placeholder='Email' onChange={e => this.handleChange("email", e.target.value)} />
                 <input type='password' placeholder='Password' onChange={e => this.handleChange("password", e.target.value)} />
                 <input placeholder="First Name" onChange={e => this.handleChange("firstname", e.target.value)} />
                 <input placeholder='Last Name' onChange={e => this.handleChange("lastname", e.target.value)} />
-                <label> If Recruiter,
-            <input placeholder='Which Company You Work For' onChange={e => this.handleChange("company", e.target.value)} />
-                </label>
-                <label> Check if you own this company
-                <input type='checkbox' onClick={() => this.checkBoxHandle('owner')} />
-                </label>
-                <label> Check if you are recruiting for a company
-                <input type='checkbox' onClick={() => this.checkBoxHandle('admin')} />
-                </label>
+                
+                <p>Are you recruiting for a company?</p>
+                <input className='checkbox' type='checkbox' onClick={() => this.checkBoxHandle('admin')} />
+                {
+                    this.state.admin ? 
+                    <div>
+                        <p>Are you the owner of the company?</p>
+                        <input className='checkbox' type='checkbox' onClick={() => this.checkBoxHandle('owner')} />
+                        {
+                            this.state.owner ?
+                            <input placeholder='Company Name' onChange={e => this.handleChange("company", e.target.value)} /> : 
+                            <></>   
+                        } 
+                    </div> : 
+                    <> </>
+                }
+
+
 
                 <button onClick ={this.handleSubmit}>Register</button>
 
-            </>
+            </div>
         )
     }
 }

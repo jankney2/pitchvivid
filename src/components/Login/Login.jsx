@@ -20,6 +20,7 @@ export default class Login extends Component {
 
     handleSubmit = () => { 
         console.log('you logged in')
+        // eventual axios request and error handling
     }
     render(){
         return(
