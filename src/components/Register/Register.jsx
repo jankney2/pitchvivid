@@ -7,8 +7,8 @@ export default class Register extends Component {
         this.state = {
             email: '',
             password: '',
-            firstname: '',
-            lastname: '',
+            firstName: '',
+            lastName: '',
             company: '',
             owner: false,
             admin: false,
@@ -44,8 +44,8 @@ export default class Register extends Component {
                     <h2>Register New User</h2>
                     <input placeholder='Email' onChange={e => this.handleChange("email", e.target.value)} />
                     <input type='password' placeholder='Password' onChange={e => this.handleChange("password", e.target.value)} />
-                    <input placeholder="First Name" onChange={e => this.handleChange("firstname", e.target.value)} />
-                    <input placeholder='Last Name' onChange={e => this.handleChange("lastname", e.target.value)} />
+                    <input placeholder="First Name" onChange={e => this.handleChange("firstName", e.target.value)} />
+                    <input placeholder='Last Name' onChange={e => this.handleChange("lastName", e.target.value)} />
                 </div>
 
 

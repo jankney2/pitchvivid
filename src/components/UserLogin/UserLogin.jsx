@@ -2,7 +2,7 @@ import React, {Component}from 'react'
 import axios from 'axios'
 
 
-export default class Login extends Component { 
+export default class UserLogin extends Component { 
     constructor(){
         super()
         this.state = {
@@ -22,7 +22,8 @@ export default class Login extends Component {
         this.setState({
             loginError: false
         })
-        axios.get('/auth/login').then(res => {
+        const {email, password} = this.state
+        axios.post('/auth/loginUser', {email, password}).then(res => {
             console.log(res.data)
         }).catch(err => {
             this.setState({
