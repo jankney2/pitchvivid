@@ -23,13 +23,16 @@ export default class Login extends Component {
     }
     render(){
         return(
-            <>
-            <input placeholder = 'Email' onChange={e => this.handleChange("email", e.target.value)} /> 
+            <div className='login-view'>
+
+            <input  placeholder = 'Email' onChange={e => this.handleChange("email", e.target.value)} /> 
+            
             <input type = "password" placeholder = 'Password' onChange={e => this.handleChange("password", e.target.value)} /> 
+            
             <button onClick={this.handleSubmit}>Login</button>
             
 
-             </> 
+             </div> 
         )
     }
 
