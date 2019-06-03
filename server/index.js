@@ -30,9 +30,9 @@ app.post('/auth/registerUser', authCtrl.registerUser)
 app.post('/auth/registerAdmin', authCtrl.registerAdmin)
 app.post('/auth/loginUser', authCtrl.loginUser)
 app.post('/auth/loginAdmin', authCtrl.loginAdmin)
-// app.delete('/auth/logout', authCtrl.logout)
-// app.put('/auth/updateUser', authCtrl.updateUser)
-// app.put('/auth/updateAdmin', authCtrl.updateAdmin)
+app.delete('/auth/logout', authCtrl.logout)
+app.put('/auth/updateUser', authCtrl.updateUser)
+app.put('/auth/updateAdmin', authCtrl.updateAdmin)
 
 // // jobs
 // app.get('/api/postings/all', adminCtrl.getPostings)

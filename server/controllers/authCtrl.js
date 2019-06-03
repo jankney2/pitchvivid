@@ -19,7 +19,9 @@ module.exports = {
 
     req.session.user = {
       id: user.id,
-      email: user.email
+      email: user.email,
+      firstName: user.first_name,
+      lastName: user.last_name
     }
 
     res.status(201).send(req.session.user)
@@ -42,14 +44,24 @@ module.exports = {
 
     req.session.user = {
       id: user.id,
-      email: user.email
+      email: user.email,
+      firstName: user.first_name,
+      lastName: user.last_name
     }
     res.status(200).send(req.session.user)
   },
 
   registerAdmin: async (req, res) => {
-    let {email, firstName, lastName, password, companyId, owner} = req.body
+    let {email, firstName, lastName, password, adminKey, owner} = req.body
     const db = req.app.get('db')
+
+    let companyIdArr = await db.authCtrl.getCompanyId({adminKey})
+    if (!companyIdArr[0]) {
+      return res.status(409).send('Incorrect admin key')
+    } 
+
+    let companyId = companyIdArr[0].company_id
+
     let adminArr = await db.authCtrl.getAdmin({email})
     let existingAdmin = adminArr[0]
 
@@ -66,7 +78,9 @@ module.exports = {
     req.session.admin = {
       id: admin.id,
       email: admin.email,
-      companyId: admin.companyId
+      companyId: admin.companyId,
+      firstName: admin.first_name,
+      lastName: admin.last_name
     }
 
     res.status(201).send(req.session.admin)
@@ -90,7 +104,9 @@ module.exports = {
     req.session.admin = {
       id: admin.id,
       email: admin.email,
-      companyId: admin.companyId
+      companyId: admin.companyId,
+      firstName: admin.first_name,
+      lastName: admin.last_name
     }
 
     res.status(200).send(req.session.admin)
@@ -103,5 +119,47 @@ module.exports = {
 
   checkForSession: async (req, res) => {
     res.status(200).send(req.session)
+  },
+
+  updateUser: async (req, res) => {
+    let {email, firstName, lastName, password} = req.body
+    let {id} = req.session.user
+    const db = req.app.get('db')
+
+    const salt = bcrypt.genSaltSync(10)
+    const hash = bcrypt.hashSync(password, salt)
+    
+    let updatedUser = await db.authCtrl.updateUser({email, firstName, lastName, hash, id})
+    let user = updatedUser[0]
+
+    req.session.user = {
+      id: user.id,
+      email: user.email,
+      firstName: user.first_name,
+      lastName: user.last_name
+    }
+
+    res.status(201).send(req.session.user)
+  },
+
+  updateAdmin: async (req, res) => {
+    let {email, firstName, lastName, password, owner} = req.body
+    let {id} = req.session.admin
+    const db = req.app.get('db')
+
+    const salt = bcrypt.genSaltSync(10)
+    const hash = bcrypt.hashSync(password, salt)
+    
+    let updatedAdmin = await db.authCtrl.updateAdmin({email, firstName, lastName, hash, owner, id})
+    let admin = updatedAdmin[0]
+
+    req.session.admin = {
+      id: admin.id,
+      email: admin.email,
+      firstName: admin.first_name,
+      lastName: admin.last_name
+    }
+
+    res.status(201).send(req.session.admin)
   }
 }
