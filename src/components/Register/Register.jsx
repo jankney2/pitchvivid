@@ -9,7 +9,7 @@ export default class Register extends Component {
             password: '',
             firstName: '',
             lastName: '',
-            company: '',
+            adminKey: '',
             owner: false,
             admin: false,
         }
@@ -57,7 +57,7 @@ export default class Register extends Component {
                 {
                     this.state.admin ? 
                     <span className='owner-container'>
-                        <input id='company-name-input' placeholder='Company Name' onChange={e => this.handleChange("company", e.target.value)} /> 
+                        <input id='company-name-input' placeholder='Admin Key' onChange={e => this.handleChange("AdminKey", e.target.value)} /> 
                         <span>
                             <p>I am the owner of the company</p>
                             <input className='checkbox' type='checkbox' onClick={() => this.checkBoxHandle('owner')} />
