@@ -22,7 +22,7 @@ module.exports = {
       email: user.email
     }
 
-    res.status(201).send(user)
+    res.status(201).send(req.session.user)
   }, 
 
   loginUser: async (req, res) => {
@@ -42,7 +42,7 @@ module.exports = {
 
     req.session.user = {
       id: user.id,
-      username: user.username
+      email: user.email
     }
     res.status(200).send(req.session.user)
   },
@@ -69,7 +69,7 @@ module.exports = {
       companyId: admin.companyId
     }
 
-    res.status(201).send(admin)
+    res.status(201).send(req.session.admin)
   }, 
 
   loginAdmin: async (req, res) => {
@@ -94,5 +94,14 @@ module.exports = {
     }
 
     res.status(200).send(req.session.admin)
+  },
+
+  logout: async (req, res) => {
+    req.session.destroy()
+    res.sendStatus(200)
+  },
+
+  checkForSession: async (req, res) => {
+    res.status(200).send(req.session)
   }
 }
