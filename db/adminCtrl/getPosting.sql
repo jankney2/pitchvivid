@@ -1,1 +1,1 @@
-select * from jobs where admin_id = ${adminId} and id = {jobId};
+select * from jobs where admin_id = ${id} and id = {jobId};
