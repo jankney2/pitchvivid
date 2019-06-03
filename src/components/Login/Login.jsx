@@ -1,5 +1,5 @@
 import React, {Component}from 'react'
-
+import axios from 'axios'
 
 
 export default class Login extends Component { 
@@ -19,8 +19,16 @@ export default class Login extends Component {
 
 
     handleSubmit = () => { 
-        console.log('you logged in')
-        // eventual axios request and error handling
+        this.setState({
+            loginError: false
+        })
+        axios.get('/auth/login').then(res => {
+            console.log(res.data)
+        }).catch(err => {
+            this.setState({
+                loginError: true
+            })
+        })
     }
     render(){
         return(
@@ -32,7 +40,11 @@ export default class Login extends Component {
             
             <button onClick={this.handleSubmit}>Login</button>
             
-
+            {
+                this.state.loginError ? 
+                <h3>Your login credentials are incorrect. Please try again</h3>: 
+                <> </>
+            }
              </div> 
         )
     }
