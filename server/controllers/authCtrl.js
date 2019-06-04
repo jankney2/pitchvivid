@@ -60,7 +60,7 @@ module.exports = {
       return res.status(409).send('Incorrect admin key')
     } 
 
-    let companyId = companyIdArr[0].company_id
+    let companyId = companyIdArr[0].id
 
     let adminArr = await db.authCtrl.getAdmin({email})
     let existingAdmin = adminArr[0]
