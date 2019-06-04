@@ -29,25 +29,53 @@ class UserDashboard extends Component {
         this.state = {
             firstName: props.firstName,
             lastName: props.lastName,
-            email: props.email
+            email: props.email,
+            jobApps: [],
+            search: ''
         }
 
     }
 
     componentDidMount() {
         console.log(this.props)
+        //axios get to get all the jobs posts they have
+    }
+
+    
+    searchChange =(value) => {
+        this.setState({search:value})
     }
 
     render() {
+        const jobApps = this.state.jobApps.filter((element) => { 
+            return element.job_title.includes(this.state.search)
+        }).map((element, index)=> { 
+            return <span>
+                <div className='job-title'>{element.job_title}</div>
+                <div className='job-company'>{element.company_name}</div>
+                <div className='job-closing'>{element.closing_date}</div>
+                {/* <div className='job-filled'>{element.job_filled}</div> */}
+
+
+
+            </span>
+        })
+
+        // be able to filter through job titles and then render a div that has the title and the company name next to it with the date posted. Once you clikc ont he title, you then get routed to the post page that then has all the details with the ability to click and add a recording to the post. 
+
         return (
             <>
-                <div>
+                <div className='userdash-view'>
+                   <div className='dash-header'></div>
+                   {/* <div className='dash-left'></div> */}
+
+                    <h1>{`Welcome ${this.state.firstName}, to PitchVivid!`}</h1>
+                  <input placeholder='search for job posting' onChange={e => this.searchChange(e.target.value)} /> 
+                  <h1>Job Applications</h1> 
+                   <div className='job-listing'></div>
+
                     
-                    <Link to='/record'>
-                        <button>
-                            Record New Video
-                    </button>
-                    </Link>
+
                 </div>
 
             </>
