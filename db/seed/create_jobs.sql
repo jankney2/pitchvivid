@@ -6,6 +6,8 @@ create table jobs (
     closing_date date,
     company_id int,
     admin_id int,
+    archived boolean,
+    job_title varchar(100)
     foreign key (company_id) references companies (id),
     foreign key (admin_id) references admins (id)
 )

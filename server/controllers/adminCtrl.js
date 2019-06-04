@@ -14,15 +14,15 @@ module.exports={
 
   getPosting:(req, res)=>{
     const db = req.app.get('db')
-    let { jobId } = req.params
-    jobId = +jobId
-
-
+    let jobId = +req.params.id
+    console.log(jobId)
+    console.log('getting posting')
     db.adminCtrl.getPosting({jobId}).then((data)=>{
       res.status(200).send(data)
-    }).catch(err=>
+    }).catch(err=>{
+      console.log(err)
       res.status(400).send(err)
-    )},
+  })},
   
   //new posting doesn't respond with an updated job list.  Front end will pull the updated list via get request.  
   newPosting:(req,res)=>{
@@ -33,7 +33,7 @@ module.exports={
     companyId = +companyId
     console.log(id, companyId)
     const { details, openingDate, closingDate } = req.body
-    db.adminCtrl.newPosting({id, companyId, details, openingDate, closingDate}).then(res=>res.sendStatus(200)).catch(res.sendStatus(400))
+    db.adminCtrl.newPosting({id, companyId, details, openingDate, closingDate}).then(result=>res.sendStatus(200)).catch(res.sendStatus(400))
 
   },
 
@@ -42,7 +42,7 @@ module.exports={
     let { jobId } = req.params
     jobId = +jobId
 
-    db.adminCtrl.deletePosting({jobId}).then(res=>res.sendStatus(200)).catch(err=>{res.status(400).send(err)})
+    db.adminCtrl.deletePosting({jobId}).then(result=>res.sendStatus(200)).catch(err=>{res.status(400).send(err)})
   },
 
 
@@ -59,7 +59,7 @@ module.exports={
     
     console.log(jobId, details, filled, openingDate, closingDate, archived, newId)
    
-    db.adminCtrl.updatePosting({jobId, details, filled, openingDate, closingDate, archived, newId}).then(res=>res.sendStatus(200)).catch(err=>res.status(400).send(err))
+    db.adminCtrl.updatePosting({jobId, details, filled, openingDate, closingDate, archived, newId}).then(result=>res.sendStatus(200)).catch(err=>res.status(400).send(err))
   },
 
   getAdmins: (req,res)=>{
