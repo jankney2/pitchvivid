@@ -74,6 +74,13 @@ module.exports={
     const db = req.app.get('db')
     let adminId = +req.params.id
     db.adminCtrl.deleteAdmin({adminId}).then(res=>res.status(200)).catch(err=>res.status(400).send(err))
+  },
+
+  getCompanyPostings: (req,res)=>{
+
+    const db = req.app.get('db')
+    let companyId = +req.session.admin.companyId
+    db.adminCtrl.getCompanyPostings({companyId}).then(data=>{res.status(200).send(data)}).catch(err=>{res.status(400).send(err)})
   }
 
 }

@@ -35,7 +35,7 @@ app.put('/auth/updateUser', authCtrl.updateUser)
 app.put('/auth/updateAdmin', authCtrl.updateAdmin)
 
 // jobs
-// app.get('/api/postings/company', adminCtrl.getCompanyPostings)
+app.get('/api/postings/company', adminCtrl.getCompanyPostings)
 app.get('/api/postings/admin', adminCtrl.getAdminPostings)
 app.get('/api/postings/:id', adminCtrl.getPosting)
 app.post('/api/postings/new', adminCtrl.newPosting)
@@ -45,7 +45,6 @@ app.put('/api/postings', adminCtrl.updatePosting)
 // // admins
 app.get('/api/admins', adminCtrl.getAdmins)
 app.delete('/api/admins/:id', adminCtrl.deleteAdmin)
-// app.put('/api/admins/:id', adminCtrl.updateAdmin)
 
 // users
 app.get('/api/userVideos', userCtrl.getAllVideos)
