@@ -6,6 +6,8 @@ import About from './components/About/About'
 import UserLogin from './components/UserLogin/UserLogin'
 import AdminLogin from './components/AdminLogin/AdminLogin'
 import Register from './components/Register/Register'
+import RegisterCompany from './components/RegisterCompany/RegisterCompany'
+import Dashboard from './components/Dashboard/Dashboard'
 
 export default (
     <Switch>
@@ -15,6 +17,8 @@ export default (
         <Route path='/user-login' component={UserLogin} /> 
         <Route path='/admin-login' component={AdminLogin} />
         <Route path='/register' component={Register} /> 
+        <Route path='/company-register' component={RegisterCompany} />
+        <Route path='/dashboard' component={Dashboard} />
     </Switch>
 )
 
