@@ -36,9 +36,14 @@ class UserDashboard extends Component {
 
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         console.log(this.props)
-        //axios get to get all the jobs posts they have
+       await axios.get('/api/userVideos').then(res => { 
+            this.setState({
+                jobApps:res.data
+            })
+            console.log(res.data)
+        })
     }
 
     
@@ -47,18 +52,18 @@ class UserDashboard extends Component {
     }
 
     render() {
+        // const concatString = this.state.jobApps.concat()
+        // console.log(concatString)
         const jobApps = this.state.jobApps.filter((element) => { 
-            return element.job_title.includes(this.state.search)
+            return element.job_title.toLowerCase().includes(this.state.search.toLowerCase()) || element.name.toLowerCase().includes(this.state.search.toLowerCase())
         }).map((element, index)=> { 
-            return <span>
+            return <Link to={`/jobpost/${element.id}`}>
+            <span key = {index} className = 'job-span'>
                 <div className='job-title'>{element.job_title}</div>
-                <div className='job-company'>{element.company_name}</div>
+                <div className='job-company'>{element.name}</div>
                 <div className='job-closing'>{element.closing_date}</div>
-                {/* <div className='job-filled'>{element.job_filled}</div> */}
-
-
-
             </span>
+            </Link>
         })
 
         // be able to filter through job titles and then render a div that has the title and the company name next to it with the date posted. Once you clikc ont he title, you then get routed to the post page that then has all the details with the ability to click and add a recording to the post. 
@@ -72,7 +77,9 @@ class UserDashboard extends Component {
                     <h1>{`Welcome ${this.state.firstName}, to PitchVivid!`}</h1>
                   <input placeholder='search for job posting' onChange={e => this.searchChange(e.target.value)} /> 
                   <h1>Job Applications</h1> 
-                   <div className='job-listing'></div>
+                   <div className='job-listing'>
+                       {jobApps}
+                   </div>
 
                     
 
