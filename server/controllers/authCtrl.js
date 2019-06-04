@@ -104,7 +104,7 @@ module.exports = {
     req.session.admin = {
       id: admin.id,
       email: admin.email,
-      companyId: admin.companyId,
+      companyId: admin.company_id,
       firstName: admin.first_name,
       lastName: admin.last_name
     }
