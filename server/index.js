@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 const session = require('express-session')
 const massive = require('massive')
+const adminNotesCtrl = require('./controllers/adminNotesCtrl')
 const authCtrl = require('./controllers/authCtrl')
 const adminCtrl = require('./controllers/adminCtrl')
 const userCtrl = require('./controllers/userCtrl')
@@ -46,9 +47,20 @@ app.put('/api/postings', adminCtrl.updatePosting)
 app.get('/api/admins', adminCtrl.getAdmins)
 app.delete('/api/admins/:id', adminCtrl.deleteAdmin)
 
-// users
+// videos
 app.get('/api/userVideos', userCtrl.getAllVideos)
 app.get('/api/userVideos/:job_id', userCtrl.getVideo)
 app.delete('/api/userVideos/:job_id', userCtrl.deleteVideo)
 app.put('/api/userVideos', userCtrl.updateVideo)
 app.post('/api/userVideos', userCtrl.newVideo)
+
+// admin notes
+app.get('/api/adminnotes/getAll/:job_id', adminNotesCtrl.getAll)
+app.get('/api/adminnotes/liked/:job_id', adminNotesCtrl.getLiked)
+app.get('/api/adminnotes/:job_id/:user_id', adminNotesCtrl.getNote)
+app.post('/api/adminnotes', adminNotesCtrl.newAdminNote)
+// update notes
+// delete notes
+// filter out disliked
+
+
