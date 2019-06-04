@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 import {withRouter} from 'react-router-dom'
-import {updateUser} from '../../redux/reducer'
+import {updateUser} from '../../../redux/reducer'
 import {connect} from 'react-redux'
 
 class AdminDashboard extends Component {
@@ -23,15 +23,18 @@ class AdminDashboard extends Component {
                 // this.props.history.push('/')
             // }
 
-    // if(!this.props.companyId)
-        // this.props.history.push('/login)
-      
-    // else if(this.props.companyId): ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     
-        // this.getListings() gets the admin's job listings
+        if(!this.props.companyId){
+            this.props.history.push('/login')
+        }
     
-    // else if(this.props.owner): ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-         // this.getAllListings() gets the company's job listings 
-         // this.getAdmins() gets the company's admins
+        if(this.props.owner){
+            this.getAllListings()
+            this.getAdmins()
+        }
+
+        if(this.props.companyId){
+            this.getListings() 
+        }
             
     // function to grab company info
         // nothing yet
@@ -39,30 +42,34 @@ class AdminDashboard extends Component {
 
     // admin functionality ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
     getListings=async ()=> {
-        const listings = await axios.get('/api/postings/admin')
-        this.setState ({
-            jobListings: listings.data
-        })
+        try {
+            const listings = await axios.get('/api/postings/admin')
+            this.setState ({
+                jobListings: listings.data
+            })
+        } catch(err) {
+            console.log(`There was an error with admin listings: ${err}`)
+        }
     }              
-    addJob=()=> {
+    addJob=async()=> {
         axios.post('/api/postings/new').then(res => {
             this.props.owner ? 
-            await this.getAllListings() :
-            await this.getListings()
+            this.getAllListings() :
+            this.getListings()
         })
     }
     updateJob=async (id)=> {
         axios.put(`/api/postings/${id}`).then(res => {
             this.props.owner ? 
-            await this.getAllListings() :
-            await this.getListings()
+            this.getAllListings() :
+            this.getListings()
         })
     }
     deleteJob=async (id)=> {
         axios.delete(`/api/postings/${id}`).then(res => {
             this.props.owner ? 
-            await this.getAllListings() :
-            await this.getListings()
+            this.getAllListings() :
+            this.getListings()
         })
     }
     // function to view application for job listing
@@ -73,20 +80,29 @@ class AdminDashboard extends Component {
 
     // owner functionality ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   
     getAllListings=async ()=> {
-        const listings = await axios.get('/api/postings/company')
-        this.setState ({
-            jobListings: listings.data
-        })
+        try {
+            const listings = await axios.get('/api/postings/company')
+            this.setState ({
+                jobListings: listings.data
+            })
+
+        } catch(err) {
+            console.log(`There was an error getting owner listings: ${err}`)
+        }
     }
     getAdmins=async ()=> {
-        const admins = await axios.get(`/api/admins/${companyId}`)
-        this.setState ({
-            administrators: admins.data
-        })
+        try {
+            const admins = await axios.get(`/api/admins/${this.props.companyId}`)
+            this.setState ({
+                administrators: admins.data
+            })
+        } catch(err) {
+            console.log(`There was an error getting owner admin list: ${err}`)
+        }
     }
     deleteAdmin=async (id)=> {
         axios.delete(`/api/admins/${id}`).then(res=> {
-            await this.getAdmins();
+            this.getAdmins();
         })
     }
 
@@ -105,13 +121,14 @@ class AdminDashboard extends Component {
 }
 
 const mapStateToProps = state => {
-    const {companyId, email, id, firstName, lastName} = state
+    const {companyId, email, id, firstName, lastName, owner} = state
     return {
         companyId, 
         firstName,
         lastName,
         email,  
-        id
+        id, 
+        owner
     }
 }
 
