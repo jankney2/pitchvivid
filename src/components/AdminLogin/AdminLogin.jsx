@@ -1,7 +1,10 @@
 import React, {Component} from 'react'
 import axios from 'axios'
+import {withRouter} from 'react-router-dom'
+import {updateUser} from '../../redux/reducer'
+import {connect} from 'react-redux'
 
-export default class AdminLogin extends Component {
+class AdminLogin extends Component {
     constructor() {
         super()
         this.state = {
@@ -22,6 +25,8 @@ export default class AdminLogin extends Component {
         const {email, password} = this.state
         axios.post('/auth/loginAdmin', {email, password}).then(res => {
             console.log(res.data)
+            this.props.updateUser(res.data)
+            this.props.history.push('/dashboard')
         }).catch(err => {
             this.setState({
                 loginError: true
@@ -33,7 +38,7 @@ export default class AdminLogin extends Component {
             <div>
                 <input placeholder = 'email' onChange={e=> this.handleChange('email', e.target.value)} />
                 <input type='password' placeholder = 'password' onChange={e=> this.handleChange('password', e.target.value)} />
-                <button onClick={this.handlSubmit}>Login</button>
+                <button onClick={this.handleSubmit}>Login</button>
                 {
                     this.state.loginError ? 
                     <h3>Your login credentials are incorrect. Please try again</h3> :
@@ -44,3 +49,15 @@ export default class AdminLogin extends Component {
         )
     }
 }
+
+const mapStateToProps =state=> {
+    return {
+        ...state 
+    }
+}
+
+const mapDispatchToProps = {
+    updateUser
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AdminLogin))

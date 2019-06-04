@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import {withRouter} from 'react-router-dom'
+import {updateUser} from '../../redux/reducer'
+import {connect} from 'react-redux'
 
-export default class Register extends Component {
+class Register extends Component {
     constructor() {
         super()
         this.state = {
@@ -29,10 +32,14 @@ export default class Register extends Component {
         this.state.admin ? 
         axios.post(`/auth/registerAdmin`, this.state).then(res => {
             console.log(res.data)
+            this.props.updateUser(res.data)
+            this.props.history.push('/dashboard')
         }).catch(err=>console.log(`There appears to be an error with registerAdmin: ${err}`))
         :
         axios.post(`/auth/registerUser`, this.state).then(res=> {
             console.log(res.data)
+            this.props.updateUser(res.data)
+            this.props.history.push('/dashboard')
         }).catch(err=> console.log(`There appears to be an error with registerUser: ${err}`))
     }
 
@@ -72,3 +79,15 @@ export default class Register extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        ...state
+    }
+}
+
+const mapDispatchToProps = {
+    updateUser
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Register))

@@ -4,6 +4,11 @@
 @import './components/AdminLogin/AdminLogin';
 @import './components/RegisterCompany/RegisterCompany';
 @import './components/Dashboard/Dashboard';
+@import './components/Dashboard/AdminDashboard/AdminDashboard';
+@import './components/Dashboard/UserDashboard/UserDashboard';
+@import './components/About/About';
+@import './components/LandingPage/LandingPage';
+@import './components/RecordVideo/RecordVideo';
 
 * {
   box-sizing: border-box;
