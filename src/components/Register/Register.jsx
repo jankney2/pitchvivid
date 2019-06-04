@@ -64,7 +64,7 @@ class Register extends Component {
                 {
                     this.state.admin ? 
                     <span className='owner-container'>
-                        <input id='company-name-input' placeholder='Admin Key' onChange={e => this.handleChange("AdminKey", e.target.value)} /> 
+                        <input id='company-name-input' placeholder='Admin Key' onChange={e => this.handleChange("adminKey", e.target.value)} /> 
                         <span>
                             <p>I am the owner of the company</p>
                             <input className='checkbox' type='checkbox' onClick={() => this.checkBoxHandle('owner')} />
