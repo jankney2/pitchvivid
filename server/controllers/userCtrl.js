@@ -15,7 +15,7 @@ module.exports = {
 
   getVideo: async (req, res) => {
     let user_id = req.session.user.id
-    let job_id = req.params.id
+    let {job_id} = req.params
     const db = req.app.get('db')
     
     let userJobArr = await db.userCtrl.getVideo({user_id, job_id})
@@ -31,7 +31,7 @@ module.exports = {
 
   deleteVideo: async (req, res) => {
     let user_id = req.session.user.id
-    let job_id = req.params.id
+    let {job_id} = req.params
     const db = req.app.get('db')
 
     await db.userCtrl.deleteVideo({user_id, job_id})
