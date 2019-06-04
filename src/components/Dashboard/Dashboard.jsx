@@ -9,6 +9,8 @@ import axios from 'axios'
 import {withRouter} from 'react-router-dom'
 import {updateUser} from '../../redux/reducer'
 import {connect} from 'react-redux'
+import UserDashboard from './UserDashboard/UserDashboard'
+import AdminDashboard from './AdminDashboard/AdminDashboard'
 
 class Dashboard extends Component {
     constructor() {
@@ -42,8 +44,8 @@ class Dashboard extends Component {
             <div className='dashboardContainer'>
                 {
                     this.state.admin ? 
-                    <h1>This is the admin dashboard</h1> :
-                    <h1>This is the user dashboard</h1> 
+                    <AdminDashboard />  :
+                   <UserDashboard /> 
                 }
             </div>
         )
