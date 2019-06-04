@@ -55,7 +55,8 @@ app.put('/api/userVideos', userCtrl.updateVideo)
 app.post('/api/userVideos', userCtrl.newVideo)
 
 // admin notes
-app.get('/api/adminnotes/:job_id', adminNotesCtrl.getLiked)
+app.get('/api/adminnotes/liked/:job_id', adminNotesCtrl.getLiked)
+app.get('/api/adminnotes/:job_id', adminNotesCtrl.getAll)
 // get single video
 // look up by user name
 // create notes
