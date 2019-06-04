@@ -1,1 +1,1 @@
-select * from jobs where id = {jobId};
+select * from jobs where id = ${jobId};

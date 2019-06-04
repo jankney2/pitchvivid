@@ -50,4 +50,8 @@ app.post('/api/postings/new', adminCtrl.newPosting)
 // app.put('/api/admins/:id', adminCtrl.updateAdmin)
 
 // users
-// app.get('/api/users/', )
+app.get('/api/jobs', userCtrl.getUserJobs) //jobs the user's applied for including viedo urls
+app.get('/api/jobs/:id', userCtrl.getUserJob)// get single job applied for
+// delete video
+// update video
+// add video
