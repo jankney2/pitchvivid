@@ -1,1 +1,1 @@
-select * from jobs where company_id = ${companyId};
+select to_char(opening_date, 'mm/dd/yyyy') as opening_date, to_char(closing_date, 'mm/dd/yyyy') as closing_date, details, id, filled, company_id, admin_id, archived, job_title from jobs where company_id = ${companyId};
