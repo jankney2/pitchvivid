@@ -46,7 +46,7 @@ module.exports = {
       id: user.id,
       email: user.email,
       firstName: user.first_name,
-      lastName: user.last_name
+      lastName: user.last_name,
     }
     res.status(200).send(req.session.user)
   },
@@ -80,7 +80,8 @@ module.exports = {
       email: admin.email,
       companyId: admin.companyId,
       firstName: admin.first_name,
-      lastName: admin.last_name
+      lastName: admin.last_name,
+      owner: admin.owner
     }
 
     res.status(201).send(req.session.admin)
@@ -106,7 +107,8 @@ module.exports = {
       email: admin.email,
       companyId: admin.company_id,
       firstName: admin.first_name,
-      lastName: admin.last_name
+      lastName: admin.last_name,
+      owner: admin.owner
     }
 
     res.status(200).send(req.session.admin)
@@ -131,15 +133,19 @@ module.exports = {
     
     let updatedUser = await db.authCtrl.updateUser({email, firstName, lastName, hash, id})
     let user = updatedUser[0]
-
-    req.session.user = {
-      id: user.id,
-      email: user.email,
-      firstName: user.first_name,
-      lastName: user.last_name
+    
+    try {
+      req.session.user = {
+        id: user.id,
+        email: user.email,
+        firstName: user.first_name,
+        lastName: user.last_name
+      }
+      res.status(201).send(req.session.user)
     }
-
-    res.status(201).send(req.session.user)
+    catch {
+      res.status(500).send('Internal server error')
+    }
   },
 
   updateAdmin: async (req, res) => {
@@ -153,13 +159,19 @@ module.exports = {
     let updatedAdmin = await db.authCtrl.updateAdmin({email, firstName, lastName, hash, owner, id})
     let admin = updatedAdmin[0]
 
-    req.session.admin = {
-      id: admin.id,
-      email: admin.email,
-      firstName: admin.first_name,
-      lastName: admin.last_name
+    try {
+      req.session.admin = {
+        id: admin.id,
+        email: admin.email,
+        companyId: admin.company_id,
+        firstName: admin.first_name,
+        lastName: admin.last_name,
+        owner: admin.owner
+      }
+      res.status(201).send(req.session.admin)
     }
-
-    res.status(201).send(req.session.admin)
+    catch {
+      res.status(500).send('Internal server error')
+    }
   }
 }
