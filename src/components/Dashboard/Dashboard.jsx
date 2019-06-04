@@ -14,22 +14,31 @@ class Dashboard extends Component {
     constructor() {
         super()
         this.state = {
-            placeholder: ''
+            user: true,
+            admin: false,
+            owner: false
         }
     }
 
     async componentDidMount() {
         // Dashboard component will need to grab session first
 
-        // const session = axios.get('/auth/session') 
+        // const session = await axios.get('/auth/session') 
         // if(session) {
             // await this.props.updateUser(session.data)
         // } else {
-            // route to login screen
+            // this.props.history.push('/')
         // } 
-        // if(!this.props.companyid) {
-            // route to login
-        // }
+        if(this.props.owner){
+            this.setState({
+                owner: true
+            })
+        }
+        if(this.props.companyId) {
+           this.setState({
+               admin: true
+           }) 
+        }
         // at this point, we would grab the job postings, applicants for
         // those job postings, and various bits of company info
     }
@@ -48,9 +57,13 @@ class Dashboard extends Component {
     render() {
         return (
             <div className='dashboardContainer'>
-                <h1>This is the dashboard component</h1>
-                <h3>It's connected to redux, and fires off a ton of different axios requests</h3>
-                <h6>This will likely be the heaviest component in the app</h6>
+                {
+                    this.state.owner ? 
+                    <h1>This is the owner dashboard</h1> : 
+                    this.state.admin ? 
+                    <h1>This is the admin dashboard</h1> :
+                    <h1>This is the user dashboard</h1> 
+                }
             </div>
         )
     }
@@ -58,9 +71,11 @@ class Dashboard extends Component {
 
 // pulling everything I think I could possibly need from redux for now- 6/4 JT
 const mapStateToProps=state=> {
-    const {companyid, email, owner, id} = state
+    const {companyId, email, owner, id, firstName, lastName} = state
     return {
-        companyid, 
+        companyId, 
+        firstName,
+        lastName,
         email, 
         owner, 
         id

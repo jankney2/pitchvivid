@@ -1,8 +1,10 @@
 import React, {Component}from 'react'
 import axios from 'axios'
+import {withRouter} from 'react-router-dom'
+import {updateUser} from '../../redux/reducer'
+import {connect} from 'react-redux'
 
-
-export default class UserLogin extends Component { 
+class UserLogin extends Component { 
     constructor(){
         super()
         this.state = {
@@ -18,13 +20,16 @@ export default class UserLogin extends Component {
     }
 
 
-    handleSubmit = () => { 
+    handleSubmit = async () => { 
         this.setState({
             loginError: false
         })
         const {email, password} = this.state
-        axios.post('/auth/loginUser', {email, password}).then(res => {
+        await axios.post('/auth/loginUser', {email, password}).then(res => {
             console.log(res.data)
+            this.props.updateUser(res.data)
+
+            this.props.history.push('/dashboard')
         }).catch(err => {
             this.setState({
                 loginError: true
@@ -49,5 +54,16 @@ export default class UserLogin extends Component {
              </div> 
         )
     }
-
 }
+
+const mapStateToProps = state => {
+    return {
+        ...state
+    }
+}
+
+const mapDispatchToProps = {
+    updateUser
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(UserLogin))

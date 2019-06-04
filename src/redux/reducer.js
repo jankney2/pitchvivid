@@ -1,8 +1,9 @@
 const initialState = {
-    username: '',
+    firstName: '',
+    lastName: '',
     email: '',
     id: null, 
-    companyid: null, 
+    companyId: null, 
     owner: false
 }
 
@@ -28,18 +29,20 @@ export default function reducer(state=initialState, action) {
         case UPDATE_USER: 
             return {
                 ...state,
-                username: payload.username, 
+                firstName: payload.firstName, 
+                lastName: payload.lastName, 
                 email: payload.email, 
                 id: payload.id,
-                companyid: payload.companyid,
+                companyId: payload.companyId,
                 owner: payload.owner
             };
         case LOGOUT:
             return {
-                username: '',
+                firstName: '',
+                lastName: '',
                 email: '',
                 id: null, 
-                companyid: null, 
+                companyId: null, 
                 owner: false
             };
         default :
