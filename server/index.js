@@ -57,9 +57,8 @@ app.post('/api/userVideos', userCtrl.newVideo)
 // admin notes
 app.get('/api/adminnotes/getAll/:job_id', adminNotesCtrl.getAll)
 app.get('/api/adminnotes/liked/:job_id', adminNotesCtrl.getLiked)
-app.get('/api/adminnotes/getNote/:job_id/:user_id', adminNotesCtrl.getNote)
-// look up by user name
-// create notes
+app.get('/api/adminnotes/:job_id/:user_id', adminNotesCtrl.getNote)
+app.post('/api/adminnotes', adminNotesCtrl.newAdminNote)
 // update notes
 // delete notes
 // filter out disliked

@@ -39,5 +39,20 @@ module.exports = {
     catch {
       res.status(500).send('Internal server error')
     }
+  },
+
+  newAdminNote: async (req, res) => {
+    let {job_id, user_id, disliked, liked, notes} = req.body
+    const db = req.app.get('db')
+
+    let noteArr = await db.adminNotesCtrl.newAdminNote({job_id, user_id, disliked, liked, notes})
+    let note = noteArr[0]
+
+    try {
+      res.status(201).send(note)
+    }
+    catch {
+      res.status(500).send('Internal server error')
+    }
   }
 }
