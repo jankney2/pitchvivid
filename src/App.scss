@@ -1,8 +1,9 @@
 // imports for components 
-@import './components/Login/login';
+@import './components/UserLogin/UserLogin';
 @import './components/Register/Register';
-
-
+@import './components/AdminLogin/AdminLogin';
+@import './components/RegisterCompany/RegisterCompany';
+@import './components/Dashboard/Dashboard';
 
 * {
   box-sizing: border-box;

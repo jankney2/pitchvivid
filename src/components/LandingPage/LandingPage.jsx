@@ -13,6 +13,9 @@ export default function LandingPage() {
             <h1>Landing Page here</h1>
             <Link to='/record'>Click here for the RecordVideo component</Link>
             <Link to='/about'>Click here for the About component</Link>
+            <Link to='/user-login'>User Login</Link>
+            <Link to='/admin-login'>Administrator Login</Link>
+            <Link to='/register'>Register</Link>
         </div>
     )
 }
