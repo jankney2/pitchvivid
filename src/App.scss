@@ -4,6 +4,8 @@
 @import './components/AdminLogin/AdminLogin';
 @import './components/RegisterCompany/RegisterCompany';
 @import './components/Dashboard/Dashboard';
+@import './components/Dashboard/AdminDashboard/AdminDashboard';
+@import './components/Dashboard/UserDashboard/UserDashboard';
 
 * {
   box-sizing: border-box;

@@ -15,8 +15,7 @@ class Dashboard extends Component {
         super()
         this.state = {
             user: true,
-            admin: false,
-            owner: false
+            admin: false
         }
     }
 
@@ -29,11 +28,6 @@ class Dashboard extends Component {
         // } else {
             // this.props.history.push('/')
         // } 
-        if(this.props.owner){
-            this.setState({
-                owner: true
-            })
-        }
         if(this.props.companyId) {
            this.setState({
                admin: true
@@ -43,23 +37,10 @@ class Dashboard extends Component {
         // those job postings, and various bits of company info
     }
 
-    // function to grab applicants
-    // function to grab company info
-    
-    // function to grab job listings
-    // function to add job listing
-    // function to edit job listing
-    // function to delete job listing
-
-    // function to view application for job listing
-    // function to contact applicant for follow-up interview
-
     render() {
         return (
             <div className='dashboardContainer'>
                 {
-                    this.state.owner ? 
-                    <h1>This is the owner dashboard</h1> : 
                     this.state.admin ? 
                     <h1>This is the admin dashboard</h1> :
                     <h1>This is the user dashboard</h1> 
@@ -71,13 +52,12 @@ class Dashboard extends Component {
 
 // pulling everything I think I could possibly need from redux for now- 6/4 JT
 const mapStateToProps=state=> {
-    const {companyId, email, owner, id, firstName, lastName} = state
+    const {companyId, email, id, firstName, lastName} = state
     return {
         companyId, 
         firstName,
         lastName,
-        email, 
-        owner, 
+        email,  
         id
     }
 }
