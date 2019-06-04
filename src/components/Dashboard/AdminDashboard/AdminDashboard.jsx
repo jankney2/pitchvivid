@@ -92,7 +92,7 @@ class AdminDashboard extends Component {
     }
     getAdmins=async ()=> {
         try {
-            const admins = await axios.get(`/api/admins/${this.props.companyId}`)
+            const admins = await axios.get(`/api/admins`)
             this.setState ({
                 administrators: admins.data
             })
@@ -107,6 +107,17 @@ class AdminDashboard extends Component {
     }
 
     render() {
+        let jobDisplay = this.state.jobListings.map(job => {
+            return job.title
+        })
+        let adminDisplay = this.state.administrators.map(admin=> {
+            return (
+                <div className='adminCard' key={admin.id}>
+                    <p>{admin.first_name} {admin.last_name}</p>
+                    <button onClick={() => this.deleteAdmin(admin.id)}>Remove as Admin</button>
+                </div>
+            )
+        })
         return (
             <div className='adminDashboardContainer'>
                 <h1>This is the admin dashboard</h1>
@@ -115,6 +126,24 @@ class AdminDashboard extends Component {
                     <h2>You see this if you're the owner</h2> :
                     <> </>
                 }
+                <div className='adminDashJobPanel'>
+                    <h3>Jobs Here: </h3>
+                    {
+                        this.state.jobListings.length > 0 ?
+                        jobDisplay :
+                        <p>There are no job listings yet. Make one!</p>
+                    }
+                </div>
+
+                <div className='adminDashOwnerPanel'>
+                    <h3>Admins Here: </h3>
+                    {
+                        this.state.administrators.length > 0 ?
+                        adminDisplay :
+                        <p>There are no administrators somehow. What's up with that?</p>
+                    }
+                </div>
+
             </div>
         )
     }
