@@ -14,12 +14,17 @@ module.exports = {
   },
 
   getVideo: async (req, res) => {
+   
     let user_id = req.session.user.id
     let {job_id} = req.params
+    
     const db = req.app.get('db')
+
+
     
     let userJobArr = await db.userCtrl.getVideo({user_id, job_id})
     let userJob = userJobArr[0]
+    console.log(userJob)
 
     try {
       res.status(201).send(userJob)
