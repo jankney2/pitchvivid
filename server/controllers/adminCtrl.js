@@ -14,19 +14,15 @@ module.exports={
 
   getPosting:(req, res)=>{
     const db = req.app.get('db')
-    let { id } = req.session.admin
     let { jobId } = req.params
-    adminId = +adminId
     jobId = +jobId
 
 
-    db.adminCtrl.getPosting({id, jobId}).then((data)=>{
-      console.log(data)
+    db.adminCtrl.getPosting({jobId}).then((data)=>{
       res.status(200).send(data)
     }).catch(err=>
-      console.log(err))
-      res.sendStatus(400)
-  },
+      res.status(400).send(err)
+    )},
   
   //new posting doesn't respond with an updated job list.  Front end will pull the updated list via get request.  
   newPosting:(req,res)=>{
@@ -37,9 +33,47 @@ module.exports={
     companyId = +companyId
     console.log(id, companyId)
     const { details, openingDate, closingDate } = req.body
-    db.adminCtrl.newPosting({id, companyId, details, openingDate, closingDate}).then(res.sendStatus(200)).catch(res.sendStatus(400))
+    db.adminCtrl.newPosting({id, companyId, details, openingDate, closingDate}).then(res=>res.sendStatus(200)).catch(res.sendStatus(400))
 
+  },
+
+  deletePosting: (req,res)=>{
+    const db = req.app.get('db')
+    let { jobId } = req.params
+    jobId = +jobId
+
+    db.adminCtrl.deletePosting({jobId}).then(res=>res.sendStatus(200)).catch(err=>{res.status(400).send(err)})
+  },
+
+
+  //same idea as new posting.  This endpoint doesn't return anything.  Front end will make another query to get updated job list.  
+
+  //UpodatePosting is really robust and can be used for archiving, for changing the assigned admin, or for changing the details of a posting
+  updatePosting: (req, res)=>{
+    const db = req.app.get('db')
+    let{ jobId, details, filled, openingDate, closingDate, archived, newId } =req.body
+    jobId = +jobId
+    if(!newId){
+      newId = +req.session.admin.id
+    }
+    
+    console.log(jobId, details, filled, openingDate, closingDate, archived, newId)
+   
+    db.adminCtrl.updatePosting({jobId, details, filled, openingDate, closingDate, archived, newId}).then(res=>res.sendStatus(200)).catch(err=>res.status(400).send(err))
+  },
+
+  getAdmins: (req,res)=>{
+    const db = req.app.get('db')
+    let companyId = +req.session.admin.companyId
+    
+    db.adminCtrl.getAdmins({companyId}).then(data=>res.status(200).send(data)).catch(err=> res.status(400).send(err))
+  },
+
+
+  deleteAdmin: (req,res)=>{
+    const db = req.app.get('db')
+    let adminId = +req.params.id
+    db.adminCtrl.deleteAdmin({adminId}).then(res=>res.status(200)).catch(err=>res.status(400).send(err))
   }
-
 
 }
