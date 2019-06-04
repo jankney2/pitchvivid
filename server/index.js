@@ -50,4 +50,4 @@ app.post('/api/postings/new', adminCtrl.newPosting)
 // app.put('/api/admins/:id', adminCtrl.updateAdmin)
 
 // users
-// app.get()
+// app.get('/api/users/', )

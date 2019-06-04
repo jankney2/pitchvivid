@@ -1,4 +1,4 @@
-const bcrypt = require('bcryptjs') // test
+const bcrypt = require('bcryptjs')
 
 module.exports = {
   registerUser: async (req, res) => {
@@ -46,7 +46,7 @@ module.exports = {
       id: user.id,
       email: user.email,
       firstName: user.first_name,
-      lastName: user.last_name
+      lastName: user.last_name,
     }
     res.status(200).send(req.session.user)
   },
@@ -80,7 +80,8 @@ module.exports = {
       email: admin.email,
       companyId: admin.companyId,
       firstName: admin.first_name,
-      lastName: admin.last_name
+      lastName: admin.last_name,
+      owner: admin.owner
     }
 
     res.status(201).send(req.session.admin)
@@ -106,7 +107,8 @@ module.exports = {
       email: admin.email,
       companyId: admin.company_id,
       firstName: admin.first_name,
-      lastName: admin.last_name
+      lastName: admin.last_name,
+      owner: admin.owner
     }
 
     res.status(200).send(req.session.admin)
@@ -156,8 +158,10 @@ module.exports = {
     req.session.admin = {
       id: admin.id,
       email: admin.email,
+      companyId: admin.company_id,
       firstName: admin.first_name,
-      lastName: admin.last_name
+      lastName: admin.last_name,
+      owner: admin.owner
     }
 
     res.status(201).send(req.session.admin)
