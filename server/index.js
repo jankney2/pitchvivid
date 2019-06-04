@@ -50,8 +50,8 @@ app.post('/api/postings/new', adminCtrl.newPosting)
 // app.put('/api/admins/:id', adminCtrl.updateAdmin)
 
 // users
-app.get('/api/jobs', userCtrl.getUserJobs)
-app.get('/api/jobs/:id', userCtrl.getUserJob)
-app.delete('/api/jobs/:id', userCtrl.deleteUserJob)
-// app.put('')
-// add video
+app.get('/api/users', userCtrl.getAllVideos)
+app.get('/api/users/:id', userCtrl.getVideo)
+app.delete('/api/users/:id', userCtrl.deleteVideo)
+app.put('/api/users', userCtrl.updateVideo)
+app.post('/api/users', userCtrl.newVideo)
