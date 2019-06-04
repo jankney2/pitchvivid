@@ -15,8 +15,11 @@ module.exports = {
 
   getVideo: async (req, res) => {
    
+    
+    
     let user_id = req.session.user.id
     let {job_id} = req.params
+   
     
     const db = req.app.get('db')
 
