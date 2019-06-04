@@ -1,1 +1,1 @@
-select * from jobs where admin_id = ${id};
+select * from jobs where admin_id = ${id} and archived = false;

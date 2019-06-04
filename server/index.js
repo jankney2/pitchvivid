@@ -35,19 +35,16 @@ app.put('/auth/updateUser', authCtrl.updateUser)
 app.put('/auth/updateAdmin', authCtrl.updateAdmin)
 
 // jobs
-// app.get('/api/postings/company', adminCtrl.getCompanyPostings)
+app.get('/api/postings/company', adminCtrl.getCompanyPostings)
 app.get('/api/postings/admin', adminCtrl.getAdminPostings)
 app.get('/api/postings/:id', adminCtrl.getPosting)
 app.post('/api/postings/new', adminCtrl.newPosting)
-// app.delete('/api/postings/:id', adminCtrl.deletePosting)
-// app.put('/api/postings/:id', adminCtrl.updatePosting)
-// app.post('/api/postings/archive', adminCtrl.archivePosting)
+app.delete('/api/postings/:id', adminCtrl.deletePosting)
+app.put('/api/postings', adminCtrl.updatePosting)
 
 // // admins
-// app.get('/api/admins/:id', adminCtrl.getAdmins)
-// app.post('/api/admins/new', adminCtrl.newAdmin)
-// app.delete('/api/admins/:id', adminCtrl.deleteAdmin)
-// app.put('/api/admins/:id', adminCtrl.updateAdmin)
+app.get('/api/admins', adminCtrl.getAdmins)
+app.delete('/api/admins/:id', adminCtrl.deleteAdmin)
 
 // users
 app.get('/api/userVideos', userCtrl.getAllVideos)
