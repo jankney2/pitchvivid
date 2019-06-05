@@ -44,8 +44,8 @@ app.get('/api/postings/admin', adminCtrl.getAdminPostings)
 app.get('/api/postings/:id', adminCtrl.getPosting)
 app.post('/api/postings/new', adminCtrl.newPosting)
 app.delete('/api/postings/:id', adminCtrl.deletePosting)
-app.put('/api/postings', adminCtrl.updatePosting)
-app.put('api/postings/all', adminCtrl.reassignPostings)
+app.put('/api/postings/:id', adminCtrl.updatePosting)
+app.put('/api/posts/all', adminCtrl.reassignPostings)
 
 // // admins
 app.get('/api/admins', adminCtrl.getAdmins)
