@@ -25,14 +25,15 @@ class AdminDashboard extends Component {
     // grab session if there is one- if not, push to login ~~~~~~~~~~
         const session = await axios.get('/api/session') 
         if(session) {
-            console.log(session)
-            await this.props.updateUser(session.data)
-            } else {
-                this.props.history.push('/')
-            }
+            session.data.admin ? 
+            await this.props.updateUser(session.data.admin) :
+            await this.props.updateUser(session.user)
+        } else {
+            this.props.history.push('/')
+        }
 
         if(!this.props.companyId){
-            this.props.history.push('/login')
+            this.props.history.push('/')
         }
     
         if(this.props.owner){
@@ -46,6 +47,15 @@ class AdminDashboard extends Component {
             
     // function to grab company info
         // nothing yet
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if(prevState !== this.state) {
+            if(this.props.owner){
+                this.getAllListings()
+                this.getAdmins()
+            }
+        }
     }
     // event handlers ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     handleFormChange=e=> {
@@ -74,7 +84,6 @@ class AdminDashboard extends Component {
     }
 
     // admin functionality ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
-        // note that listings can't be grabbed until session endpoint is created
     getListings=async ()=> {
         try {
             const listings = await axios.get('/api/postings/admin')
@@ -110,8 +119,6 @@ class AdminDashboard extends Component {
     // function to contact applicant for follow-up interview
         // nothing yet
 
-    // owner functionality ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   
-        // note that listings can't be grabbed until session endpoint is created
     getAllListings=async ()=> {
         try {
             const listings = await axios.get('/api/postings/company')
@@ -138,9 +145,7 @@ class AdminDashboard extends Component {
     }
     deleteAdmin=async (id)=> {
         this.reassignAdminDuties(id);
-        await axios.delete(`/api/admins/${id}`);
-        await this.getAdmins();
-        console.log(this.state)
+        await axios.delete(`/api/admins/${id}`)
     }
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
