@@ -1,1 +1,1 @@
-delete from jobs where job_id = ${jobId};
+delete from jobs where id = ${jobId};
