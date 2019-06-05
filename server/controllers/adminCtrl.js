@@ -9,7 +9,6 @@ module.exports={
     }).catch(err=>{
       console.log(err)
       res.sendStatus(400)})
-
   },
 
   getPosting:(req, res)=>{
