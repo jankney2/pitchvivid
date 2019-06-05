@@ -3,7 +3,7 @@ import axios from 'axios'
 import {withRouter} from 'react-router-dom'
 import {updateUser} from '../../../redux/reducer'
 import {connect} from 'react-redux'
-import { async } from 'q';
+
 
 class AdminDashboard extends Component {
     constructor() {
@@ -14,10 +14,16 @@ class AdminDashboard extends Component {
             administrators: [],
             addJob: false,
             editJob: null,
+            // new job state vars
             newJobTitle: '',
             newJobDescription: '',
+            // edit job state vars
             editJobTitle: '',
-            editJobDescription: ''
+            editJobDescription: '',
+            editJobFilled: false, 
+            editJobArchived: false,
+            editJobOpenDate: '',
+            editJobCloseDate: ''
         }
     }
             
@@ -49,14 +55,14 @@ class AdminDashboard extends Component {
         // nothing yet
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if(prevState !== this.state) {
-            if(this.props.owner){
-                this.getAllListings()
-                this.getAdmins()
-            }
-        }
-    }
+    // componentDidUpdate(prevProps, prevState) {
+    //     if(prevState !== this.state) {
+    //         if(this.props.owner){
+    //             this.getAllListings()
+    //             this.getAdmins()
+    //         }
+    //     }
+    // }
     // event handlers ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     handleFormChange=e=> {
         const {name, value} = e.target
@@ -69,11 +75,15 @@ class AdminDashboard extends Component {
             addJob: !this.state.addJob
         })
     }
-    handleEditJob=(id, title, details)=> {
+    handleEditJob=(id, title, details, archived, opening_date, closing_date, filled)=> {
         this.setState ({
             editJob: id,
             editJobTitle: title,
-            editJobDescription: details
+            editJobDescription: details,
+            editJobArchived: archived,
+            editJobOpenDate: opening_date, 
+            editJobCloseDate: closing_date,
+            editJobFilled: filled
         })
     }
     handleCancel=()=> {
@@ -95,15 +105,17 @@ class AdminDashboard extends Component {
         }
     }              
     addJob=async()=> {
-        const {newJobTitle:job_title, newJobDescription:job_details} = this.state
-        await axios.post('/api/postings/new', {job_title, job_details})
+        const {newJobTitle:jobTitle, newJobDescription:details} = this.state
+        await axios.post('/api/postings/new', {jobTitle, details})
+        this.handleCancel();
         this.props.owner ? 
         this.getAllListings() :
         this.getListings()
     }
     updateJob=async (id)=> {
-        const {editJobTitle: title, editJobDescription: details} = this.state
-        await axios.put(`/api/postings/${id}`, {title, details})
+        const {editJobTitle: jobTitle, editJobDescription: details, editJobArchived: archived, editJobOpenDate: openingDate, editJobCloseDate: closingDate, editJobFilled: filled} = this.state
+        await axios.put(`/api/postings/${id}`, {jobTitle, details, filled, openingDate, closingDate, archived})
+        this.handleCancel();
         this.props.owner ? 
         this.getAllListings() :
         this.getListings()
@@ -131,6 +143,7 @@ class AdminDashboard extends Component {
         }
     }
     getAdmins=async ()=> {
+        console.log('Getting Administrators... ')
         try {
             const admins = await axios.get(`/api/admins`)
             this.setState ({
@@ -141,11 +154,12 @@ class AdminDashboard extends Component {
         }
     }
     reassignAdminDuties=async(id)=> {
-        await axios.put(`/api/postings/all`, {id})
+        await axios.put(`/api/posts/all`, {id})
     }
-    deleteAdmin=async (id)=> {
+    deleteAdmin= async(id)=> {
         this.reassignAdminDuties(id);
         await axios.delete(`/api/admins/${id}`)
+        this.getAdmins();
     }
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -158,14 +172,20 @@ class AdminDashboard extends Component {
                         <span>
                             <input onChange={e=>{this.handleFormChange(e)}} type='text' name='editJobTitle' placeholder={job.job_title} value={this.state.editJobTitle}/>
                             <input onChange={e=>{this.handleFormChange(e)}} type='text' name='editJobDescription' placeholder={job.details} value={this.state.editJobDescription}/>
+                            <input onChange={e=>{this.handleFormChange(e)}} type='text' name='editJobOpenDate' value={this.state.editJobOpenDate} />
+                            <input onChange={e=>{this.handleFormChange(e)}} type='text' name='editJobCloseDate' value={this.state.editJobCloseDate} />
+                            <input onChange={e=>{this.handleFormChange(e)}} type='checkbox' name='editJobArchived' value={this.state.editJobArchived} checked={this.state.editJobArchived}/>
+                            <input onChange={e=>{this.handleFormChange(e)}} type='checkbox' name='editJobFilled' value={this.state.editJobFilled} checked={this.state.editJobEdit}/>
                             <button onClick={()=>this.updateJob(job.id)}>Submit Edits</button>
                             <button onClick={this.handleCancel}>Cancel</button>
                         </span> :
                         <span>
-                            <p>{job.job_title}</p>
-                            <p>{job.details}</p>
+                            <p>Job Title: {job.job_title}</p>
+                            <p>Details: {job.details}</p>
+                            <p>Opening Date: {job.opening_date}</p>
+                            <p>Closing Date: {job.closing_date}</p>
                             <p>Position Filled: {job.filled}</p>
-                            <button onClick={()=>this.handleEditJob(job.id, job.job_title, job.details)}>Edit Posting</button>
+                            <button onClick={()=>this.handleEditJob(job.id, job.job_title, job.details, job.archived, job.opening_date, job.closing_date, job.filled)}>Edit Posting</button>
                             <button onClick={()=> this.deleteJob(job.id)}>Delete Posting</button>
                         </span>
                     }

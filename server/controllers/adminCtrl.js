@@ -31,8 +31,8 @@ module.exports={
     id = +id
     companyId = +companyId
     console.log(id, companyId)
-    const { details, openingDate, closingDate } = req.body
-    db.adminCtrl.newPosting({id, companyId, details, openingDate, closingDate}).then(result=>res.sendStatus(200)).catch(res.sendStatus(400))
+    const { details, openingDate, closingDate, jobTitle } = req.body
+    db.adminCtrl.newPosting({jobTitle, id, companyId, details, openingDate, closingDate}).then(result=>res.sendStatus(200)).catch(err=>res.status(400).send(err))
 
   },
 
@@ -50,15 +50,17 @@ module.exports={
   //UpodatePosting is really robust and can be used for archiving, for changing the assigned admin, or for changing the details of a posting
   updatePosting: (req, res)=>{
     const db = req.app.get('db')
-    let{ jobId, title, details, filled, openingDate, closingDate, archived, newId } =req.body
-    jobId = +jobId
+    let{jobTitle, details, filled, openingDate, closingDate, archived, newId } =req.body
+    let {id} = req.params
+    id = +id
+    // jobId = +jobId
     if(!newId){
       newId = +req.session.admin.id
     }
     
-    console.log(jobId, details, filled, openingDate, closingDate, archived, newId)
+    console.log(id, jobTitle, details, filled, openingDate, closingDate, archived, newId)
    
-    db.adminCtrl.updatePosting({jobId, details, filled, openingDate, closingDate, archived, newId}).then(result=>res.sendStatus(200)).catch(err=>res.status(400).send(err))
+    db.adminCtrl.updatePosting({id, jobTitle, details, filled, openingDate, closingDate, archived, newId}).then(result=>res.sendStatus(200)).catch(err=> res.status(400).send(err))
   },
 
   getAdmins: (req,res)=>{
@@ -72,7 +74,7 @@ module.exports={
   deleteAdmin: (req,res)=>{
     const db = req.app.get('db')
     let adminId = +req.params.id
-    db.adminCtrl.deleteAdmin({adminId}).then(result=>res.status(200)).catch(err=>res.status(400).send(err))
+    db.adminCtrl.deleteAdmin({adminId}).then(result=>res.sendStatus(200)).catch(err=>res.status(400).send(err))
   },
 
   getCompanyPostings: (req,res)=>{
