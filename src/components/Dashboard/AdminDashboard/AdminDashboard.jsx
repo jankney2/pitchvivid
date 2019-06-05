@@ -92,8 +92,8 @@ class AdminDashboard extends Component {
         this.getListings()
     }
     updateJob=async (id)=> {
-        const {editJobTitle: job_title, editJobDescription: job_details} = this.state
-        await axios.put(`/api/postings/${id}`, {job_title, job_details})
+        const {editJobTitle: title, editJobDescription: details} = this.state
+        await axios.put(`/api/postings/${id}`, {title, details})
         this.props.owner ? 
         this.getAllListings() :
         this.getListings()
