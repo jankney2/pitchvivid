@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 
 
-import { updateUser } from '../../redux/reducer'
+import { logoutUser } from '../../redux/reducer'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import axios from 'axios';
 
 
 class Nav extends Component {
@@ -37,7 +38,11 @@ class Nav extends Component {
 
 
 
-
+logOut = ()=> { 
+   axios.delete('/auth/logout').then((res) => { 
+       this.props.logoutUser()
+   })
+}
 
 
     render() {
@@ -65,28 +70,26 @@ class Nav extends Component {
             // </div>
 
 
-            <div className ='nav-menu'>
+            <div className='nav-menu'>
                 <div className='button'>
-                    <img  id='icon' src ='https://image.flaticon.com/icons/svg/25/25694.svg' alt ='home' /> 
-                    <p>Home</p>
+                    <img id='icon' src='https://image.flaticon.com/icons/svg/25/25694.svg' alt='home' />
+                    <p>Dashboard</p>
                 </div>
-                {
-                    this.state.admin?
-                    <div className='button'>
-                        <img id ='icon' src = 'https://image.flaticon.com/icons/svg/32/32339.svg' alt = 'add post' /> 
-                        <p>New Post</p>
-                    </div>:
-                    <> </>
-            
-                }
+
+            <Link to='/'>
+                <div onClick={e => this.logOut()} className='button'>
+                    <img id='icon' src='https://image.flaticon.com/icons/png/512/17/17367.png' alt='log out'/>
+                    <p>Log Out</p>
+                </div>
+                    </Link>
                 <div className='logo'></div>
                 <div className='button'>
-                <img  id='icon' src ='https://cdn1.iconfinder.com/data/icons/material-core/20/info-outline-256.png' alt ='about' /> 
-                <p>About</p>
+                    <img id='icon' src='https://cdn1.iconfinder.com/data/icons/material-core/20/info-outline-256.png' alt='about' />
+                    <p>About</p>
                 </div>
-                
+
                 <div className='button'>
-                <img  id='icon' src ='https://image.flaticon.com/icons/svg/118/118781.svg' alt ='profile' /> <p>Profile</p>
+                    <img id='icon' src='https://image.flaticon.com/icons/svg/118/118781.svg' alt='profile' /> <p>Profile</p>
                 </div>
 
 
@@ -113,7 +116,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    updateUser
+    logoutUser
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Nav))
