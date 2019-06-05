@@ -42,6 +42,7 @@ app.get('/api/postings/:id', adminCtrl.getPosting)
 app.post('/api/postings/new', adminCtrl.newPosting)
 app.delete('/api/postings/:id', adminCtrl.deletePosting)
 app.put('/api/postings', adminCtrl.updatePosting)
+app.put('api/postings/all', adminCtrl.reassignPostings)
 
 // // admins
 app.get('/api/admins', adminCtrl.getAdmins)
@@ -57,10 +58,10 @@ app.post('/api/userVideos', userCtrl.newVideo)
 // admin notes
 app.get('/api/adminnotes/getAll/:job_id', adminNotesCtrl.getAll)
 app.get('/api/adminnotes/liked/:job_id', adminNotesCtrl.getLiked)
-app.get('/api/adminnotes/:job_id/:user_id', adminNotesCtrl.getNote)
+app.get('/api/adminnotes/:admin_notes_id', adminNotesCtrl.getNote)
 app.post('/api/adminnotes', adminNotesCtrl.newAdminNote)
-// update notes
-// delete notes
+app.put('/api/adminnotes', adminNotesCtrl.updateNote)
+app.delete('/api/adminnotes/:admin_notes_id', adminNotesCtrl.deleteNote)
 // filter out disliked
 
 
