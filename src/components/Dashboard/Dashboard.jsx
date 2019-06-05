@@ -26,14 +26,14 @@ class Dashboard extends Component {
         // Dashboard component will need to grab session first
 
         const session = await axios.get('/api/session') 
-        if(session) {
-            
+        try {
             session.data.admin ? 
             await this.props.updateUser(session.data.admin) :
             await this.props.updateUser(session.data.user)
-        } else {
+        } catch {
             this.props.history.push('/')
-        } 
+        }
+
         if(this.props.companyId) {
            this.setState({
                admin: true
