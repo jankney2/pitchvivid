@@ -10,7 +10,13 @@ class AdminDashboard extends Component {
         this.state = {
             companyInfoPlaceholder: [],
             jobListings: [],
-            administrators: []
+            administrators: [],
+            addJob: false,
+            editJob: null,
+            newJobTitle: '',
+            newJobDescription: '',
+            editJobTitle: '',
+            editJobDescription: ''
         }
     }
             
@@ -39,8 +45,34 @@ class AdminDashboard extends Component {
     // function to grab company info
         // nothing yet
     }
+    // event handlers ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    handleFormChange=e=> {
+        const {name, value} = e.target
+        this.setState ({
+            [name]: value
+        })
+    }
+    handleAddJob=()=> {
+        this.setState ({
+            addJob: !this.state.addJob
+        })
+    }
+    handleEditJob=(id, title, details)=> {
+        this.setState ({
+            editJob: id,
+            editJobTitle: title,
+            editJobDescription: details
+        })
+    }
+    handleCancel=()=> {
+        this.setState ({
+            editJob: null,
+            addJob: false
+        })
+    }
 
     // admin functionality ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
+        // note that listings can't be grabbed until session endpoint is created
     getListings=async ()=> {
         try {
             const listings = await axios.get('/api/postings/admin')
@@ -52,33 +84,32 @@ class AdminDashboard extends Component {
         }
     }              
     addJob=async()=> {
-        axios.post('/api/postings/new').then(res => {
-            this.props.owner ? 
-            this.getAllListings() :
-            this.getListings()
-        })
+        const {newJobTitle:job_title, newJobDescription:job_details} = this.state
+        await axios.post('/api/postings/new', {job_title, job_details})
+        this.props.owner ? 
+        this.getAllListings() :
+        this.getListings()
     }
     updateJob=async (id)=> {
-        axios.put(`/api/postings/${id}`).then(res => {
-            this.props.owner ? 
-            this.getAllListings() :
-            this.getListings()
-        })
+        const {editJobTitle: job_title, editJobDescription: job_details} = this.state
+        await axios.put(`/api/postings/${id}`, {job_title, job_details})
+        this.props.owner ? 
+        this.getAllListings() :
+        this.getListings()
     }
     deleteJob=async (id)=> {
-        axios.delete(`/api/postings/${id}`).then(res => {
-            this.props.owner ? 
-            this.getAllListings() :
-            this.getListings()
-        })
+        await axios.delete(`/api/postings/${id}`)
+        this.props.owner ? 
+        this.getAllListings() :
+        this.getListings()
     }
     // function to view application for job listing
         // nothing yet
     // function to contact applicant for follow-up interview
         // nothing yet
 
-
     // owner functionality ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   
+        // note that listings can't be grabbed until session endpoint is created
     getAllListings=async ()=> {
         try {
             const listings = await axios.get('/api/postings/company')
@@ -101,14 +132,33 @@ class AdminDashboard extends Component {
         }
     }
     deleteAdmin=async (id)=> {
-        axios.delete(`/api/admins/${id}`).then(res=> {
-            this.getAdmins();
-        })
+        await axios.delete(`/api/admins/${id}`)
+        this.getAdmins();
     }
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     render() {
         let jobDisplay = this.state.jobListings.map(job => {
-            return job.title
+            return (
+                <div className='jobCard' key={job.id}>
+                    {
+                        this.state.editJob === job.id? 
+                        <span>
+                            <input onChange={e=>{this.handleFormChange(e)}} type='text' name='editJobTitle' placeholder={job.job_title} value={this.state.editJobTitle}/>
+                            <input onChange={e=>{this.handleFormChange(e)}} type='text' name='editJobDescription' placeholder={job.details} value={this.state.editJobDescription}/>
+                            <button onClick={()=>this.updateJob(job.id)}>Submit Edits</button>
+                            <button onClick={this.handleCancel}>Cancel</button>
+                        </span> :
+                        <span>
+                            <p>{job.job_title}</p>
+                            <p>{job.details}</p>
+                            <p>Position Filled: {job.filled}</p>
+                            <button onClick={()=>this.handleEditJob(job.id, job.job_title, job.details)}>Edit Posting</button>
+                            <button onClick={()=> this.deleteJob(job.id)}>Delete Posting</button>
+                        </span>
+                    }
+                </div>
+            )
         })
         let adminDisplay = this.state.administrators.map(admin=> {
             return (
@@ -120,23 +170,31 @@ class AdminDashboard extends Component {
         })
         return (
             <div className='adminDashboardContainer'>
-                <h1>This is the admin dashboard</h1>
-                {
-                    this.props.owner ? 
-                    <h2>You see this if you're the owner</h2> :
-                    <> </>
-                }
+                <h1>Your Dashboard</h1>
                 <div className='adminDashJobPanel'>
-                    <h3>Jobs Here: </h3>
+                    <h3>Company Jobs: </h3>
                     {
                         this.state.jobListings.length > 0 ?
                         jobDisplay :
-                        <p>There are no job listings yet. Make one!</p>
+                        <p>... There are no job listings yet. Make one!</p>
+                    }
+                </div>
+
+                <div className='adminDashAddJob'>
+                    {
+                        this.state.addJob ? 
+                        <div className='adminDashAddJobForm'>
+                            <input onChange={e=>{this.handleFormChange(e)}} type='text' name='newJobTitle' placeholder='Job Title' />
+                            <input onChange={e=>{this.handleFormChange(e)}} type='text' name='newJobDescription' placeholder='Job Description' />
+                            <button onClick={this.addJob}>Post New Job</button>
+                            <button onClick={this.handleCancel}>Cancel</button>
+                        </div> : 
+                        <button onClick={this.handleAddJob}>Add New Job</button>
                     }
                 </div>
 
                 <div className='adminDashOwnerPanel'>
-                    <h3>Admins Here: </h3>
+                    <h3>Account Administrators: </h3>
                     {
                         this.state.administrators.length > 0 ?
                         adminDisplay :
