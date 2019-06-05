@@ -7,6 +7,7 @@ const adminNotesCtrl = require('./controllers/adminNotesCtrl')
 const annoyCtrl = require('./controllers/annoyCtrl')
 const authCtrl = require('./controllers/authCtrl')
 const adminCtrl = require('./controllers/adminCtrl')
+const blockCtrl = require('./controllers/blockCtrl')
 const userCtrl = require('./controllers/userCtrl')
 const {SESSION_SECRET, CONNECTION_STRING, SERVER_PORT} = process.env
 
@@ -67,12 +68,9 @@ app.delete('/api/adminnotes/:admin_notes_id', adminNotesCtrl.deleteNote)
 
 // annoying users
 app.get('/api/annoy', annoyCtrl.getAll)
-// get single
-// create 
-// delete
+app.get('/api/annoy/:id', annoyCtrl.getAnnoyUser)
+app.post('/api/annoy', annoyCtrl.newAnnoyUser)
+app.delete('/api/annoy/:id', annoyCtrl.deleteAnnoyUser)
 
-// blocked users
-// get all
-// get blocked user
-// create 
-// delete
+// block users
+app.post('/api/block', blockCtrl.blockUser)
