@@ -3,6 +3,7 @@ import axios from 'axios'
 import {withRouter} from 'react-router-dom'
 import {updateUser} from '../../../redux/reducer'
 import {connect} from 'react-redux'
+import { async } from 'q';
 
 class AdminDashboard extends Component {
     constructor() {
@@ -38,7 +39,7 @@ class AdminDashboard extends Component {
             this.getAdmins()
         }
 
-        if(this.props.companyId){
+        if(this.props.companyId && !this.props.owner){
             this.getListings() 
         }
             
@@ -131,9 +132,13 @@ class AdminDashboard extends Component {
             console.log(`There was an error getting owner admin list: ${err}`)
         }
     }
+    reassignAdminDuties=async(id)=> {
+        await axios.put(`/api/postings/all`, {id})
+    }
     deleteAdmin=async (id)=> {
-        await axios.delete(`/api/admins/${id}`)
-        this.getAdmins();
+        this.reassignAdminDuties(id);
+        await axios.delete(`/api/admins/${id}`);
+        await this.getAdmins();
     }
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
