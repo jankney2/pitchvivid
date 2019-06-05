@@ -39,7 +39,7 @@ class AdminDashboard extends Component {
             this.getAdmins()
         }
 
-        if(this.props.companyId){
+        if(this.props.companyId && !this.props.owner){
             this.getListings() 
         }
             
@@ -133,12 +133,12 @@ class AdminDashboard extends Component {
         }
     }
     reassignAdminDuties=async(id)=> {
-        await axios.put(`api/postings/all/${id}`)
+        await axios.put(`/api/postings/all`, {id})
     }
     deleteAdmin=async (id)=> {
-        this.reassignAdminDuties();
+        this.reassignAdminDuties(id);
         await axios.delete(`/api/admins/${id}`);
-        this.getAdmins();
+        await this.getAdmins();
     }
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
