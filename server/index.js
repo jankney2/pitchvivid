@@ -4,6 +4,7 @@ const app = express()
 const session = require('express-session')
 const massive = require('massive')
 const adminNotesCtrl = require('./controllers/adminNotesCtrl')
+const annoyCtrl = require('./controllers/annoyCtrl')
 const authCtrl = require('./controllers/authCtrl')
 const adminCtrl = require('./controllers/adminCtrl')
 const userCtrl = require('./controllers/userCtrl')
@@ -34,6 +35,7 @@ app.post('/auth/loginAdmin', authCtrl.loginAdmin)
 app.delete('/auth/logout', authCtrl.logout)
 app.put('/auth/updateUser', authCtrl.updateUser)
 app.put('/auth/updateAdmin', authCtrl.updateAdmin)
+app.get('/api/session', authCtrl.checkForSession)
 
 // jobs
 app.get('/api/postings/company', adminCtrl.getCompanyPostings)
@@ -62,6 +64,15 @@ app.get('/api/adminnotes/:admin_notes_id', adminNotesCtrl.getNote)
 app.post('/api/adminnotes', adminNotesCtrl.newAdminNote)
 app.put('/api/adminnotes', adminNotesCtrl.updateNote)
 app.delete('/api/adminnotes/:admin_notes_id', adminNotesCtrl.deleteNote)
-// filter out disliked
 
+// annoying users
+app.get('/api/annoy', annoyCtrl.getAll)
+// get single
+// create 
+// delete
 
+// blocked users
+// get all
+// get blocked user
+// create 
+// delete

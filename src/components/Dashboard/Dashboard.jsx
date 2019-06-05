@@ -50,7 +50,7 @@ class Dashboard extends Component {
                 {
                     this.state.admin ? 
                     <AdminDashboard />  :
-                    this.state.companyId ?
+                    this.state.user ?
                    <UserDashboard /> :
                    <> </>
                 }
