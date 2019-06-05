@@ -27,9 +27,10 @@ class Dashboard extends Component {
 
         const session = await axios.get('/api/session') 
         if(session) {
+            
             session.data.admin ? 
             await this.props.updateUser(session.data.admin) :
-            await this.props.updateUser(session.user)
+            await this.props.updateUser(session.data.user)
         } else {
             this.props.history.push('/')
         } 
@@ -50,6 +51,7 @@ class Dashboard extends Component {
     render() {
         return (
             <div className='dashboardContainer'>
+                <Nav />
                 {
                     this.state.admin ? 
                     <AdminDashboard />  :
