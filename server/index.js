@@ -62,6 +62,6 @@ app.get('/api/adminnotes/:admin_notes_id', adminNotesCtrl.getNote)
 app.post('/api/adminnotes', adminNotesCtrl.newAdminNote)
 app.put('/api/adminnotes', adminNotesCtrl.updateNote)
 app.delete('/api/adminnotes/:admin_notes_id', adminNotesCtrl.deleteNote)
-// filter out disliked
+
 
 
