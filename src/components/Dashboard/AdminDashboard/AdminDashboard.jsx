@@ -23,12 +23,13 @@ class AdminDashboard extends Component {
             
     async componentDidMount() {
     // grab session if there is one- if not, push to login ~~~~~~~~~~
-        // const session = await axios.get('/auth/session') 
-        // if(session) {
-            // await this.props.updateUser(session.data)
-            // } else {
-                // this.props.history.push('/')
-            // }
+        const session = await axios.get('/api/session') 
+        if(session) {
+            console.log(session)
+            await this.props.updateUser(session.data)
+            } else {
+                this.props.history.push('/')
+            }
 
         if(!this.props.companyId){
             this.props.history.push('/login')
@@ -139,6 +140,7 @@ class AdminDashboard extends Component {
         this.reassignAdminDuties(id);
         await axios.delete(`/api/admins/${id}`);
         await this.getAdmins();
+        console.log(this.state)
     }
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
