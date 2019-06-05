@@ -38,8 +38,8 @@ module.exports={
 
   deletePosting: (req,res)=>{
     const db = req.app.get('db')
-    let { jobId } = req.params
-    jobId = +jobId
+    let jobId = +req.params.id
+    console.log(jobId)
 
     db.adminCtrl.deletePosting({jobId}).then(result=>res.sendStatus(200)).catch(err=>{res.status(400).send(err)})
   },
@@ -50,7 +50,7 @@ module.exports={
   //UpodatePosting is really robust and can be used for archiving, for changing the assigned admin, or for changing the details of a posting
   updatePosting: (req, res)=>{
     const db = req.app.get('db')
-    let{ jobId, details, filled, openingDate, closingDate, archived, newId } =req.body
+    let{ jobId, title, details, filled, openingDate, closingDate, archived, newId } =req.body
     jobId = +jobId
     if(!newId){
       newId = +req.session.admin.id
@@ -85,7 +85,9 @@ module.exports={
   reassignPostings: (req, res)=>{
     const db = req.app.get('db')
     let newId = +req.session.admin.id
-    let oldId = +req.body.adminId
+    let oldId = +req.body.id
+
+    console.log('reassigning:  old: ', oldId, '  new: ', newId)
 
     db.adminCtrl.reassignPostings({newId, oldId}).then(result => res.sendStatus(200)).catch(err=>res.status(400).send(err))
 
