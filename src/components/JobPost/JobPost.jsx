@@ -31,10 +31,21 @@ class JobPost extends Component {
         })
         return(
             <div className='jobpost-view'> 
+                <section className = 'left-side'>
 
-            this is the job post
-            {jobDetails}
-            {/* <RecordVideo />  */}
+                {jobDetails}
+                </section>
+                <section className = 'right-side'>
+               
+               <div className ='video-container'>
+                <RecordVideo /> 
+                </div>
+
+                </section>
+
+           
+          
+      
             </div>
         )
     }

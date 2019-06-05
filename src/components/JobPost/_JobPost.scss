@@ -2,7 +2,46 @@
     width: 100vw;
     height: 100vh;
     display: flex;
+    // flex-direction: column;
+    // align-items: center;
+
+}
+
+.left-side{
+    height: 100%;
+    width: 50%;
+    float: left;
+    background-color: rgb(78, 69, 69);
+}
+.right-side{
+    height: 100%;
+    width: 50%;
+    float: right;
+    // background-color: grey;
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.record-play-container{
+    height: 70%;
+    width: 100%;
+    display: flex;
     flex-direction: column;
     align-items: center;
 
+
+    
+
+}
+
+#record{ 
+    height: auto;
+    width: 90%;
+    // margin: auto;
+}
+#playback{
+    height: auto;
+    width: 90%;
 }
