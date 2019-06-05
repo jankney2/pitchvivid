@@ -11,6 +11,7 @@ import {updateUser} from '../../redux/reducer'
 import {connect} from 'react-redux'
 import UserDashboard from './UserDashboard/UserDashboard'
 import AdminDashboard from './AdminDashboard/AdminDashboard'
+import Nav from './../Nav/Nav'
 
 class Dashboard extends Component {
     constructor() {
