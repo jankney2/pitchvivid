@@ -16,7 +16,7 @@ class Dashboard extends Component {
     constructor() {
         super()
         this.state = {
-            user: true,
+            user: false,
             admin: false
         }
     }
@@ -34,7 +34,12 @@ class Dashboard extends Component {
            this.setState({
                admin: true
            }) 
-        }
+        } else {
+            this.setState ({
+                user: true
+            })
+        } 
+        
         // at this point, we would grab the job postings, applicants for
         // those job postings, and various bits of company info
     }
@@ -45,7 +50,9 @@ class Dashboard extends Component {
                 {
                     this.state.admin ? 
                     <AdminDashboard />  :
-                   <UserDashboard /> 
+                    this.state.companyId ?
+                   <UserDashboard /> :
+                   <> </>
                 }
             </div>
         )
