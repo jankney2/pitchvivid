@@ -21,7 +21,7 @@ import { withRouter } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 // import {updateUser} from '../../../redux/reducer'
 import { connect } from 'react-redux'
-import Nav from '../../Nav/Nav'
+
 
 
 class UserDashboard extends Component {
@@ -72,7 +72,7 @@ class UserDashboard extends Component {
         return (
             <>
                 <div className='userdash-view'>
-                    <Nav /> 
+               
                
 
 
