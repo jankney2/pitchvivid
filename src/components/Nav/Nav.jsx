@@ -42,6 +42,12 @@ logOut = ()=> {
    axios.delete('/auth/logout').then((res) => { 
        this.props.logoutUser()
    })
+   this.props.history.push('/')
+}
+
+
+handleClick = (name) => { 
+    this.props.history.push(`${name}`)
 }
 
 
@@ -71,28 +77,32 @@ logOut = ()=> {
 
 
             <div className='nav-menu'>
-                <div className='button'>
+                <div onClick={e => this.handleClick('/dashboard')} className='button'>
                     <img id='icon' src='https://image.flaticon.com/icons/svg/25/25694.svg' alt='home' />
                     <p>Dashboard</p>
                 </div>
 
-            <Link to='/'>
-                <div onClick={e => this.logOut()} className='button'>
-                    <img id='icon' src='https://image.flaticon.com/icons/png/512/17/17367.png' alt='log out'/>
-                    <p>Log Out</p>
-                </div>
-                    </Link>
                 <div className='logo'></div>
-                <div className='button'>
+                <div 
+                onClick={e => this.handleClick('/about')} 
+                className='button'>
                     <img id='icon' src='https://cdn1.iconfinder.com/data/icons/material-core/20/info-outline-256.png' alt='about' />
                     <p>About</p>
                 </div>
 
-                <div className='button'>
+                <div 
+                onClick={e => this.handleClick('/profile')} 
+                className='button'>
                     <img id='icon' src='https://image.flaticon.com/icons/svg/118/118781.svg' alt='profile' /> <p>Profile</p>
                 </div>
 
 
+          
+                <div onClick={e => this.logOut()} className='button'>
+                    <img id='icon' src='https://image.flaticon.com/icons/png/512/17/17367.png' alt='log out'/>
+                    <p>Log Out</p>
+                </div>
+                
 
             </div>
         )
