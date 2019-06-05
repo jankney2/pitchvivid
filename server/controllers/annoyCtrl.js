@@ -29,11 +29,11 @@ module.exports = {
 
   newAnnoyUser: async (req, res) => {
     let admin_id = req.session.admin.id
-    let {user_id, banned} = req.body
+    let {user_id} = req.body
     const db = req.app.get('db')
 
     try {
-      let annoyUserArr = await db.annoyCtrl.newAnnoyUser({admin_id, user_id, banned})
+      let annoyUserArr = await db.annoyCtrl.newAnnoyUser({admin_id, user_id})
       let annoyUser = annoyUserArr[0]
       res.status(201).send(annoyUser)
     }
