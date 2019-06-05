@@ -1,54 +1,60 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import axios from 'axios'
 import RecordVideo from '../RecordVideo/RecordVideo'
 
-class JobPost extends Component { 
-    constructor(){
+class JobPost extends Component {
+    constructor() {
         super()
-        this.state = { 
-            jobPost:[]
+        this.state = {
+            jobPost: {}
         }
     }
-
-    componentDidMount(){
-      
-     axios.get(`/api/userVideos/${this.props.match.params.job_id}`).then(res => {
-           
-           this.setState({
-               jobPost: [res.data]
+    componentDidMount() {
+        axios.get(`/api/userVideos/${this.props.match.params.job_id}`).then(res => {
+            this.setState({
+                jobPost: res.data
             })
-            console.log(this.state)
-       })
-    }
-
-
-    render(){
-
-        const jobDetails = this.state.jobPost.map((element, index) => { 
-            return <div key={index}>
-                {element.job_title}
-            </div>
         })
-        return(
-            <div className='jobpost-view'> 
-                <section className = 'left-side'>
+    }
+    render() {
+       
+        return (
+            <div className='jobpost-view'>
+                <section className='left-side'>
+                    <div className='jobpost-company-job-info'>
+                        <div className='jobpost-company-name'>
+                          
+                            {this.state.jobPost.company_name}
+                        </div>
 
-                {jobDetails}
+                        <div className='jobpost-job-title'>
+                            {this.state.jobPost.job_title}
+                        </div>
+
+                        <div className='jobpost-open-close-dates'>
+                            {this.state.jobPost.opening_date}-{this.state.jobPost.closing_date}
+                        </div>
+                    </div>
+
+                    <div className='jobpost-job-details'>
+                        {this.state.jobPost.details}
+                    </div>
+
                 </section>
-                <section className = 'right-side'>
-               
-               <div className ='video-container'>
-                <RecordVideo /> 
-                </div>
 
+
+
+
+
+                <section className='right-side'>
+                    <div className='video-container'>
+                        <RecordVideo />
+                    </div>
                 </section>
-
-           
-          
-      
             </div>
         )
     }
 }
 
-export default JobPost 
+export default JobPost
+

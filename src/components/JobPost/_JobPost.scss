@@ -11,8 +11,68 @@
     height: 100%;
     width: 50%;
     float: left;
-    background-color: rgb(78, 69, 69);
+    background-color: rgb(228, 212, 212);
+    // display: flex;
+    // flex-direction: column;
+    // align-items: center;
+    // justify-content: center;
+    padding: 2em;
 }
+
+.jobpost-company-job-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    // background-color: rgb(126, 122, 122);
+    // width: 100%;
+    height: 20%;
+    // text-decoration: underline ;
+    
+}
+
+.jobpost-company-name{
+display: flex;
+justify-content: flex-start;
+width: auto;
+// background-color: peachpuff;
+font-size: 3em;
+border-bottom: solid 1px black;
+}
+
+.jobpost-job-title{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: auto;
+    // background-color: peachpuff;
+    border-bottom: solid 1px black;
+    font-size: 3em;
+}
+
+.jobpost-open-close-dates{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    width: auto;
+    // background-color: peachpuff;
+    font-size: 1.5em;
+    border-bottom: solid 1px black;
+    
+}
+
+.jobpost-job-details{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    width: auto;
+    // background-color: peachpuff;
+    border: solid 1px black;
+}
+
+
 .right-side{
     height: 100%;
     width: 50%;
@@ -25,11 +85,12 @@
 }
 
 .record-play-container{
-    height: 70%;
-    width: 100%;
+    height: 60%;
+    width: 70%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: auto;
 
 
     
