@@ -81,6 +81,15 @@ module.exports={
     const db = req.app.get('db')
     let companyId = +req.session.admin.companyId
     db.adminCtrl.getCompanyPostings({companyId}).then(data=>{res.status(200).send(data)}).catch(err=>{res.status(400).send(err)})
+  },
+
+  reassignPostings: (req, res)=>{
+    const db = req.app.get('db')
+    let newId = +req.session.admin.id
+    let oldId = +req.body.adminId
+
+    db.adminCtrl.reassignPostings({newId, oldId}).then(result => res.sendStatus(200)).catch(err=>res.status(400).send(err))
+
   }
 
 }
