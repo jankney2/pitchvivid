@@ -51,7 +51,7 @@ class Dashboard extends Component {
     render() {
         return (
             <div className='dashboardContainer'>
-                <Nav />
+                {/* <Nav /> */}
                 {
                     this.state.admin ? 
                     <AdminDashboard />  :
