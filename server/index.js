@@ -34,6 +34,7 @@ app.post('/auth/loginAdmin', authCtrl.loginAdmin)
 app.delete('/auth/logout', authCtrl.logout)
 app.put('/auth/updateUser', authCtrl.updateUser)
 app.put('/auth/updateAdmin', authCtrl.updateAdmin)
+app.get('/api/session', authCtrl.checkForSession)
 
 // jobs
 app.get('/api/postings/company', adminCtrl.getCompanyPostings)
@@ -62,6 +63,3 @@ app.get('/api/adminnotes/:admin_notes_id', adminNotesCtrl.getNote)
 app.post('/api/adminnotes', adminNotesCtrl.newAdminNote)
 app.put('/api/adminnotes', adminNotesCtrl.updateNote)
 app.delete('/api/adminnotes/:admin_notes_id', adminNotesCtrl.deleteNote)
-
-
-
