@@ -29,14 +29,6 @@ class AdminDashboard extends Component {
             
     async componentDidMount() {
     // grab session if there is one- if not, push to login ~~~~~~~~~~
-        const session = await axios.get('/api/session') 
-        if(session) {
-            session.data.admin ? 
-            await this.props.updateUser(session.data.admin) :
-            await this.props.updateUser(session.user)
-        } else {
-            this.props.history.push('/')
-        }
 
         if(!this.props.companyId){
             this.props.history.push('/')
@@ -55,14 +47,6 @@ class AdminDashboard extends Component {
         // nothing yet
     }
 
-    // componentDidUpdate(prevProps, prevState) {
-    //     if(prevState !== this.state) {
-    //         if(this.props.owner){
-    //             this.getAllListings()
-    //             this.getAdmins()
-    //         }
-    //     }
-    // }
     // event handlers ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     handleFormChange=e=> {
         const {name, value} = e.target
