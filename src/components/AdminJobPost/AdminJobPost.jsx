@@ -11,7 +11,10 @@ class AdminJobPost extends Component {
             videoResumes: [], 
             selectedVideo: null, 
             note: '',
-            jobId: null
+            job_id: null,
+            applicantName: '',
+            jobTitle: '',
+            jobDescription: ''
         }
     }
 
@@ -25,30 +28,65 @@ class AdminJobPost extends Component {
         this.setState({
             job_id: this.props.match.params.id
         })
-        // issue with this endpoint is that it's for users only- there is no
-        // endpoint yet for administrators to view videos
-
+        const jobData = await axios.get(`/api/postings/${this.state.job_id}`)
+        console.log('job data: ',jobData)
         const videos= await axios.get(`/api/adminnotes/getAll/${this.state.job_id}`)
-        // const videoResumes= await axios.get(`/api/userVideos/${this.state.job_id}`)
-        // probably need to do some mapping through videoresumes with a bit of text editing
-        
-        
         this.setState ({
-            videoResumes: videos.data
+            videoResumes: videos.data,
+            jobTitle: jobData.data[0].job_title,
+            jobDescription: jobData.data[0].details
         })
         if(this.state.videoResumes.length > 0){
-            console.log(this.state.videoResumes)
-            let videoSource = this.state.videoResumes[4].video_url.slice(5, -1)
-            console.log(videoSource)
-            document.getElementById('resumeViewer').src= videoSource
+            // let videoSource = this.state.selectedVideo
+            document.getElementById('resumeViewer').src= this.state.videoResumes[this.state.selectedVideo]
         }
     }
+    setSelected=()=> {
+        const video = document.getElementById('resumeViewer')
+        video.src = this.state.videoResumes[this.state.selectedVideo].video_url
+        video.play()
+    }
+    handleSelect=async index=> {
+        console.log(this.state.videoResumes)
+        await this.setState({
+            selectedVideo: index,
+            applicantName: `${this.state.videoResumes[index].firstname} ${this.state.videoResumes[index].lastname}`,
+
+        })
+        this.setSelected()
+    }
+
+
     render() {
+        let displayVideoCarousel = this.state.videoResumes.map((resume, index)=> {
+            return (
+                <div key={index} className='adminJobPostResumeCard'>
+                    <p>Applicant Name: {resume.firstname} {resume.lastname} </p>
+                    <button onClick={()=>this.handleSelect(index)}>View Resume</button>
+                </div>
+            )
+        })
         return(
-            // 
             <div className='adminJobPostContainer'>
-                <h3>This will be where you view the video applications</h3>
-                <video controls id='resumeViewer'></video>
+                <div className='adminJobPostSelectedView'>
+                    <video controls id='resumeViewer'></video>
+                    <div className='resumeViewerInfo'>
+                        <p>Applicant's Name: {this.state.applicantName}</p>
+                        <p>Job Title: {this.state.jobTitle}</p>
+                        <p>Job Description: {this.state.jobDescription}</p>
+                        <div className='resumeViewerButtons'>
+                            <button>Like</button>
+                            <button className='resumeBlockButton'>Block</button>
+                            <button>Dislike</button>
+                        </div>
+                        <div className='noteButtonContainer'>
+                            <button className='noteButton'>Add Note</button>
+                        </div>
+                    </div>
+                </div>
+                <div className='carouselDisplay'>
+                    {displayVideoCarousel}  
+                </div>
             </div>
 
         )
