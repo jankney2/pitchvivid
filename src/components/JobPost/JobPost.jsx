@@ -19,11 +19,11 @@ class JobPost extends Component {
   
 
     componentDidMount() {
-        // console.log(this.props)
-        axios.get(`/api/userVideos/${this.props.match.params.job_id}`).then(res => {
+        console.log(this.props)
+        axios.get(`/api/postings/${this.props.match.params.job_id}`).then(res => {
             console.log(res)
             this.setState({
-                jobPost: res.data
+                jobPost: res.data[0]
             })
         })
     }
@@ -60,6 +60,7 @@ Details for the JOB
                 <section className='right-side'>
                     <div className='video-container'>
                         <RecordVideo  job_id={this.props.match.params} videoLink={this.state.jobPost.video_url}/>
+                        
                     </div>
                 </section>
             </div>
