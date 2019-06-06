@@ -38,9 +38,9 @@ class UserLogin extends Component {
     }
     render(){
         return(
-            <div className='login-view'>
+            <div className='user-login-view'>
 
-            <input  placeholder = 'Email' onChange={e => this.handleChange("email", e.target.value)} /> 
+            <input placeholder = 'Email' onChange={e => this.handleChange("email", e.target.value)} /> 
             
             <input type = "password" placeholder = 'Password' onChange={e => this.handleChange("password", e.target.value)} /> 
             
