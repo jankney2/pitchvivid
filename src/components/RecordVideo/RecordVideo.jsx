@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { v4 as randomString } from 'uuid';
+import axios from 'axios'
 
 class RecordVideo extends Component {
     constructor() {
@@ -7,7 +9,14 @@ class RecordVideo extends Component {
             video: [],
             mediaRecorder: null,
             recording: false,
-            recordingMessage: 'Now LIVE!'
+            recordingMessage: 'Now LIVE!',
+            isUploading: false,
+            url: 'Place Holder',
+            uploadFile:{},
+            finalVideo:{}
+
+
+
         }
     }
 
@@ -21,6 +30,9 @@ class RecordVideo extends Component {
                 height: { min: 480, ideal: 720, max: 1080 }
             }
         }
+
+
+        
         // navigator is a global object that lets access getUserMedia (which gives me webcam access) and returns a promise
         // I take the promise and assign the webcam to the source of the video element labeled 'record'- then set it to play
         // finally, I assign the webcam on state as a new MediaRecorder object so that I can access it throughout the component
@@ -83,6 +95,90 @@ class RecordVideo extends Component {
         }
     }
 
+
+
+
+
+    //AWS STUFF
+
+
+
+    getSignedRequest = (file) => {
+
+
+        // console.log(typeof (this.state.profile_pic))
+        console.log(file)
+
+        this.setState({ isUploading: true })
+
+        const fileName = `${randomString()}-${file.name.replace(/\s/g, '-')}`
+        console.log(fileName)
+        axios.get('/sign-s3', {
+            params: {
+                'file-name': fileName,
+                'file-type': file.type
+            }
+        }).then(response => {
+            const { signedRequest, url } = response.data
+            console.log(response.data)
+            console.log(file)
+            this.uploadFile(file, signedRequest, url);
+        }).catch(err => {
+            console.log(err)
+        })
+    };
+
+ 
+
+    finalVideo = (response) => { 
+        this.setState({finalVideo: response})
+    }
+
+    uploadFile = (file, signedRequest, url) => {
+        console.log(file, signedRequest, url)
+        const options = {
+            headers: {
+                'Content-Type': file.type,
+            },
+
+        }
+
+       
+
+
+
+        console.log('this went through', options)
+        axios.put(signedRequest, file, options)
+            .then((response) => {
+                this.setState({ isUploading: false, url })
+                this.finalVideo(response)
+                console.log('also went through', response)
+            }).catch(err => {
+                this.setState({
+                    isUploading: false
+
+                })
+
+                if (err.response.status === 403) {
+                    alert(`Your request for a signed URL failed with a status 403. Double check the CORS configuration and bucket policy in the README. You also will want to double check your AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY in your .env and ensure that they are the same as the ones that you created in the IAM dashboard. You may need to generate new keys\n${
+                        err.stack
+                        }`
+                    )
+                } else {
+                    alert(`Error: ${err.status}\n ${err.stack}`)
+                }
+            })
+    }
+
+
+   
+
+
+
+
+
+
+
     render() {
         return (
             <>
@@ -99,6 +195,15 @@ class RecordVideo extends Component {
                     <button onClick={this.startRecording}>Begin Recording</button>
                     <br />
                     <button onClick={e => this.stopRecording(e)}>Stop Recording</button>
+
+                    <input
+                        className='choose-file'
+                        onChange={(e) => (this.setState({uploadFile: e.target.files[0]}))}
+                        type='file' placeholder='photo' />
+                    <button
+                        className='picture-upload'
+                        onClick={() => this.getSignedRequest(this.state.uploadFile)}> Upload file</button>
+                    <video controls id ='playback' src ={`${this.state.url}`}  ></video>
                 </div>
             </>
         )
