@@ -13,11 +13,12 @@ module.exports = {
   },
 
   getAll: async (req, res) => {
+    let admin_id = req.session.admin.id
     let {job_id} = req.params
     const db = req.app.get('db')
 
     try {
-      let allAdminNotes = await db.adminNotesCtrl.getAll({job_id})
+      let allAdminNotes = await db.adminNotesCtrl.getAll({job_id, admin_id})
       res.status(201).send(allAdminNotes)
     }
     catch {
