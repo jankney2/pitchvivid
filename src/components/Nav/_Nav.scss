@@ -1,27 +1,48 @@
 .nav-menu{
     width: 100vw;
-    height: 10em;
-    background-color: rgb(168, 163, 163);
+    height: 60px;
+    background-color: #212529;
     display: flex;
-    justify-content: space-evenly;
-
+    justify-content: space-between;
+    padding: 0 100px;
+    align-items: center;
+    font-size: 13px;
+    color: white;
 }
 
+.navLeft {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
 
 .button{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 10em;
-    width: 25%;
+    height: 18px;
+}
 
-    p{
-        font-size: 1.5em;
-    }
+.about {
+    margin-left: 40px;
+}
+
+.logo {
+    height: 35px;
 }
 
 #icon{
     height: 2em;
     width: 2em;
+}
+
+.navRight {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.profileBtn {
+    margin-right: 40px;
 }
