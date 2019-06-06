@@ -18,8 +18,15 @@ class RecordVideo extends Component {
 
 
         }
+
+
+
+
+
     }
 
+
+    
     componentDidMount() {
         // this is an object of default settings for our video recorer
         let constraintObj = {
@@ -32,7 +39,7 @@ class RecordVideo extends Component {
         }
 
 
-        
+
         // navigator is a global object that lets access getUserMedia (which gives me webcam access) and returns a promise
         // I take the promise and assign the webcam to the source of the video element labeled 'record'- then set it to play
         // finally, I assign the webcam on state as a new MediaRecorder object so that I can access it throughout the component
@@ -178,6 +185,22 @@ class RecordVideo extends Component {
 
 
 
+    sendToDb = () => { 
+        const {job_id} = this.props.job_id
+        const video_url = this.state.url
+        console.log(job_id, video_url)
+       axios.post('/api/userVideos', {video_url, job_id});
+        // this.props.history.push('/dashboard');
+    
+        
+    }
+
+
+   
+   
+
+
+
 
     render() {
         return (
@@ -205,6 +228,7 @@ class RecordVideo extends Component {
                         onClick={() => this.getSignedRequest(this.state.uploadFile)}> Upload file</button>
                     <video controls id ='playback' src ={`${this.state.url}`}  ></video>
                 </div>
+                <button onClick={e => this.sendToDb()}>Send To DB</button>
             </>
         )
     }
