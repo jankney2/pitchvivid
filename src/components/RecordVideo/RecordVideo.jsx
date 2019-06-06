@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { v4 as randomString } from 'uuid';
 import axios from 'axios'
+import {withRouter} from 'react-router-dom'
 
 class RecordVideo extends Component {
     constructor() {
@@ -15,18 +16,11 @@ class RecordVideo extends Component {
             uploadFile:{},
             finalVideo:{}
 
-
-
         }
-
-
-
 
 
     }
 
-
-    
     componentDidMount() {
         // this is an object of default settings for our video recorer
         let constraintObj = {
@@ -106,10 +100,6 @@ class RecordVideo extends Component {
         }
     }
 
-
-
-
-
     //AWS STUFF
 
 
@@ -139,8 +129,6 @@ class RecordVideo extends Component {
         })
     };
 
- 
- 
     uploadFile = (file, signedRequest, url) => {
         console.log(file, signedRequest, url)
         const options = {
@@ -149,10 +137,6 @@ class RecordVideo extends Component {
             },
 
         }
-
-       
-
-
 
         console.log('this went through', options)
         axios.put(signedRequest, file, options)
@@ -180,29 +164,14 @@ class RecordVideo extends Component {
     }
 
 
-   
-
-
-
-
-
-
     sendToDb = () => { 
         const {job_id} = this.props.job_id
         const video_url = this.state.url
-        console.log(job_id, video_url)
-       axios.post('/api/userVideos', {video_url, job_id});
-        // this.props.history.push('/dashboard');
+        axios.post('/api/userVideos', {video_url, job_id});
+        this.props.history.push('/dashboard');
     
         
     }
-
-
-   
-   
-
-
-
 
     render() {
         return (
