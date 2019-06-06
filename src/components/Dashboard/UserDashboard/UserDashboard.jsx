@@ -64,7 +64,7 @@ class UserDashboard extends Component {
                 <div className='job-company'>{element.name}</div>
                 <div className='job-closing'>{element.closing_date}</div>
             </span>
-            </Link>22
+            </Link>
         })
 
         // be able to filter through job titles and then render a div that has the title and the company name next to it with the date posted. Once you clikc ont he title, you then get routed to the post page that then has all the details with the ability to click and add a recording to the post. 
