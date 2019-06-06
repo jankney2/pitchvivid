@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { v4 as randomString } from 'uuid';
 import axios from 'axios'
+import {withRouter} from 'react-router-dom'
 
 class RecordVideo extends Component {
     constructor() {
@@ -15,18 +16,11 @@ class RecordVideo extends Component {
             uploadFile:{},
             finalVideo:{}
 
-
-
         }
-
-
-
 
 
     }
 
-
-    
     componentDidMount() {
         // this is an object of default settings for our video recorer
         let constraintObj = {
@@ -94,19 +88,17 @@ class RecordVideo extends Component {
             // once we stop recording, save the vid as a Blob object, empty state, create a virtual URL for the blob,
             // and finally set the source of our 'playback' video element to the virtual URL we just created
             recorder.onstop = e => {
-                let blob = new Blob(this.state.video, { 'type': 'video/mp4' })
+                let blobVid = new Blob(this.state.video, { type: 'video/mp4' })
+                let videoUrl = window.URL.createObjectURL(blobVid)
                 this.setState({
-                    video: []
+                    video: [],
+                    blob: blobVid,
+                    videoURL: videoUrl
                 })
-                let videoUrl = window.URL.createObjectURL(blob)
                 document.getElementById('playback').src = videoUrl
             }
         }
     }
-
-
-
-
 
     //AWS STUFF
 
@@ -137,8 +129,6 @@ class RecordVideo extends Component {
         })
     };
 
- 
- 
     uploadFile = (file, signedRequest, url) => {
         console.log(file, signedRequest, url)
         const options = {
@@ -147,10 +137,6 @@ class RecordVideo extends Component {
             },
 
         }
-
-       
-
-
 
         console.log('this went through', options)
         axios.put(signedRequest, file, options)
@@ -178,29 +164,14 @@ class RecordVideo extends Component {
     }
 
 
-   
-
-
-
-
-
-
     sendToDb = () => { 
         const {job_id} = this.props.job_id
         const video_url = this.state.url
-        console.log(job_id, video_url)
-       axios.post('/api/userVideos', {video_url, job_id});
-        // this.props.history.push('/dashboard');
+        axios.post('/api/userVideos', {video_url, job_id});
+        this.props.history.push('/dashboard');
     
         
     }
-
-
-   
-   
-
-
-
 
     render() {
         return (
@@ -211,7 +182,7 @@ class RecordVideo extends Component {
                         <></>
                 }
                 <div className='record-play-container'>
-                    <video controls id='record'></video>
+                    <video id='record'></video>
                     <br />
                     <video controls id='playback'></video>
                     <br />
@@ -234,4 +205,4 @@ class RecordVideo extends Component {
     }
 }
 
-export default RecordVideo
+export default withRouter(RecordVideo)
