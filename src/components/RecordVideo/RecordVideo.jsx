@@ -10,7 +10,8 @@ class RecordVideo extends Component {
             mediaRecorder: null,
             recording: false,
             recordingMessage: 'Now LIVE!',
-            blob: []
+            blob: [],
+            videoUrl: null
         }
     }
 
@@ -76,27 +77,36 @@ class RecordVideo extends Component {
             // once we stop recording, save the vid as a Blob object, empty state, create a virtual URL for the blob,
             // and finally set the source of our 'playback' video element to the virtual URL we just created
             recorder.onstop = e => {
-                let blob = new Blob(this.state.video, { 'type': 'video/mp4' })
+                let blobVid = new Blob(this.state.video, { type: 'video/mp4' })
+                let videoUrl = window.URL.createObjectURL(blobVid)
                 this.setState({
                     video: [],
-                    blob
+                    blob: blobVid,
+                    videoURL: videoUrl
                 })
-                let videoUrl = window.URL.createObjectURL(blob)
                 document.getElementById('playback').src = videoUrl
             }
         }
     }
 
-    submitRecording =async()=> {
-        // console.log(this.state.blob)
-        // console.log(window.URL.createObjectURL(this.state.blob))
-        const video_url = window.URL.createObjectURL(this.state.blob);
-        // const video_url = this.state.blob
-        const {job_id} = this.props.match.params
-        await axios.post('/api/userVideos', {video_url, job_id});
-        this.props.history.push('/dashboard');
-        // console.log(this.props.match.params)
-    }
+        submitRecording =async()=> {
+            const {videoUrl} = this.state
+            // const {job_id} = this.props.match.params
+            // await axios.post('/api/userVideos', {video_url, job_id});
+            // this.props.history.push('/dashboard');
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = videoUrl;
+            a.download = 'test.mp4';
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(() => {
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(videoUrl);
+            }, 100);
+
+            
+        }
 
     render() {
         return (

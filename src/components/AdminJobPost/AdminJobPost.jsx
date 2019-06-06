@@ -27,17 +27,21 @@ class AdminJobPost extends Component {
         })
         // issue with this endpoint is that it's for users only- there is no
         // endpoint yet for administrators to view videos
-        const videoResumes= await axios.get(`/api/userVideos/${this.state.job_id}`)
+
+        const videos= await axios.get(`/api/adminnotes/getAll/${this.state.job_id}`)
+        // const videoResumes= await axios.get(`/api/userVideos/${this.state.job_id}`)
         // probably need to do some mapping through videoresumes with a bit of text editing
+        
+        
         this.setState ({
-            videoResumes
+            videoResumes: videos.data
         })
-        // document.getElementById('resumeViewer').src= this.state.videoResumes[0]
-        document.getElementById('resumeViewer').src= 'http://localhost:3000/d58bfb6b-2b0a-45a2-8066-ab897e020d97'
-        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        // let blob = newBlob(this.state.videoResumes[0], {'type': 'video/mp4'})
-        // let videoURL = window.URL.createObjectURL(blob)
-        // document.getElementById('resumeViewer').src = videoURL
+        if(this.state.videoResumes.length > 0){
+            console.log(this.state.videoResumes)
+            let videoSource = this.state.videoResumes[4].video_url.slice(5, -1)
+            console.log(videoSource)
+            document.getElementById('resumeViewer').src= videoSource
+        }
     }
     render() {
         return(
