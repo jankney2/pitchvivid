@@ -31,24 +31,45 @@ class AdminJobPost extends Component {
         const videos= await axios.get(`/api/adminnotes/getAll/${this.state.job_id}`)
         // const videoResumes= await axios.get(`/api/userVideos/${this.state.job_id}`)
         // probably need to do some mapping through videoresumes with a bit of text editing
-        
+        console.log(videos)
         
         this.setState ({
             videoResumes: videos.data
         })
         if(this.state.videoResumes.length > 0){
-            console.log(this.state.videoResumes)
-            let videoSource = this.state.videoResumes[4].video_url.slice(5, -1)
-            console.log(videoSource)
-            document.getElementById('resumeViewer').src= videoSource
+            let videoSource = this.state.selectedVideo
+            document.getElementById('resumeViewer').src= this.state.videoResumes[this.state.selectedVideo]
         }
     }
+    setSelected=()=> {
+        const video = document.getElementById('resumeViewer')
+        video.src = this.state.videoResumes[this.state.selectedVideo].video_url
+        video.play()
+
+    }
+    handleSelect=async index=> {
+        await this.setState({
+            selectedVideo: index
+        })
+        this.setSelected()
+    }
     render() {
+        let displayVideoCarousel = this.state.videoResumes.map((resume, index)=> {
+            return (
+                <div key={index} style={{margin:'1em'}}>
+                    <p>Applicant Name: {resume.firstname} {resume.lastname} </p>
+                    <button onClick={()=>this.handleSelect(index)}>View Resume</button>
+                </div>
+            )
+        })
         return(
             // 
             <div className='adminJobPostContainer'>
                 <h3>This will be where you view the video applications</h3>
                 <video controls id='resumeViewer'></video>
+                <div className='carouselDisplay' style={{display:'flex'}}>
+                    {displayVideoCarousel}  
+                </div>
             </div>
 
         )
