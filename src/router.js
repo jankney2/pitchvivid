@@ -22,7 +22,7 @@ export default (
         <Route path='/register' component={Register} /> 
         <Route path='/company-register' component={RegisterCompany} />
         <Route path='/dashboard' component={Dashboard} />
-        <Route path='/post/admin-view' component={AdminJobPost} />
+        <Route path='/post/admin-view/:id' component={AdminJobPost} />
     </Switch>
 )
 

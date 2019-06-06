@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import {withRouter} from 'react-router-dom'
+import axios from 'axios';
 
 class RecordVideo extends Component {
     constructor() {
@@ -7,7 +9,8 @@ class RecordVideo extends Component {
             video: [],
             mediaRecorder: null,
             recording: false,
-            recordingMessage: 'Now LIVE!'
+            recordingMessage: 'Now LIVE!',
+            blob: []
         }
     }
 
@@ -75,12 +78,24 @@ class RecordVideo extends Component {
             recorder.onstop = e => {
                 let blob = new Blob(this.state.video, { 'type': 'video/mp4' })
                 this.setState({
-                    video: []
+                    video: [],
+                    blob
                 })
                 let videoUrl = window.URL.createObjectURL(blob)
                 document.getElementById('playback').src = videoUrl
             }
         }
+    }
+
+    submitRecording =async()=> {
+        // console.log(this.state.blob)
+        // console.log(window.URL.createObjectURL(this.state.blob))
+        const video_url = window.URL.createObjectURL(this.state.blob);
+        // const video_url = this.state.blob
+        const {job_id} = this.props.match.params
+        await axios.post('/api/userVideos', {video_url, job_id});
+        this.props.history.push('/dashboard');
+        // console.log(this.props.match.params)
     }
 
     render() {
@@ -92,17 +107,19 @@ class RecordVideo extends Component {
                         <></>
                 }
                 <div className='record-play-container'>
-                    <video controls id='record'></video>
+                    <video id='record'></video>
                     <br />
                     <video controls id='playback'></video>
                     <br />
                     <button onClick={this.startRecording}>Begin Recording</button>
                     <br />
                     <button onClick={e => this.stopRecording(e)}>Stop Recording</button>
+                    <br />
+                    <button onClick={this.submitRecording}>Submit Video Resume</button>
                 </div>
             </>
         )
     }
 }
 
-export default RecordVideo
+export default withRouter(RecordVideo)
