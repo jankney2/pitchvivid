@@ -62,7 +62,7 @@ class UserDashboard extends Component {
             <span className = 'job-span'>
                 <div className='job-title'>{element.job_title}</div>
                 <div className='job-company'>{element.name}</div>
-                <div className='job-closing'>{element.closing_date}</div>
+                <div className='job-opening'>{element.opening_date}</div>
             </span>
             </Link>
         })
