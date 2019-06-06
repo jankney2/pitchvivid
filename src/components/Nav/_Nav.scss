@@ -6,7 +6,7 @@
     justify-content: space-between;
     padding: 0 100px;
     align-items: center;
-    font-size: 13px;
+    font-size: 10px;
     color: white;
 }
 
@@ -14,14 +14,15 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    height: 60%;
 }
 
 .button{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 18px;
+    justify-content: space-between;
+    height: 100%;
 }
 
 .about {
@@ -33,14 +34,14 @@
 }
 
 #icon{
-    height: 2em;
-    width: 2em;
+    height: 22px;
 }
 
 .navRight {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    height: 60%;
 }
 
 .profileBtn {
