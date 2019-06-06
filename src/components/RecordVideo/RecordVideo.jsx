@@ -12,9 +12,9 @@ class RecordVideo extends Component {
             recording: false,
             recordingMessage: 'Now LIVE!',
             isUploading: false,
-            url: 'Place Holder',
+            url: false,
             uploadFile:{},
-            finalVideo:{}
+            finalVideo:''
 
         }
 
@@ -23,6 +23,11 @@ class RecordVideo extends Component {
 
     componentDidMount() {
         // this is an object of default settings for our video recorer
+        // const vidLink= this.props.videoLink
+        // console.log(typeof(vidLink))
+        // console.log(vidLink)
+        // this.setState({finalVideo: vidLink})
+
         let constraintObj = {
             audio: true,
             video: {
@@ -130,7 +135,7 @@ class RecordVideo extends Component {
     };
 
     uploadFile = (file, signedRequest, url) => {
-        console.log(file, signedRequest, url)
+        console.log(url) //this is the correct link at this point
         const options = {
             headers: {
                 'Content-Type': file.type,
@@ -142,9 +147,11 @@ class RecordVideo extends Component {
         axios.put(signedRequest, file, options)
             .then((response) => {
                 console.log(response)
-                console.log(url)
+                
+                this.setState({finalVideo: url})
+
                 this.setState({ isUploading: false, url })
-                // this.finalVideo(response)
+                console.log(this.state)
                 console.log('also went through', response)
             }).catch(err => {
                 this.setState({
@@ -164,16 +171,20 @@ class RecordVideo extends Component {
     }
 
 
-    sendToDb = () => { 
+    sendToDb = async () => { 
         const {job_id} = this.props.job_id
         const video_url = this.state.url
-        axios.post('/api/userVideos', {video_url, job_id});
+       await axios.post('/api/userVideos', {video_url, job_id});
         this.props.history.push('/dashboard');
     
         
     }
 
     render() {
+
+        // this.setState({finalVideo: this.props.videoLink})
+        // console.log(this.state)
+
         return (
             <>
                 {
@@ -197,7 +208,14 @@ class RecordVideo extends Component {
                     <button
                         className='picture-upload'
                         onClick={() => this.getSignedRequest(this.state.uploadFile)}> Upload file</button>
-                    <video controls id ='playback' src ={`${this.state.url}`}  ></video>
+                   
+                    {
+                        this.state.url? 
+                        <video controls id ='playback' src ={`${this.state.url}`}  ></video> :
+                        <video controls id ='playback' src ={`${this.props.videoLink}`}  ></video>
+                    }
+                    
+                   
                 </div>
                 <button onClick={e => this.sendToDb()}>Send To DB</button>
             </>
