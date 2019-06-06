@@ -39,6 +39,7 @@ class RecordVideo extends Component {
         }
 
 
+      
 
         // navigator is a global object that lets access getUserMedia (which gives me webcam access) and returns a promise
         // I take the promise and assign the webcam to the source of the video element labeled 'record'- then set it to play
@@ -52,6 +53,7 @@ class RecordVideo extends Component {
             }
             video.play();
             this.setState({
+             
                 mediaRecorder: new MediaRecorder(mediaStreamObj)
             })
         }).catch(err => console.log(`There appears to be an error. Here are some details: ${err}`))
@@ -136,11 +138,7 @@ class RecordVideo extends Component {
     };
 
  
-
-    finalVideo = (response) => { 
-        this.setState({finalVideo: response})
-    }
-
+ 
     uploadFile = (file, signedRequest, url) => {
         console.log(file, signedRequest, url)
         const options = {
@@ -157,8 +155,10 @@ class RecordVideo extends Component {
         console.log('this went through', options)
         axios.put(signedRequest, file, options)
             .then((response) => {
+                console.log(response)
+                console.log(url)
                 this.setState({ isUploading: false, url })
-                this.finalVideo(response)
+                // this.finalVideo(response)
                 console.log('also went through', response)
             }).catch(err => {
                 this.setState({
