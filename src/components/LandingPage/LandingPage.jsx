@@ -9,7 +9,7 @@ import {Link} from 'react-router-dom'
 
 export default function LandingPage() {
     return (
-        <div style={{display:'flex', flexDirection:'column'}}>
+        <div className='landingBack' style={{display:'flex', flexDirection:'column'}}>
             <h1>Landing Page here</h1>
             <Link to='/record'>Click here for the RecordVideo component</Link>
             <Link to='/about'>Click here for the About component</Link>
