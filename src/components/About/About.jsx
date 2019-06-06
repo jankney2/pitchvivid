@@ -5,19 +5,22 @@ export default function About() {
         // initial placeholder div here with some lorem ipsum  
 
         <div>
-            <h1>Who We Are</h1>
+            <h1>Find the people who want to work with you.</h1>
             <p>
-                We're PitchVivid Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium commodi ipsa culpa suscipit ad sint, at ipsam nam repellendus, et, provident quas? Modi, reprehenderit. Recusandae libero repellat assumenda corporis reiciendis!
+               
             </p>
 
-            <h1>What We Do</h1>
+            {/* <h1>About</h1> */}
             <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Amet alias quis perspiciatis totam praesentium cumque repellat odio voluptatem id neque nam incidunt ab quibusdam eius accusantium, harum, et rem commodi!
+                  At PitchVivid, we strive to connect employers with those who who truly want to work with them.<br/><br/>
+                
+                For every job opening, there are many applicants who care deeply about the mission and goals espoused by a company.  However, these job-seekers can get lost in the many applications sent by those who are just looking for a job.  At PitchVivid, we want to make finding the ideal candidate easier, by giving them the platform to stand out and set themselves apart.  
+
             </p>
 
             <h1>Why PitchVivid</h1>
             <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum facere fugit ut hic, nulla nostrum laborum eos, aspernatur voluptates aperiam, placeat dolor aliquid facilis laboriosam corporis enim! Minus, accusantium nulla.
+               PitchVivid gives job-seekers the opportunity to go above and beyond.  Our high-quality video recording software can capture the spark of a passionate applicant.  Finding a culture fit has never been easier.  
             </p>
         </div>
     )
