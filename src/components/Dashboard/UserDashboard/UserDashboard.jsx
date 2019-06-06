@@ -23,6 +23,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 
+
 class UserDashboard extends Component {
     constructor(props) {
         super(props)
@@ -57,8 +58,8 @@ class UserDashboard extends Component {
         const jobApps = this.state.jobApps.filter((element) => { 
             return element.job_title.toLowerCase().includes(this.state.search.toLowerCase()) || element.name.toLowerCase().includes(this.state.search.toLowerCase())
         }).map((element, index)=> { 
-            return <Link to={`/jobpost/${element.id}`}>
-            <span key = {index} className = 'job-span'>
+            return <Link to={`/jobpost/${element.id}`} key={index}>
+            <span className = 'job-span'>
                 <div className='job-title'>{element.job_title}</div>
                 <div className='job-company'>{element.name}</div>
                 <div className='job-closing'>{element.closing_date}</div>
@@ -71,17 +72,27 @@ class UserDashboard extends Component {
         return (
             <>
                 <div className='userdash-view'>
-                   <div className='dash-header'></div>
-                   {/* <div className='dash-left'></div> */}
+               
+               
+
 
                     <h1>{`Welcome ${this.state.firstName}, to PitchVivid!`}</h1>
-                  <input placeholder='search for job posting' onChange={e => this.searchChange(e.target.value)} /> 
-                  <h1>Job Applications</h1> 
-                   <div className='job-listing'>
-                       {jobApps}
-                   </div>
+                    <h1>Job Applications</h1>
+                    <div className='job-listing'>
+                        <div className='jobApps-container'>
+                            <input className='search' placeholder='search for job posting' onChange={e => this.searchChange(e.target.value)} />
 
-                    
+                            {jobApps}
+
+
+                            {
+
+                                <> </>
+                            }
+                        </div>
+                    </div>
+
+
 
                 </div>
 

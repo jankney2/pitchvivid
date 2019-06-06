@@ -24,19 +24,69 @@
     left: 0;
 }
 
+.search{
+    border: solid 1px black;
+    height: 4em;
+    width: 30em;
+    border-radius: 60px;
+    padding-left: 1em;
+    // position: relative;
+}
+
+.jobApps-container{
+    width: 50vw;
+    height: auto;
+}
 .job-listing{
-    background-color: grey;
-    height: 10em;
-    width: 60em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // background-color: grey;
+    // height: 10em;
+    width: 100%;
     // margin: auto;
     // margin-right: 20px;
+    a {
+        text-decoration: none;
+        color: black;
+    }
+}
+
+
+
+
+.job-title{
+    width: 33%;
+    display: flex;
+    justify-content: flex-start;
+
+}
+.job-company{
+    width: 33%;
+    display: flex;
+    justify-content: flex-start;
+    
+    
+}
+.job-closing{
+    width: 33%;
+    display: flex;
+    justify-content: flex-start;
+    
 }
 
 .job-span{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     background-color: white;
-    width: 300px;
+    width: 100%;
     height: 60px;
-    margin: 10px;
+    // margin: 10px;
+    border: solid 1px black;
+    margin:  1em  0 1em 0 ;
+    padding: 0 .5em 0 .5em;
+   
+   
 }
+
