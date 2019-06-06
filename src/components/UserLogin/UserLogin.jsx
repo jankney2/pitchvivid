@@ -4,6 +4,8 @@ import {withRouter} from 'react-router-dom'
 import {updateUser} from '../../redux/reducer'
 import {connect} from 'react-redux'
 
+
+
 class UserLogin extends Component { 
     constructor(){
         super()
@@ -38,9 +40,9 @@ class UserLogin extends Component {
     }
     render(){
         return(
-            <div className='login-view'>
+            <div className='user-login-view'>
 
-            <input  placeholder = 'Email' onChange={e => this.handleChange("email", e.target.value)} /> 
+            <input placeholder = 'Email' onChange={e => this.handleChange("email", e.target.value)} /> 
             
             <input type = "password" placeholder = 'Password' onChange={e => this.handleChange("password", e.target.value)} /> 
             
@@ -51,7 +53,11 @@ class UserLogin extends Component {
                 <h3>Your login credentials are incorrect. Please try again</h3>: 
                 <> </>
             }
+
+       
              </div> 
+
+
         )
     }
 }

@@ -9,8 +9,19 @@ class JobPost extends Component {
             jobPost: {}
         }
     }
+
+
+
+
+
+
+
+  
+
     componentDidMount() {
+        // console.log(this.props)
         axios.get(`/api/userVideos/${this.props.match.params.job_id}`).then(res => {
+            console.log(res)
             this.setState({
                 jobPost: res.data
             })
@@ -35,7 +46,7 @@ class JobPost extends Component {
                             {this.state.jobPost.opening_date}-{this.state.jobPost.closing_date}
                         </div>
                     </div>
-
+Details for the JOB
                     <div className='jobpost-job-details'>
                         {this.state.jobPost.details}
                     </div>
@@ -48,7 +59,7 @@ class JobPost extends Component {
 
                 <section className='right-side'>
                     <div className='video-container'>
-                        <RecordVideo />
+                        <RecordVideo  job_id={this.props.match.params} videoLink={this.state.jobPost.video_url}/>
                     </div>
                 </section>
             </div>
