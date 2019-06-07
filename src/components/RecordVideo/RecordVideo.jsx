@@ -9,12 +9,13 @@ class RecordVideo extends Component {
         this.state = {
             video: [],
             mediaRecorder: null,
-            recording: false,
+            recording: true,
             recordingMessage: 'Now LIVE!',
             isUploading: false,
             url: false,
             uploadFile:{},
             finalVideo:'',
+
 
         }
 
@@ -59,16 +60,22 @@ class RecordVideo extends Component {
     }
 
     startRecording = () => {
+
+        
         // if we're already recording, do nothing (or else it will error out)- else, begin recording (and, optionally, opt to display the video element)
         if (this.state.mediaRecorder.state === 'recording') {
             return
         } else {
-            let video = document.getElementById('record')
-            video.play();
-            this.state.mediaRecorder.start()
             this.setState({
                 recording: true
             })
+            let video = document.getElementById('record')
+            let playback = document.getElementById('playback')
+            playback.classList.add('hide')
+            video.classList.remove('hide')
+            video.play();
+            this.state.mediaRecorder.start()
+           
         }
 
 
@@ -127,11 +134,14 @@ class RecordVideo extends Component {
                     blob: {blobVid,type: 'video/mp4'},
                     videoURL: videoUrl
                 })
-                document.getElementById('playback').src = videoUrl
-                console.log(this.state.videoURL)
-                console.log(this.state.uploadFile)
+                const playback = document.getElementById('playback');
+                recordVideo.classList.add('hide')
+                playback.classList.remove('hide')
+                playback.src = videoUrl;
+                // playback.play();
+               
+                console.log(this.state.blob.blobVid)
             }
-
         }
 
         var elem = document.getElementById('some_div');
@@ -186,8 +196,13 @@ class RecordVideo extends Component {
                 this.setState({finalVideo: url})
 
                 this.setState({ isUploading: false, url })
+
                 console.log(this.state)
                 console.log('also went through', response)
+
+                this.sendToDb()
+
+
             }).catch(err => {
                 this.setState({
                     isUploading: false
@@ -210,7 +225,9 @@ class RecordVideo extends Component {
         const {job_id} = this.props.job_id
         const video_url = this.state.url
        await axios.post('/api/userVideos', {video_url, job_id});
-        this.props.history.push('/dashboard');
+       console.log(job_id, video_url)
+        console.log('this works')
+        this.props.history.push('/dashboard')
     
         
     }
@@ -234,7 +251,7 @@ class RecordVideo extends Component {
                 <div className='record-play-container'>
                     <video id='record'></video>
                     <br />
-                    <video controls id='playback'></video>
+                    <video className ='hide' controls id='playback'></video>
                     <br />
                     <button onClick={this.startRecording}>Begin Recording</button>
                     <br />
