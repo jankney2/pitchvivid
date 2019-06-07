@@ -79,6 +79,8 @@ app.delete('/auth/logout', authCtrl.logout)
 app.put('/auth/updateUser', authCtrl.updateUser)
 app.put('/auth/updateAdmin', authCtrl.updateAdmin)
 app.get('/api/session', authCtrl.checkForSession)
+app.post('/auth/admin', authCtrl.authenticateAdmin)
+app.post('/auth/user',authCtrl.authenticateUser)
 
 // jobs
 app.get('/api/postings/company', adminCtrl.getCompanyPostings)

@@ -10,6 +10,7 @@ import Register from './components/Register/Register'
 import RegisterCompany from './components/RegisterCompany/RegisterCompany'
 import Dashboard from './components/Dashboard/Dashboard'
 import AdminJobPost from './components/AdminJobPost/AdminJobPost'
+import Profile from './components/Profile/Profile'
 
 export default (
     <Switch>
@@ -23,6 +24,7 @@ export default (
         <Route path='/company-register' component={RegisterCompany} />
         <Route path='/dashboard' component={Dashboard} />
         <Route path='/post/admin-view/:id' component={AdminJobPost} />
+        <Route path ='/profile' component = {Profile}/>
     </Switch>
 )
 
