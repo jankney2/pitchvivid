@@ -1,0 +1,55 @@
+@import '../../variables';
+
+.landingBack {
+  background-image: linear-gradient(-45deg, $brightBlue, $lightBlue 90%);
+  width: 100vw;
+  height: calc(100vh - 55px);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  display: flex;
+  justify-content: center;  
+  align-items: flex-start;
+  margin: 0;
+}
+
+.landing {
+  max-width: 800px;
+  width: 100vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.slider {
+  position: relative;
+  width: 100vw;
+}
+
+.landingContent {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  align-self: flex-start;
+}
+
+.landingPic {
+  opacity: .1;
+  width: 300px;
+  height: 200px;
+  margin: 20px;
+  transition: 1.5s;
+}
+
+.center {
+  height: 500px;
+}
+
+.slick-slide.slick-center img {
+  transform: scale(1.2);
+  opacity: 1;
+}

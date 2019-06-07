@@ -5,7 +5,7 @@ module.exports = {
 
     try {
       let likedVideos = await db.adminNotesCtrl.getLiked({job_id})
-      res.status(201).send(likedVideos)
+      res.status(200).send(likedVideos)
     }
     catch {
       res.status(500).send('Internal server error')
@@ -19,7 +19,7 @@ module.exports = {
 
     try {
       let allAdminNotes = await db.adminNotesCtrl.getAll({job_id, admin_id})
-      res.status(201).send(allAdminNotes)
+      res.status(200).send(allAdminNotes)
     }
     catch {
       res.status(500).send('Internal server error')
@@ -33,35 +33,30 @@ module.exports = {
     try {
       let noteArr = await db.adminNotesCtrl.getNote({admin_notes_id})
       let note = noteArr[0]
-      res.status(201).send(note)
+      res.status(200).send(note)
     }
     catch {
       res.status(500).send('Internal server error')
     }
   },
 
-  newAdminNote: async (req, res) => {
+  newUpdateNote: async (req, res) => {
     let {job_id, user_id, disliked, liked, notes} = req.body
     const db = req.app.get('db')
 
     try {
-      let noteArr = await db.adminNotesCtrl.newAdminNote({job_id, user_id, disliked, liked, notes})
-      let note = noteArr[0]
-      res.status(201).send(note)
-    }
-    catch {
-      res.status(500).send('Internal server error')
-    }
-  },
+      let noteSearch = await db.adminNotesCtrl.noteSearch({job_id, user_id})
 
-  updateNote: async (req, res) => {
-    let {id, disliked, liked, notes} = req.body
-    const db = req.app.get('db')
-
-    try {
-      let noteArr = await db.adminNotesCtrl.updateNote({id, disliked, liked, notes})
-      let note = noteArr[0]
-      res.status(201).send(note)
+      if (!noteSearch[0]){
+        let noteArr = await db.adminNotesCtrl.newAdminNote({job_id, user_id, disliked, liked, notes})
+        let note = noteArr[0]
+        res.status(201).send(note)
+      } else {
+        let {id} = noteSearch[0]
+        let noteArr = await db.adminNotesCtrl.updateNote({id, disliked, liked, notes})
+        let note = noteArr[0]
+        res.status(200).send(note)
+      }
     }
     catch {
       res.status(500).send('Internal server error')

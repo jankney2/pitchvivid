@@ -92,6 +92,7 @@ app.put('/api/posts/all', adminCtrl.reassignPostings)
 // // admins
 app.get('/api/admins', adminCtrl.getAdmins)
 app.delete('/api/admins/:id', adminCtrl.deleteAdmin)
+app.get('/api/admins/key', adminCtrl.getAdminKey)
 
 // videos
 app.get('/api/userVideos', userCtrl.getAllVideos)
@@ -104,8 +105,7 @@ app.post('/api/userVideos', userCtrl.newVideo)
 app.get('/api/adminnotes/getAll/:job_id', adminNotesCtrl.getAll)
 app.get('/api/adminnotes/liked/:job_id', adminNotesCtrl.getLiked)
 app.get('/api/adminnotes/:admin_notes_id', adminNotesCtrl.getNote)
-app.post('/api/adminnotes', adminNotesCtrl.newAdminNote)
-app.put('/api/adminnotes', adminNotesCtrl.updateNote)
+app.post('/api/adminnotes', adminNotesCtrl.newUpdateNote)
 app.delete('/api/adminnotes/:admin_notes_id', adminNotesCtrl.deleteNote)
 
 // annoying users
