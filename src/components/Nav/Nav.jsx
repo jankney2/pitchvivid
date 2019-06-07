@@ -37,6 +37,10 @@ class Nav extends Component {
     this.props.history.push('/')
     }
 
+    logIn = () => {
+        this.props.history.push('/admin-login')
+    }
+
     handleClick = (name) => { 
         this.props.history.push(`${name}`)
     }
@@ -60,31 +64,31 @@ class Nav extends Component {
                 <img className='logo' src="https://i.ibb.co/F4H3t5P/pv-logo.png" alt=""/>
                 
                 <div className='navRight'>
-                    <div onClick={e => this.handleClick('/profile')} className='button profileBtn'>
+                    <>
                         {this.props.companyId ?
-                            <>
+                            <div onClick={e => this.handleClick('/profile')} className='button profileBtn'>
                                 <img id='icon' src='https://flaticons.net/gd/makefg.php?i=icons/Application/User-Profile.png&r=255&g=255&b=255' alt='profile' /> 
                                 <p>Profile</p>
-                            </> :
-                            <>
+                            </div> :
+                            <div onClick={e => this.handleClick('/register')} className='button profileBtn'>
                                 <img id='icon' src='https://i1.wp.com/flcybercon.com/wp-content/uploads/2018/05/register-icon.png?fit=300%2C300&ssl=1' alt='register' /> 
                                 <p>Register</p>
-                            </> 
+                            </div> 
                         }
-                    </div>
+                    </>
 
-                    <div onClick={e => this.logOut()} className='button'>
+                    <>
                         {this.props.id ? 
-                            <>
+                            <div onClick={e => this.logOut()} className='button'>
                                 <img id='icon' src='https://i.ibb.co/Gxgd3jR/logout-icon.png' alt='log out'/>
                                 <p>Logout</p>
-                            </> :
-                            <>
+                            </div> :
+                            <div onClick={e => this.logIn()} className='button'>
                                 <img id='icon' src='https://i.ibb.co/R9Y2Hyf/login-icon.png' alt='log in'/>
                                 <p>Login</p>
-                            </>
+                            </div>
                         }
-                    </div>
+                    </>
                 </div>
             </div>
         )
