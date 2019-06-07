@@ -173,5 +173,39 @@ module.exports = {
     catch {
       res.status(500).send('Internal server error')
     }
-  }
+  },
+  authenticateAdmin: async (req,res)=>{
+    let { password} = req.body
+    const db = req.app.get('db')
+    let email = req.session.admin.email
+    let foundAdmin = await db.authCtrl.getAdmin({email})
+    let admin = foundAdmin[0]
+    
+    if (!admin) {
+      return res.status(401).send('User not found. Please register as a new user before logging in.')
+    }
+
+    const isAuthenticated = bcrypt.compareSync(password, admin.hash)
+    if (!isAuthenticated){
+      return res.status(403).send('Incorrect password')
+    }
+    res.sendStatus(200)
+  },
+  authenticateUser: async (req,res)=>{
+    let { password} = req.body
+    const db = req.app.get('db')
+    let email = req.session.user.email
+    let foundUser = await db.authCtrl.getUser({email})
+    let user = foundUser[0]
+    
+    if (!user) {
+      return res.status(401).send('User not found. Please register as a new user before logging in.')
+    }
+
+    const isAuthenticated = bcrypt.compareSync(password, user.hash)
+    if (!isAuthenticated){
+      return res.status(403).send('Incorrect password')
+    }
+    res.sendStatus(200)
+  },
 }

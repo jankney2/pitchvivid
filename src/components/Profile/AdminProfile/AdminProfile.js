@@ -10,7 +10,11 @@ import Popup from 'reactjs-popup'
   constructor(){
     super()
     this.state={
-
+      email: '',
+      firstName: '',
+      lastName: '',
+      newPassword: '',
+      editToggle: false,
     }
   }
 

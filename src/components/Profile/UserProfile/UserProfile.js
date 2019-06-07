@@ -5,12 +5,16 @@ import {updateUser} from '../../../redux/reducer'
 import {connect} from 'react-redux'
 import Popup from 'reactjs-popup'
 
-export default class UserProfile extends Component{
+ class UserProfile extends Component{
 
   constructor(){
     super()
     this.state={
-
+      email: '',
+      firstName: '',
+      lastName: '',
+      newPassword: '',
+      editToggle: false,
     }
   }
 
@@ -22,3 +26,19 @@ export default class UserProfile extends Component{
     )
   }
 }
+const mapStateToProps = state => {
+  const { email, firstName, lastName, } = state
+  return {
+      
+      firstName,
+      lastName,
+      email,  
+      
+  }
+}
+
+const mapDispatchToProps = {
+  updateUser
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(UserProfile))
