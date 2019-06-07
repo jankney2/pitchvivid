@@ -23,12 +23,6 @@ class RecordVideo extends Component {
     }
 
     componentDidMount() {
-        // this is an object of default settings for our video recorer
-        // const vidLink= this.props.videoLink
-        // console.log(typeof(vidLink))
-        // console.log(vidLink)
-        // this.setState({finalVideo: vidLink})
-
         let constraintObj = {
             audio: true,
             video: {
@@ -37,10 +31,6 @@ class RecordVideo extends Component {
                 height: { min: 480, ideal: 720, max: 1080 }
             }
         }
-
-
-      
-
         // navigator is a global object that lets access getUserMedia (which gives me webcam access) and returns a promise
         // I take the promise and assign the webcam to the source of the video element labeled 'record'- then set it to play
         // finally, I assign the webcam on state as a new MediaRecorder object so that I can access it throughout the component
@@ -53,7 +43,6 @@ class RecordVideo extends Component {
             }
             video.play();
             this.setState({
-             
                 mediaRecorder: new MediaRecorder(mediaStreamObj)
             })
         }).catch(err => console.log(`There appears to be an error. Here are some details: ${err}`))
@@ -77,9 +66,6 @@ class RecordVideo extends Component {
             this.state.mediaRecorder.start()
            
         }
-
-
-
         var timeLeft = 5;
         var elem = document.getElementById('some_div');
         
@@ -94,16 +80,6 @@ class RecordVideo extends Component {
             }
         }
         var timerId = setInterval(countdown, 1000);
-        
-        // this.stopRecording() {
-        //     alert("Hi");
-        // }
-
-
-
-
-
-
     }
 
     stopRecording = e => {
@@ -131,7 +107,7 @@ class RecordVideo extends Component {
                 let videoUrl = window.URL.createObjectURL(blobVid)
                 this.setState({
                     video: [],
-                    blob: {blobVid,type: 'video/mp4'},
+                    blob: {blobVid, type: 'video/mp4'},
                     videoURL: videoUrl
                 })
                 const playback = document.getElementById('playback');
@@ -143,27 +119,12 @@ class RecordVideo extends Component {
                 console.log(this.state.blob.blobVid)
             }
         }
-
-        var elem = document.getElementById('some_div');
-
-
-
     }
 
     //AWS STUFF
-
-
-
     getSignedRequest = (file) => {
-
-
-        console.log(this.state.uploadFile)
-        console.log(file)
-
         this.setState({ isUploading: true })
-
         const fileName = `${randomString()}-${file.name.replace(/\s/g, '-')}`
-        console.log(fileName)
         axios.get('/sign-s3', {
             params: {
                 'file-name': fileName,
@@ -171,30 +132,20 @@ class RecordVideo extends Component {
             }
         }).then(response => {
             const { signedRequest, url } = response.data
-            console.log(response.data)
-            console.log(file)
             this.uploadFile(file, signedRequest, url);
         }).catch(err => {
             console.log(err)
         })
     };
-
     uploadFile = (file, signedRequest, url) => {
-        console.log(url) //this is the correct link at this point
         const options = {
             headers: {
                 'Content-Type': file.type,
             },
-
         }
-
-        console.log('this went through', options)
         axios.put(signedRequest, file, options)
-            .then((response) => {
-                console.log(response)
-                
+            .then((response) => { 
                 this.setState({finalVideo: url})
-
                 this.setState({ isUploading: false, url })
 
                 console.log(this.state)
@@ -206,9 +157,7 @@ class RecordVideo extends Component {
             }).catch(err => {
                 this.setState({
                     isUploading: false
-
                 })
-
                 if (err.response.status === 403) {
                     alert(`Your request for a signed URL failed with a status 403. Double check the CORS configuration and bucket policy in the README. You also will want to double check your AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY in your .env and ensure that they are the same as the ones that you created in the IAM dashboard. You may need to generate new keys\n${
                         err.stack
@@ -219,8 +168,6 @@ class RecordVideo extends Component {
                 }
             })
     }
-
-
     sendToDb = async () => { 
         const {job_id} = this.props.job_id
         const video_url = this.state.url
@@ -233,14 +180,9 @@ class RecordVideo extends Component {
     }
 
     render() {
-
-        // this.setState({finalVideo: this.props.videoLink})
-        console.log(typeof(this.state.blob))
-
         return (
             <>
                 <div id="some_div"></div>
-           
                 {
                     this.state.recording ?<>
                          <div id="some_div"></div>
@@ -256,22 +198,13 @@ class RecordVideo extends Component {
                     <button onClick={this.startRecording}>Begin Recording</button>
                     <br />
                     <button onClick={e => this.stopRecording(e)}>Stop Recording</button>
-
                     <input
                         className='choose-file'
                         onChange={(e) => (this.setState({uploadFile: e.target.files[0]}))}
                         type='file' placeholder='photo' />
-                    <button
-                        className='picture-upload'
-                        onClick={() => this.getSignedRequest(this.state.blob.blobVid)}> Upload file</button>
-                   
-                    {
-                        this.state.url? 
-                        <video controls id ='playback' src ={`${this.state.url}`}  ></video> :
-                        <video controls id ='playback' src ={`${this.props.videoLink}`}  ></video>
-                    }
-                    
-                   
+                    <button className='picture-upload' onClick={() => this.getSignedRequest(this.state.blob.blobVid)}> 
+                        Upload file
+                    </button>
                 </div>
                 <button onClick={e => this.sendToDb()}>Send To DB</button>
             </>
