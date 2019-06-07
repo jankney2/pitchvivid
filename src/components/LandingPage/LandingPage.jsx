@@ -15,12 +15,13 @@ export default function LandingPage() {
                 <h1 className='landingTitle'>PitchVivid</h1>
                 <Slider/>
                 <div className='landingContent'>
-                    <h3>Find the right applicant.</h3>
-                    <Link to='/record'>Click here for the RecordVideo component</Link>
+                    <h2>Find the right applicant.</h2>
+                    <p className='landingParagraph'>We get it. Hiring is a painful process. We're here to save you time and frustrutation. With PitchVivid, watch videos of job candidates explain why they'd be a good fit. Avoid awkward interviews by finding personable applicants before you call them. Save time and frustation without paying a penny.</p>
+                    {/* <Link to='/record'>Click here for the RecordVideo component</Link>
                     <Link to='/about'>Click here for the About component</Link>
                     <Link to='/user-login'>User Login</Link>
                     <Link to='/admin-login'>Administrator Login</Link>
-                    <Link to='/register'>Register</Link>
+                    <Link to='/register'>Register</Link> */}
                 </div>
             </div>
         </div>
