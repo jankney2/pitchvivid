@@ -13,6 +13,7 @@ class AdminJobPost extends Component {
             selectedVideo: null,
             applicantLiked: false,
             applicantDisliked: false,
+            applicantResume: null,
             // applicantBlocked: false, 
             note: '',
             job_id: null,
@@ -56,6 +57,7 @@ class AdminJobPost extends Component {
             applicantName: `${this.state.videoResumes[index].firstname} ${this.state.videoResumes[index].lastname}`,
             applicantLiked: resume.liked,
             applicantDisliked: resume.disliked,
+            applicantResume: resume.resume,
             note: resume.notes
         })
         this.setSelected()

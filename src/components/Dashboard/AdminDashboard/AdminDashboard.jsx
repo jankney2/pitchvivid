@@ -12,7 +12,6 @@ class AdminDashboard extends Component {
             companyAdminKey: [],
             jobListings: [],
             administrators: [],
-            addJob: false,
             editJob: null,
             // new job state vars
             newJobTitle: '',
@@ -95,7 +94,8 @@ class AdminDashboard extends Component {
             console.log(`There was an error with admin listings: ${err}`)
         }
     }              
-    addJob=async()=> {
+    addJob=async(callback)=> {
+        callback();
         const {newJobTitle:jobTitle, newJobDescription:details, newJobOpenDate: openingDate, newJobCloseDate: closingDate} = this.state
         await axios.post('/api/postings/new', {jobTitle, details, openingDate, closingDate})
         this.handleCancel();
@@ -195,6 +195,21 @@ class AdminDashboard extends Component {
                 <h1>Administrator Dashboard</h1>
                 <div className='adminDashJobPanel'>
                     <h3>Company Administrator Key: {this.state.companyAdminKey}</h3>
+                    <Popup trigger={<button>Add a New Job Listing</button>} position='right center'>
+                            {
+                                close=> (
+                                    <div>
+                                        <input onChange={e=>this.handleFormChange(e)} type='text' name='newJobTitle' placeholder='Job Title' value={this.state.newJobTitle} />
+                                        <input onChange={e=>this.handleFormChange(e)} type='text' name='newJobDescription' placeholder='Job Description' value={this.state.newJobDescription}/>
+                                        <input onChange={e=>this.handleFormChange(e)} type='date' name='newJobOpenDate' value={this.state.newJobOpenDate}/>
+                                        <input onChange={e=>this.handleFormChange(e)} type='date' name='newJobCloseDate' value={this.state.newJobCloseDate}/>
+                                        <button onClick={()=> {
+                                            this.addJob(close)
+                                        }}>Post New Job</button>
+                                    </div>
+                                )
+                            }
+                        </Popup>
                     <h3>Company Jobs: </h3>
                     {
                         this.state.jobListings.length > 0 ?
@@ -202,28 +217,6 @@ class AdminDashboard extends Component {
                         <p>... There are no job listings yet. Make one!</p>
                     }
                 </div>
-
-                <div className='adminDashAddJob'>
-                    {
-                        // this.state.addJob ? 
-                        // <div className='adminDashAddJobForm'>
-                        //     <input onChange={e=>{this.handleFormChange(e)}} type='text' name='newJobTitle' placeholder='Job Title' />
-                        //     <input onChange={e=>{this.handleFormChange(e)}} type='text' name='newJobDescription' placeholder='Job Description' />
-                        //     <button onClick={this.addJob}>Post New Job</button>
-                        //     <button onClick={this.handleCancel}>Cancel</button>
-                        // </div> 
-                        // : 
-                        // <button onClick={this.handleAddJob}>Add New Job</button>
-                        <Popup trigger={<button>Add Job</button>} position='right center'>
-                            <input onChange={e=>this.handleFormChange(e)} type='text' name='newJobTitle' placeholder='Job Title' value={this.state.newJobTitle} />
-                            <input onChange={e=>this.handleFormChange(e)} type='text' name='newJobDescription' placeholder='Job Description' value={this.state.newJobDescription}/>
-                            <input onChange={e=>this.handleFormChange(e)} type='date' name='newJobOpenDate' value={this.state.newJobOpenDate}/>
-                            <input onChange={e=>this.handleFormChange(e)} type='date' name='newJobCloseDate' value={this.state.newJobCloseDate}/>
-                            <button onClick={this.addJob}>Post New Job</button>
-                        </Popup>
-                    }
-                </div>
-
                 <div className='adminDashOwnerPanel'>
                     <h3>Account Administrators: </h3>
                     {
