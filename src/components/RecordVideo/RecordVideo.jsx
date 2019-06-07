@@ -14,7 +14,7 @@ class RecordVideo extends Component {
             isUploading: false,
             url: false,
             uploadFile:{},
-            finalVideo:''
+            finalVideo:'',
 
         }
 
@@ -70,6 +70,32 @@ class RecordVideo extends Component {
                 recording: true
             })
         }
+
+
+
+        var timeLeft = 10;
+        var elem = document.getElementById('some_div');
+        
+        const countdown=() =>  {
+            if (timeLeft == -1) {
+                clearTimeout(timerId);
+                this.stopRecording();
+            } else {
+                elem.innerHTML = timeLeft + ' seconds remaining';
+                timeLeft--;
+            }
+        }
+        var timerId = setInterval(countdown, 1000);
+        
+        // this.stopRecording() {
+        //     alert("Hi");
+        // }
+
+
+
+
+
+
     }
 
     stopRecording = e => {
@@ -93,11 +119,11 @@ class RecordVideo extends Component {
             // once we stop recording, save the vid as a Blob object, empty state, create a virtual URL for the blob,
             // and finally set the source of our 'playback' video element to the virtual URL we just created
             recorder.onstop = e => {
-                let blobVid = new File(this.state.video, { type: 'video/mp4', name: 'interview'})
+                let blobVid = new File(this.state.video, { type: 'video/mp4'})
                 let videoUrl = window.URL.createObjectURL(blobVid)
                 this.setState({
                     video: [],
-                    blob: {blobVid, name:`interview`,type: 'video/mp4'},
+                    blob: {blobVid,type: 'video/mp4'},
                     videoURL: videoUrl
                 })
                 document.getElementById('playback').src = videoUrl
@@ -190,6 +216,7 @@ class RecordVideo extends Component {
 
         return (
             <>
+            <div id="some_div"></div>
                 {
                     this.state.recording ?
                         <h2>{this.state.recordingMessage}</h2> :
