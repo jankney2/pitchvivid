@@ -3,6 +3,7 @@ import axios from 'axios'
 import {withRouter} from 'react-router-dom'
 import {updateUser} from '../../redux/reducer'
 import {connect} from 'react-redux'
+import Popup from 'reactjs-popup'
 
 class AdminJobPost extends Component {
     constructor() {
@@ -98,8 +99,16 @@ class AdminJobPost extends Component {
         this.updateUser();
         this.getVideos();
     }
-    handleAddNote=async()=> {
-        // await axios.post(``)
+    handleNoteChange=e=> {
+        const {name, value} = e.target
+        this.setState({
+            [name]: value
+        })
+    }
+    handleAddNote=async(callback)=> {
+        callback();
+        this.updateUser();
+        this.getVideos();
     }
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -120,6 +129,7 @@ class AdminJobPost extends Component {
                         <p><b>Applicant's Name:</b> {this.state.applicantName}</p>
                         <p><b>Job Title:</b> {this.state.jobTitle}</p>
                         <p><b>Job Description:</b> {this.state.jobDescription}</p>
+                        <p><b>Notes: </b> {this.state.note}</p>
                         <div className='resumeViewerButtons'>
                             {
                                 this.state.applicantLiked ? 
@@ -134,7 +144,17 @@ class AdminJobPost extends Component {
                             }
                         </div>
                         <div className='noteButtonContainer'>
-                            <button className='noteButton'>Add Note</button>
+                            {/* <button className='noteButton'>Add Note</button> */}
+                            <Popup trigger={<button>Add Note</button>} position='top center'>
+                                {
+                                    close=> (
+                                        <div>
+                                            <input onChange={e=>this.handleNoteChange(e)} type='text' name='note' value={this.state.note} placeholder='New Note' />
+                                            <button onClick={()=>this.handleAddNote(close)}>Post New Note</button>
+                                        </div>
+                                    )
+                                }
+                            </Popup>
                         </div>
                     </div>
                 </div>
