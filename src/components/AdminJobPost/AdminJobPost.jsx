@@ -34,6 +34,7 @@ class AdminJobPost extends Component {
         })
         const jobData = await axios.get(`/api/postings/${this.state.job_id}`)
         const videos= await axios.get(`/api/adminnotes/getAll/${this.state.job_id}`)
+        console.log(videos)
         this.setState ({
             videoResumes: videos.data,
             jobTitle: jobData.data[0].job_title,

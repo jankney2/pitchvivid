@@ -3,7 +3,7 @@ import axios from 'axios'
 import {withRouter} from 'react-router-dom'
 import {updateUser} from '../../../redux/reducer'
 import {connect} from 'react-redux'
-
+import Popup from 'reactjs-popup'
 
 class AdminDashboard extends Component {
     constructor() {
@@ -17,6 +17,8 @@ class AdminDashboard extends Component {
             // new job state vars
             newJobTitle: '',
             newJobDescription: '',
+            newJobOpenDate: '',
+            newJobCloseDate: '',
             // edit job state vars
             editJobTitle: '',
             editJobDescription: '',
@@ -94,8 +96,8 @@ class AdminDashboard extends Component {
         }
     }              
     addJob=async()=> {
-        const {newJobTitle:jobTitle, newJobDescription:details} = this.state
-        await axios.post('/api/postings/new', {jobTitle, details})
+        const {newJobTitle:jobTitle, newJobDescription:details, newJobOpenDate: openingDate, newJobCloseDate: closingDate} = this.state
+        await axios.post('/api/postings/new', {jobTitle, details, openingDate, closingDate})
         this.handleCancel();
         this.props.owner ? 
         this.getAllListings() :
@@ -203,14 +205,22 @@ class AdminDashboard extends Component {
 
                 <div className='adminDashAddJob'>
                     {
-                        this.state.addJob ? 
-                        <div className='adminDashAddJobForm'>
-                            <input onChange={e=>{this.handleFormChange(e)}} type='text' name='newJobTitle' placeholder='Job Title' />
-                            <input onChange={e=>{this.handleFormChange(e)}} type='text' name='newJobDescription' placeholder='Job Description' />
+                        // this.state.addJob ? 
+                        // <div className='adminDashAddJobForm'>
+                        //     <input onChange={e=>{this.handleFormChange(e)}} type='text' name='newJobTitle' placeholder='Job Title' />
+                        //     <input onChange={e=>{this.handleFormChange(e)}} type='text' name='newJobDescription' placeholder='Job Description' />
+                        //     <button onClick={this.addJob}>Post New Job</button>
+                        //     <button onClick={this.handleCancel}>Cancel</button>
+                        // </div> 
+                        // : 
+                        // <button onClick={this.handleAddJob}>Add New Job</button>
+                        <Popup trigger={<button>Add Job</button>} position='right center'>
+                            <input onChange={e=>this.handleFormChange(e)} type='text' name='newJobTitle' placeholder='Job Title' value={this.state.newJobTitle} />
+                            <input onChange={e=>this.handleFormChange(e)} type='text' name='newJobDescription' placeholder='Job Description' value={this.state.newJobDescription}/>
+                            <input onChange={e=>this.handleFormChange(e)} type='date' name='newJobOpenDate' value={this.state.newJobOpenDate}/>
+                            <input onChange={e=>this.handleFormChange(e)} type='date' name='newJobCloseDate' value={this.state.newJobCloseDate}/>
                             <button onClick={this.addJob}>Post New Job</button>
-                            <button onClick={this.handleCancel}>Cancel</button>
-                        </div> : 
-                        <button onClick={this.handleAddJob}>Add New Job</button>
+                        </Popup>
                     }
                 </div>
 
