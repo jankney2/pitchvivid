@@ -9,7 +9,7 @@ class AdminDashboard extends Component {
     constructor() {
         super()
         this.state = {
-            companyInfoPlaceholder: [],
+            companyAdminKey: [],
             jobListings: [],
             administrators: [],
             addJob: false,
@@ -43,8 +43,7 @@ class AdminDashboard extends Component {
             this.getListings() 
         }
             
-    // function to grab company info
-        // nothing yet
+        this.getAdminKey()
     }
 
     // event handlers ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -78,6 +77,12 @@ class AdminDashboard extends Component {
     }
 
     // admin functionality ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
+    getAdminKey=async()=> {
+        const adminKey = await axios.get(`/api/admins/key`)
+        this.setState({
+            companyAdminKey: adminKey.data[0].admin_key
+        })
+    }
     getListings=async ()=> {
         try {
             const listings = await axios.get('/api/postings/admin')
@@ -113,10 +118,6 @@ class AdminDashboard extends Component {
     viewJob=(id)=> {
         this.props.history.push(`/post/admin-view/${id}`)
     }
-    // function to view application for job listing
-        // nothing yet
-    // function to contact applicant for follow-up interview
-        // nothing yet
 
     getAllListings=async ()=> {
         try {
@@ -130,7 +131,6 @@ class AdminDashboard extends Component {
         }
     }
     getAdmins=async ()=> {
-        console.log('Getting Administrators... ')
         try {
             const admins = await axios.get(`/api/admins`)
             this.setState ({
@@ -190,8 +190,9 @@ class AdminDashboard extends Component {
         })
         return (
             <div className='adminDashboardContainer'>
-                <h1>Your Dashboard</h1>
+                <h1>Administrator Dashboard</h1>
                 <div className='adminDashJobPanel'>
+                    <h3>Company Administrator Key: {this.state.companyAdminKey}</h3>
                     <h3>Company Jobs: </h3>
                     {
                         this.state.jobListings.length > 0 ?
