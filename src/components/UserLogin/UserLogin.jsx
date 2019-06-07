@@ -54,7 +54,9 @@ class UserLogin extends Component {
                 <> </>
             }
 
-       
+            <div className='altLoginMessage'>
+                <p>Looking for Admin login? Try <a href='/admin-login'>here</a></p>
+            </div>
              </div> 
 
 

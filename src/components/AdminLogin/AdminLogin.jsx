@@ -35,7 +35,7 @@ class AdminLogin extends Component {
     }
     render() {
         return (
-            <div>
+            <div className='adminLoginContainer'>
                 <input placeholder = 'email' onChange={e=> this.handleChange('email', e.target.value)} />
                 <input type='password' placeholder = 'password' onChange={e=> this.handleChange('password', e.target.value)} />
                 <button onClick={this.handleSubmit}>Login</button>
@@ -44,7 +44,9 @@ class AdminLogin extends Component {
                     <h3>Your login credentials are incorrect. Please try again</h3> :
                     <> </>
                 }
-
+                <div className='altLoginMessage'>
+                    <p>Looking for User login? Try <a href='/user-login'>here</a></p>
+                </div>
             </div>
         )
     }
