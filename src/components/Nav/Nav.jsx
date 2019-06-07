@@ -26,8 +26,6 @@ class Nav extends Component {
             })
         }
 
-        // at this point, we would grab the job postings, applicants for
-        // those job postings, and various bits of company info
     }
 
     logOut = ()=> { 
@@ -42,7 +40,6 @@ class Nav extends Component {
     }
 
     render() {
-        console.log('this.props:', this.props)
         return (
             <div className='nav-menu'>
                 <div className='navLeft'>
