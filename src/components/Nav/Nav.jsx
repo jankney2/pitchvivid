@@ -65,7 +65,7 @@ class Nav extends Component {
                 
                 <div className='navRight'>
                     <>
-                        {this.props.companyId ?
+                        {this.props.email ?
                             <div onClick={e => this.handleClick('/profile')} className='button profileBtn'>
                                 <img id='icon' src='https://flaticons.net/gd/makefg.php?i=icons/Application/User-Profile.png&r=255&g=255&b=255' alt='profile' /> 
                                 <p>Profile</p>
