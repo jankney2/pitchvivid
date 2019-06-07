@@ -63,8 +63,8 @@ class RecordVideo extends Component {
         if (this.state.mediaRecorder.state === 'recording') {
             return
         } else {
-            // let video = document.getElementById('record')
-            // video.play();
+            let video = document.getElementById('record')
+            video.play();
             this.state.mediaRecorder.start()
             this.setState({
                 recording: true
@@ -73,13 +73,14 @@ class RecordVideo extends Component {
 
 
 
-        var timeLeft = 10;
+        var timeLeft = 5;
         var elem = document.getElementById('some_div');
         
         const countdown=() =>  {
-            if (timeLeft == -1) {
+            if (timeLeft == -1 || this.state.recording === false) {
                 clearTimeout(timerId);
                 this.stopRecording();
+                elem.innerHTML = '';
             } else {
                 elem.innerHTML = timeLeft + ' seconds remaining';
                 timeLeft--;
@@ -132,6 +133,11 @@ class RecordVideo extends Component {
             }
 
         }
+
+        var elem = document.getElementById('some_div');
+
+
+
     }
 
     //AWS STUFF
@@ -216,12 +222,15 @@ class RecordVideo extends Component {
 
         return (
             <>
-            <div id="some_div"></div>
+                <div id="some_div"></div>
+           
                 {
-                    this.state.recording ?
-                        <h2>{this.state.recordingMessage}</h2> :
+                    this.state.recording ?<>
+                         <div id="some_div"></div>
+                        <h2>{this.state.recordingMessage}</h2></> :
                         <></>
                 }
+                
                 <div className='record-play-container'>
                     <video id='record'></video>
                     <br />
