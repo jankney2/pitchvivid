@@ -36,6 +36,7 @@ class AdminLogin extends Component {
     render() {
         return (
             <div>
+                <h1>Admin Login</h1>
                 <input placeholder = 'email' onChange={e=> this.handleChange('email', e.target.value)} />
                 <input type='password' placeholder = 'password' onChange={e=> this.handleChange('password', e.target.value)} />
                 <button onClick={this.handleSubmit}>Login</button>
@@ -44,7 +45,7 @@ class AdminLogin extends Component {
                     <h3>Your login credentials are incorrect. Please try again</h3> :
                     <> </>
                 }
-
+                <button className='loginSwitch' onClick={() => this.props.history.push('/user-login')}>Login as an applicant</button>
             </div>
         )
     }
