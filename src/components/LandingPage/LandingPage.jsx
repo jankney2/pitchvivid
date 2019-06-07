@@ -12,9 +12,9 @@ export default function LandingPage() {
     return (
         <div className='landingBack'>
             <div className='landing'>
+                <h1 className='landingTitle'>PitchVivid</h1>
                 <Slider/>
                 <div className='landingContent'>
-                    <h1>PitchVivid</h1>
                     <h3>Find the right applicant.</h3>
                     <Link to='/record'>Click here for the RecordVideo component</Link>
                     <Link to='/about'>Click here for the About component</Link>
