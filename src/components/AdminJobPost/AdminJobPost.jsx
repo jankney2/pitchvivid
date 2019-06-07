@@ -31,7 +31,7 @@ class AdminJobPost extends Component {
             this.props.history.push('/')
         }
         this.setState({
-            job_id: this.props.match.params.id
+            job_id: +this.props.match.params.id
         })
         const jobData = await axios.get(`/api/postings/${this.state.job_id}`)
         const videos= await axios.get(`/api/adminnotes/getAll/${this.state.job_id}`)
@@ -58,7 +58,7 @@ class AdminJobPost extends Component {
             applicantLiked: resume.liked,
             applicantDisliked: resume.disliked,
             applicantResume: resume.resume,
-            applicantId: resume.id,
+            applicantId: resume.userid,
             note: resume.notes
         })
         this.setSelected()
@@ -76,16 +76,16 @@ class AdminJobPost extends Component {
             videoResumes: videos.data
         })
     }
-    handleLike=()=> {
-        this.setState({
+    handleLike=async()=> {
+        await this.setState({
             applicantLiked: true,
             applicantDisliked: false
         })
         this.updateUser();
         this.getVideos();
     }
-    handleDislike=()=> {
-        this.setState({
+    handleDislike=async()=> {
+        await this.setState({
             applicantLiked: false,
             applicantDisliked: true
         })
@@ -93,7 +93,10 @@ class AdminJobPost extends Component {
         this.getVideos();
     }
     handleBlock=async()=> {
-        // await axios.post(``)
+        const {applicantId:user_id} = this.state
+        await axios.post(`/api/block`, {user_id})
+        this.updateUser();
+        this.getVideos();
     }
     handleAddNote=async()=> {
         // await axios.post(``)
@@ -123,7 +126,7 @@ class AdminJobPost extends Component {
                                 <button className='likedVid'>Liked</button> :
                                 <button onClick={this.handleLike} className='likeButton'>Like</button>
                             }
-                            <button className='resumeBlockButton'>Block</button>
+                            <button onClick={this.handleBlock} className='resumeBlockButton'>Block</button>
                             {
                                 this.state.applicantDisliked ? 
                                 <button className='dislikedVid'>Disliked</button> :
