@@ -93,16 +93,16 @@ class RecordVideo extends Component {
             // once we stop recording, save the vid as a Blob object, empty state, create a virtual URL for the blob,
             // and finally set the source of our 'playback' video element to the virtual URL we just created
             recorder.onstop = e => {
-                let blobVid = new File(this.state.video, { type: 'video/mp4', name: 'interview'})
+                let blobVid = new Blob(this.state.video, { type: 'video/mp4'})
                 let videoUrl = window.URL.createObjectURL(blobVid)
                 this.setState({
                     video: [],
-                    blob: {blobVid, name:`interview`,type: 'video/mp4'},
+                    blob: {blobVid, name: videoUrl},
                     videoURL: videoUrl
                 })
-                document.getElementById('playback').src = videoUrl
                 console.log(this.state.videoURL)
-                console.log(this.state.uploadFile)
+                console.log(this.state.blob)
+                document.getElementById('playback').src = videoUrl
             }
 
         }
@@ -115,7 +115,7 @@ class RecordVideo extends Component {
     getSignedRequest = (file) => {
 
 
-        console.log(this.state.uploadFile)
+        // console.log(typeof (this.state.profile_pic))
         console.log(file)
 
         this.setState({ isUploading: true })
@@ -186,7 +186,7 @@ class RecordVideo extends Component {
     render() {
 
         // this.setState({finalVideo: this.props.videoLink})
-        console.log(typeof(this.state.blob))
+        // console.log(this.state)
 
         return (
             <>
@@ -206,11 +206,11 @@ class RecordVideo extends Component {
 
                     <input
                         className='choose-file'
-                        onChange={(e) => (this.setState({uploadFile: e.target.files[0]}))}
+                        onChange={(e) => (this.setState({uploadFile: this.state.blob}))}
                         type='file' placeholder='photo' />
                     <button
                         className='picture-upload'
-                        onClick={() => this.getSignedRequest(this.state.blob.blobVid)}> Upload file</button>
+                        onClick={() => this.getSignedRequest(this.state.blob)}> Upload file</button>
                    
                     {
                         this.state.url? 
