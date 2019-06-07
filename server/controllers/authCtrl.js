@@ -124,14 +124,14 @@ module.exports = {
   },
 
   updateUser: async (req, res) => {
-    let {email, firstName, lastName, password} = req.body
+    let {email, firstName, lastName, password, resume} = req.body
     let {id} = req.session.user
     const db = req.app.get('db')
 
     const salt = bcrypt.genSaltSync(10)
     const hash = bcrypt.hashSync(password, salt)
     
-    let updatedUser = await db.authCtrl.updateUser({email, firstName, lastName, hash, id})
+    let updatedUser = await db.authCtrl.updateUser({email, firstName, lastName, hash, id, resume})
     let user = updatedUser[0]
     
     try {
