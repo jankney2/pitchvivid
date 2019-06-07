@@ -1,0 +1,11 @@
+@import '../../variables';
+
+.landingBack {
+  background-image: linear-gradient(-45deg,#979797c9, #7293a8c7, #46a1ebcc 100%);
+  // , url('https:cdn1-www.dogtime.com/assets/uploads/2011/03/puppy-development.jpg');
+  width: 100vw;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  position: fixed;
+}
