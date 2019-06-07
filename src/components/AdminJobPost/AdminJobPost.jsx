@@ -67,7 +67,7 @@ class AdminJobPost extends Component {
 
     // Button Handlers ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     updateUser=async()=> {
-        console.log(this.state)
+        // console.log(this.state)
         const {job_id, applicantId:user_id, applicantDisliked: disliked, applicantLiked: liked, note: notes} = this.state
         await axios.post(`/api/adminnotes`, {job_id, user_id, disliked, liked, notes})
     }
