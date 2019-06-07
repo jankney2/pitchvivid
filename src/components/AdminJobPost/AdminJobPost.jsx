@@ -3,7 +3,6 @@ import axios from 'axios'
 import {withRouter} from 'react-router-dom'
 import {updateUser} from '../../redux/reducer'
 import {connect} from 'react-redux'
-import { async } from 'q';
 
 class AdminJobPost extends Component {
     constructor() {
@@ -14,10 +13,11 @@ class AdminJobPost extends Component {
             applicantLiked: false,
             applicantDisliked: false,
             applicantResume: null,
+            applicantName: '',
+            applicantId: '',
             // applicantBlocked: false, 
             note: '',
             job_id: null,
-            applicantName: '',
             jobTitle: '',
             jobDescription: ''
         }
@@ -42,13 +42,13 @@ class AdminJobPost extends Component {
             jobDescription: jobData.data[0].details
         })
         // if(this.state.videoResumes.length > 0){
-        //     document.getElementById('resumeViewer').src= this.state.videoResumes[this.state.selectedVideo]
+        //     document.getElementById('resumeViewer').src= this.state.videoResumes[this.state.selectedVideo].video_url
         // }
     }
     setSelected=()=> {
         const video = document.getElementById('resumeViewer')
         video.src = this.state.videoResumes[this.state.selectedVideo].video_url
-        video.play()
+        // video.play()
     }
     handleSelect=async (resume, index)=> {
         console.log(resume)
@@ -58,25 +58,39 @@ class AdminJobPost extends Component {
             applicantLiked: resume.liked,
             applicantDisliked: resume.disliked,
             applicantResume: resume.resume,
+            applicantId: resume.id,
             note: resume.notes
         })
         this.setSelected()
     }
 
     // Button Handlers ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    handleLike=async ()=> {
-        // await axios.post(``)
+    updateUser=async()=> {
+        console.log(this.state)
+        const {job_id, applicantId:user_id, applicantDisliked: disliked, applicantLiked: liked, note: notes} = this.state
+        await axios.post(`/api/adminnotes`, {job_id, user_id, disliked, liked, notes})
+    }
+    getVideos=async()=> {
+        const videos= await axios.get(`/api/adminnotes/getAll/${this.state.job_id}`)
+        this.setState({
+            videoResumes: videos.data
+        })
+    }
+    handleLike=()=> {
         this.setState({
             applicantLiked: true,
             applicantDisliked: false
         })
+        this.updateUser();
+        this.getVideos();
     }
-    handleDislike=async()=> {
-        // await axios.post(``)
+    handleDislike=()=> {
         this.setState({
             applicantLiked: false,
             applicantDisliked: true
         })
+        this.updateUser();
+        this.getVideos();
     }
     handleBlock=async()=> {
         // await axios.post(``)
