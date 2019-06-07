@@ -1,6 +1,6 @@
 .nav-menu{
     width: 100vw;
-    height: 60px;
+    height: 55px;
     background-color: #212529;
     display: flex;
     justify-content: space-between;
@@ -23,6 +23,7 @@
     align-items: center;
     justify-content: space-between;
     height: 100%;
+    cursor: pointer;
 }
 
 .about {
