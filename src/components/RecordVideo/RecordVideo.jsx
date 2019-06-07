@@ -16,6 +16,7 @@ class RecordVideo extends Component {
             uploadFile:{},
             finalVideo:'',
 
+
         }
 
 
@@ -48,6 +49,8 @@ class RecordVideo extends Component {
     }
 
     startRecording = () => {
+
+        
         // if we're already recording, do nothing (or else it will error out)- else, begin recording (and, optionally, opt to display the video element)
         if (this.state.mediaRecorder.state === 'recording') {
             return
@@ -61,6 +64,7 @@ class RecordVideo extends Component {
             video.classList.remove('hide')
             video.play();
             this.state.mediaRecorder.start()
+           
         }
         var timeLeft = 5;
         var elem = document.getElementById('some_div');
@@ -111,8 +115,9 @@ class RecordVideo extends Component {
                 playback.classList.remove('hide')
                 playback.src = videoUrl;
                 // playback.play();
+               
+                console.log(this.state.blob.blobVid)
             }
-
         }
     }
 
@@ -142,6 +147,13 @@ class RecordVideo extends Component {
             .then((response) => { 
                 this.setState({finalVideo: url})
                 this.setState({ isUploading: false, url })
+
+                console.log(this.state)
+                console.log('also went through', response)
+
+                this.sendToDb()
+
+
             }).catch(err => {
                 this.setState({
                     isUploading: false
@@ -160,7 +172,11 @@ class RecordVideo extends Component {
         const {job_id} = this.props.job_id
         const video_url = this.state.url
        await axios.post('/api/userVideos', {video_url, job_id});
-        this.props.history.push('/dashboard');  
+       console.log(job_id, video_url)
+        console.log('this works')
+        this.props.history.push('/dashboard')
+    
+        
     }
 
     render() {
@@ -177,7 +193,7 @@ class RecordVideo extends Component {
                 <div className='record-play-container'>
                     <video id='record'></video>
                     <br />
-                     <video className='hide' controls id='playback'></video>
+                    <video className ='hide' controls id='playback'></video>
                     <br />
                     <button onClick={this.startRecording}>Begin Recording</button>
                     <br />

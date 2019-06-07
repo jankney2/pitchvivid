@@ -41,6 +41,7 @@ class UserLogin extends Component {
     render(){
         return(
             <div className='user-login-view'>
+<<<<<<< HEAD
 
             <input placeholder = 'Email' onChange={e => this.handleChange("email", e.target.value)} /> 
             
@@ -57,9 +58,19 @@ class UserLogin extends Component {
             <div className='altLoginMessage'>
                 <p>Looking for Admin login? Try <a href='/admin-login'>here</a></p>
             </div>
+=======
+                <h1>User Login</h1>
+                <input placeholder = 'Email' onChange={e => this.handleChange("email", e.target.value)} /> 
+                <input type = "password" placeholder = 'Password' onChange={e => this.handleChange("password", e.target.value)} /> 
+                <button onClick={this.handleSubmit}>Login</button>
+                {
+                    this.state.loginError ? 
+                    <h3>Your login credentials are incorrect. Please try again</h3>: 
+                    <> </>
+                }
+                <button className='loginSwitch' onClick={() => this.props.history.push('/admin-login')}>Login as administrator</button>
+>>>>>>> master
              </div> 
-
-
         )
     }
 }
