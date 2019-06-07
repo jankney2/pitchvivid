@@ -37,7 +37,6 @@ class AdminJobPost extends Component {
             jobDescription: jobData.data[0].details
         })
         if(this.state.videoResumes.length > 0){
-            // let videoSource = this.state.selectedVideo
             document.getElementById('resumeViewer').src= this.state.videoResumes[this.state.selectedVideo]
         }
     }
@@ -56,6 +55,9 @@ class AdminJobPost extends Component {
         this.setSelected()
     }
 
+    handleLike=async ()=> {
+        await axios.post(``)
+    }
 
     render() {
         let displayVideoCarousel = this.state.videoResumes.map((resume, index)=> {
