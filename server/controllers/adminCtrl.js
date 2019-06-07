@@ -93,6 +93,15 @@ module.exports={
 
     db.adminCtrl.reassignPostings({newId, oldId}).then(result => res.sendStatus(200)).catch(err=>res.status(400).send(err))
 
+  },
+
+  getAdminKey: (req, res)=>{
+    const db = req.app.get('db')
+    let id = +req.session.admin.companyId
+    db.adminCtrl.getAdminKey({id}).then(data=>{res.status(200).send(data)}).catch(err=>{console.log(err)
+    res.status(400).send(err)
+    })
+
   }
 
 }
