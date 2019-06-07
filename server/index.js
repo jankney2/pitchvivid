@@ -92,6 +92,7 @@ app.put('/api/posts/all', adminCtrl.reassignPostings)
 // // admins
 app.get('/api/admins', adminCtrl.getAdmins)
 app.delete('/api/admins/:id', adminCtrl.deleteAdmin)
+app.get('/api/admins/key', adminCtrl.getAdminKey)
 
 // videos
 app.get('/api/userVideos', userCtrl.getAllVideos)
