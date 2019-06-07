@@ -104,8 +104,7 @@ app.post('/api/userVideos', userCtrl.newVideo)
 app.get('/api/adminnotes/getAll/:job_id', adminNotesCtrl.getAll)
 app.get('/api/adminnotes/liked/:job_id', adminNotesCtrl.getLiked)
 app.get('/api/adminnotes/:admin_notes_id', adminNotesCtrl.getNote)
-app.post('/api/adminnotes', adminNotesCtrl.newAdminNote)
-app.put('/api/adminnotes', adminNotesCtrl.updateNote)
+app.post('/api/adminnotes', adminNotesCtrl.newUpdateNote)
 app.delete('/api/adminnotes/:admin_notes_id', adminNotesCtrl.deleteNote)
 
 // annoying users
