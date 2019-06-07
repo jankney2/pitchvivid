@@ -20,10 +20,6 @@
 .jobCard {
     @include card();
 }
-.adminDashAddJob{
-    background: greenyellow;
-    @include boxShadow();
-}
 .adminDashOwnerPanel {
     background: salmon;
     @include boxShadow();
