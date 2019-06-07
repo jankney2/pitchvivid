@@ -15,6 +15,7 @@ class RecordVideo extends Component {
             url: false,
             uploadFile:{},
             finalVideo:'',
+            liveShow: false
 
 
         }
@@ -48,9 +49,37 @@ class RecordVideo extends Component {
         }).catch(err => console.log(`There appears to be an error. Here are some details: ${err}`))
     }
 
+    countTillRecord = () => { 
+
+        var timeLeft = 1;
+        var elem = document.getElementById('some_div');
+        
+        const countdown=() =>  {
+            // this.setState({liveShow: true})
+            if (timeLeft == -1) {
+                clearTimeout(timerId);
+                this.startRecording();
+                elem.innerHTML = '';
+            } else {
+                elem.innerHTML = 'Recording in '+  timeLeft;
+                timeLeft--;
+            }
+        }
+        var timerId = setInterval(countdown, 1000);
+    
+
+    }
+
+
+
+
+
+
+
+
+
     startRecording = () => {
 
-        
         // if we're already recording, do nothing (or else it will error out)- else, begin recording (and, optionally, opt to display the video element)
         if (this.state.mediaRecorder.state === 'recording') {
             return
@@ -64,12 +93,13 @@ class RecordVideo extends Component {
             video.classList.remove('hide')
             video.play();
             this.state.mediaRecorder.start()
-           
+            
         }
-        var timeLeft = 5;
+        var timeLeft = 30;
         var elem = document.getElementById('some_div');
         
         const countdown=() =>  {
+            this.setState({liveShow: true})
             if (timeLeft == -1 || this.state.recording === false) {
                 clearTimeout(timerId);
                 this.stopRecording();
@@ -83,6 +113,7 @@ class RecordVideo extends Component {
     }
 
     stopRecording = e => {
+        this.setState({liveShow: false})
         // if we're not recording, do nothing (or else it will error out)- else, stop recording and pause record video element
         if (this.state.mediaRecorder.state === 'inactive') {
             return
@@ -180,11 +211,15 @@ class RecordVideo extends Component {
     }
 
     render() {
+        
+        
+
+
         return (
             <>
                 <div id="some_div"></div>
                 {
-                    this.state.recording ?<>
+                    this.state.liveShow?<>
                          <div id="some_div"></div>
                         <h2>{this.state.recordingMessage}</h2></> :
                         <></>
@@ -195,18 +230,22 @@ class RecordVideo extends Component {
                     <br />
                     <video className ='hide' controls id='playback'></video>
                     <br />
-                    <button onClick={this.startRecording}>Begin Recording</button>
+                    <button onClick={this.countTillRecord}>Begin Recording</button>
                     <br />
                     <button onClick={e => this.stopRecording(e)}>Stop Recording</button>
-                    <input
-                        className='choose-file'
-                        onChange={(e) => (this.setState({uploadFile: e.target.files[0]}))}
-                        type='file' placeholder='photo' />
+                  
+                   
+                   {
+                       this.state.isUploading?
+                       <div class="spinner"></div>:
                     <button className='picture-upload' onClick={() => this.getSignedRequest(this.state.blob.blobVid)}> 
                         Upload file
                     </button>
+
+                   }
+                   
                 </div>
-                <button onClick={e => this.sendToDb()}>Send To DB</button>
+          
             </>
         )
     }
