@@ -7,7 +7,8 @@
     padding: 0 100px;
     align-items: center;
     font-size: 10px;
-    color: white;
+    position: fixed;
+    z-index: 1;
 }
 
 .navLeft {
@@ -47,4 +48,8 @@
 
 .profileBtn {
     margin-right: 40px;
+}
+
+.navText {
+    color: white;
 }

@@ -49,27 +49,27 @@ class Nav extends Component {
                 <div className='navLeft'>
                     <div onClick={e => this.handleClick('/dashboard')} className='button'>
                         <img id='icon' src='https://flaticons.net/gd/makefg.php?i=icons/Mobile%20Application/Home.png&r=255&g=255&b=255' alt='home' />
-                        <p>Dashboard</p>
+                        <p className='navText'>Dashboard</p>
                     </div>
 
                     <div onClick={e => this.handleClick('/about')} className='button about'>
                         <img id='icon' src='https://i.ibb.co/Q9GM45G/about-icon.png' alt='about' />
-                        <p>About</p>
+                        <p className='navText'>About</p>
                     </div>
                 </div>
 
-                <img className='logo' src="https://i.ibb.co/F4H3t5P/pv-logo.png" alt=""/>
+                <img className='logo' src="https://i.ibb.co/zrfy90x/pitchvivid.png" alt=""/>
                 
                 <div className='navRight'>
                     <>
                         {this.props.companyId ?
                             <div onClick={e => this.handleClick('/profile')} className='button profileBtn'>
                                 <img id='icon' src='https://flaticons.net/gd/makefg.php?i=icons/Application/User-Profile.png&r=255&g=255&b=255' alt='profile' /> 
-                                <p>Profile</p>
+                                <p className='navText'>Profile</p>
                             </div> :
                             <div onClick={e => this.handleClick('/register')} className='button profileBtn'>
                                 <img id='icon' src='https://i1.wp.com/flcybercon.com/wp-content/uploads/2018/05/register-icon.png?fit=300%2C300&ssl=1' alt='register' /> 
-                                <p>Register</p>
+                                <p className='navText'>Register</p>
                             </div> 
                         }
                     </>
@@ -78,11 +78,11 @@ class Nav extends Component {
                         {this.props.id ? 
                             <div onClick={e => this.logOut()} className='button'>
                                 <img id='icon' src='https://i.ibb.co/Gxgd3jR/logout-icon.png' alt='log out'/>
-                                <p>Logout</p>
+                                <p className='navText'>Logout</p>
                             </div> :
                             <div onClick={e => this.logIn()} className='button'>
                                 <img id='icon' src='https://i.ibb.co/R9Y2Hyf/login-icon.png' alt='log in'/>
-                                <p>Login</p>
+                                <p className='navText'>Login</p>
                             </div>
                         }
                     </>
