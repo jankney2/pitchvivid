@@ -4,6 +4,7 @@ import {withRouter} from 'react-router-dom'
 import {updateUser} from '../../redux/reducer'
 import {connect} from 'react-redux'
 import Popup from 'reactjs-popup'
+import JobPostSlider from './JobPostSlider'
 
 class AdminJobPost extends Component {
     constructor() {
@@ -36,7 +37,6 @@ class AdminJobPost extends Component {
         })
         const jobData = await axios.get(`/api/postings/${this.state.job_id}`)
         const videos= await axios.get(`/api/adminnotes/getAll/${this.state.job_id}`)
-        console.log(videos)
         this.setState ({
             videoResumes: videos.data,
             jobTitle: jobData.data[0].job_title,
@@ -52,7 +52,6 @@ class AdminJobPost extends Component {
         // video.play()
     }
     handleSelect=async (resume, index)=> {
-        console.log(resume)
         await this.setState({
             selectedVideo: index,
             applicantName: `${this.state.videoResumes[index].firstname} ${this.state.videoResumes[index].lastname}`,
@@ -67,7 +66,6 @@ class AdminJobPost extends Component {
 
     // Button Handlers ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     updateUser=async()=> {
-        // console.log(this.state)
         const {job_id, applicantId:user_id, applicantDisliked: disliked, applicantLiked: liked, note: notes} = this.state
         await axios.post(`/api/adminnotes`, {job_id, user_id, disliked, liked, notes})
     }
@@ -159,8 +157,11 @@ class AdminJobPost extends Component {
                     </div>
                 </div>
                 <div className='carouselDisplay'>
-                    {displayVideoCarousel}  
+                    <JobPostSlider slideshow={displayVideoCarousel}/>
                 </div>
+                {/* <div className='carouselDisplay'>
+                    {displayVideoCarousel}  
+                </div> */}
             </div>
 
         )

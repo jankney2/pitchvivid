@@ -15,12 +15,9 @@ class RecordVideo extends Component {
             url: false,
             uploadFile:{},
             finalVideo:'',
-            liveShow: false
-
-
+            liveShow: false,
+            stream: null
         }
-
-
     }
 
     componentDidMount() {
@@ -44,16 +41,20 @@ class RecordVideo extends Component {
             }
             video.play();
             this.setState({
-                mediaRecorder: new MediaRecorder(mediaStreamObj)
+                mediaRecorder: new MediaRecorder(mediaStreamObj),
+                stream: mediaStreamObj
             })
         }).catch(err => console.log(`There appears to be an error. Here are some details: ${err}`))
     }
 
-    countTillRecord = () => { 
+    componentWillUnmount(){
+        // this will destroy the MediaStream/MediaRecorder connection that the browser makes upon recording a video- as soon as the component unmounts
+        this.state.stream.getTracks().forEach(track=>track.stop())
+    }
 
-        var timeLeft = 1;
-        var elem = document.getElementById('some_div');
-        
+    countTillRecord = () => { 
+        let timeLeft = 1;
+        let elem = document.getElementById('some_div');
         const countdown=() =>  {
             // this.setState({liveShow: true})
             if (timeLeft == -1) {
@@ -65,21 +66,10 @@ class RecordVideo extends Component {
                 timeLeft--;
             }
         }
-        var timerId = setInterval(countdown, 1000);
-    
-
+        let timerId = setInterval(countdown, 1000);
     }
 
-
-
-
-
-
-
-
-
     startRecording = () => {
-
         // if we're already recording, do nothing (or else it will error out)- else, begin recording (and, optionally, opt to display the video element)
         if (this.state.mediaRecorder.state === 'recording') {
             return
@@ -95,9 +85,8 @@ class RecordVideo extends Component {
             this.state.mediaRecorder.start()
             
         }
-        var timeLeft = 30;
-        var elem = document.getElementById('some_div');
-        
+        let timeLeft = 30;
+        let elem = document.getElementById('some_div');
         const countdown=() =>  {
             this.setState({liveShow: true})
             if (timeLeft == -1 || this.state.recording === false) {
@@ -109,7 +98,7 @@ class RecordVideo extends Component {
                 timeLeft--;
             }
         }
-        var timerId = setInterval(countdown, 1000);
+        let timerId = setInterval(countdown, 1000);
     }
 
     stopRecording = e => {
@@ -146,7 +135,6 @@ class RecordVideo extends Component {
                 playback.classList.remove('hide')
                 playback.src = videoUrl;
                 // playback.play();
-               
                 console.log(this.state.blob.blobVid)
             }
         }
@@ -202,19 +190,13 @@ class RecordVideo extends Component {
     sendToDb = async () => { 
         const {job_id} = this.props.job_id
         const video_url = this.state.url
-       await axios.post('/api/userVideos', {video_url, job_id});
-       console.log(job_id, video_url)
+        await axios.post('/api/userVideos', {video_url, job_id});
+        console.log(job_id, video_url)
         console.log('this works')
         this.props.history.push('/dashboard')
-    
-        
     }
 
     render() {
-        
-        
-
-
         return (
             <>
                 <div id="some_div"></div>
