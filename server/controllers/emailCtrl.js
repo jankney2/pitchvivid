@@ -50,5 +50,12 @@ module.exports = {
             console.log(`Email sent successfully`)
         })
         res.sendStatus(200)
+    },
+    validateUser: (req, res)=> {
+        const db = req.app.get('db')
+        const {email, firstname, lastname} = req.body
+        db.emailCtrl.validate_user({email, firstname, lastname}).then(user => {
+            res.status(200).send(user)
+        }).catch(err=> res.status(401).send(err))
     }
 }
