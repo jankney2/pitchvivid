@@ -61,6 +61,7 @@ module.exports = {
     } 
 
     let companyId = companyIdArr[0].id
+    console.log(companyId)
 
     let adminArr = await db.authCtrl.getAdmin({email})
     let existingAdmin = adminArr[0]
@@ -74,11 +75,11 @@ module.exports = {
 
     let registeredAdmin = await db.authCtrl.registerAdmin({email, firstName, lastName, hash, companyId, owner})
     let admin = registeredAdmin[0]
-
+    console.log(admin)
     req.session.admin = {
       id: admin.id,
       email: admin.email,
-      companyId: admin.companyId,
+      companyId: admin.company_id,
       firstName: admin.first_name,
       lastName: admin.last_name,
       owner: admin.owner
