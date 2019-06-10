@@ -34,7 +34,6 @@ class Profile extends Component {
             this.setState({
                admin: true
            }) 
-           console.log(this.state.admin, this.state.user)
         } else {
             console.log('is user')
             this.setState ({
