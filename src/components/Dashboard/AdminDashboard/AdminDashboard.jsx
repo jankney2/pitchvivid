@@ -24,7 +24,9 @@ class AdminDashboard extends Component {
             editJobFilled: false, 
             editJobArchived: false,
             editJobOpenDate: '',
-            editJobCloseDate: ''
+            editJobCloseDate: '',
+            // blocked user state vars
+            blockedUsers: []
         }
     }
             
@@ -45,6 +47,7 @@ class AdminDashboard extends Component {
         }
             
         this.getAdminKey()
+        this.getBlockedUsers()
     }
 
     // event handlers ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -84,6 +87,12 @@ class AdminDashboard extends Component {
             companyAdminKey: adminKey.data[0].admin_key
         })
     }
+    getBlockedUsers=async()=> {
+        const blocked = await axios.get(`/api/annoy`)
+        this.setState({
+            blockedUsers: blocked.data
+        })
+    }
     getListings=async ()=> {
         try {
             const listings = await axios.get('/api/postings/admin')
@@ -120,7 +129,11 @@ class AdminDashboard extends Component {
     viewJob=(id)=> {
         this.props.history.push(`/post/admin-view/${id}`)
     }
-
+    unblockUser=async(id) => {
+        await axios.delete(`/api/annoy/${id}`)
+        this.getBlockedUsers()
+    }
+    // Owner Specific Actions
     getAllListings=async ()=> {
         try {
             const listings = await axios.get('/api/postings/company')
@@ -190,6 +203,15 @@ class AdminDashboard extends Component {
                 </div>
             )
         })
+        let blockedUsersDisplay = this.state.blockedUsers.map(user => {
+            return (
+                <div className='blockedUserCard' key={user.user_id}>
+                    <p>Applicant Name: {user.first_name} {user.last_name}</p>
+                    <p>Applicant Email: {user.email}</p>
+                    <button onClick={()=>this.unblockUser(user.user_id)}>Unblock User</button>
+                </div>
+            )
+        })
         return (
             <div className='adminDashboardContainer'>
                 <h1>Administrator Dashboard</h1>
@@ -217,12 +239,26 @@ class AdminDashboard extends Component {
                         <p>... There are no job listings yet. Make one!</p>
                     }
                 </div>
-                <div className='adminDashOwnerPanel'>
-                    <h3>Account Administrators: </h3>
+
+                {
+                    this.props.owner ? 
+                    <div className='adminDashOwnerPanel'>
+                        <h3>Account Administrators: </h3>
+                        {
+                            this.state.administrators.length > 0 ?
+                            adminDisplay :
+                            <p>There are no administrators somehow. What's up with that?</p>
+                        }
+                    </div> : 
+                    <> </>
+                }
+
+                <div className='adminDashBlockedUsers'>
+                    <h3>Blocked Users: </h3>
                     {
-                        this.state.administrators.length > 0 ?
-                        adminDisplay :
-                        <p>There are no administrators somehow. What's up with that?</p>
+                        this.state.blockedUsers.length > 0 ?
+                        blockedUsersDisplay :
+                        <> </>
                     }
                 </div>
 

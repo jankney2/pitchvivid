@@ -93,7 +93,7 @@ class AdminJobPost extends Component {
     }
     handleBlock=async()=> {
         const {applicantId:user_id} = this.state
-        await axios.post(`/api/block`, {user_id})
+        await axios.post(`/api/annoy`, {user_id})
         this.updateUser();
         this.getVideos();
     }
