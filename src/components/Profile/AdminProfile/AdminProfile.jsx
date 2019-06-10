@@ -14,15 +14,47 @@ import Popup from 'reactjs-popup'
       firstName: '',
       lastName: '',
       newPassword: '',
-      editToggle: false,
+      editToggle: true,
     }
   }
+  toggleEdit =()=>{
+    console.log('hitting toggle edit')
+    axios.post('/auth/admin').then(()=>{
+      this.setState({
+        editToggle: !this.state.editToggle
+      })
+    }).catch((err)=>{})
+  }
 
+   componentDidMount(){
+    console.log(this.state)
+  }
   render(){
     return(
-      <div>
-        Admin Profile
-      </div>
+      
+      
+
+      
+      
+      this.state.editToggle ?
+       <div>
+         <p>
+         {this.state.editToggle}
+         </p>
+          <button onClick = {()=>{this.toggleEdit()}}>Button</button>
+        </div> :
+        
+        <div>
+          {this.state.editToggle}
+
+          <button onClick = {()=>{this.toggleEdit()}}>Button</button>
+        </div>
+      
+       
+      
+      
+        
+      
     )
   }
 }
