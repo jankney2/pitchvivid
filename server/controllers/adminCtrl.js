@@ -102,6 +102,18 @@ module.exports={
     res.status(400).send(err)
     })
 
+  },
+
+  makeOwner: (req, res)=> {
+    const db = req.app.get('db')
+    const {id} = req.params
+    let adminId = +req.session.admin.id
+    db.adminCtrl.makeOwner([id, adminId]).then(data => {
+      res.sendStatus(200)
+    }).catch(err=> {
+      console.log(`There was an error updating ownership: ${err}`)
+      res.sendStatus(500)
+    })
   }
 
 }
