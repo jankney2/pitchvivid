@@ -1,6 +1,6 @@
 import React, {Component}from 'react'
 import axios from 'axios'
-import {withRouter} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 import {updateUser} from '../../redux/reducer'
 import {connect} from 'react-redux'
 
@@ -14,7 +14,6 @@ class UserLogin extends Component {
             password:'',
             loginError: false
         }
-        
     }
 
     handleChange = (name, value) => {
@@ -40,18 +39,22 @@ class UserLogin extends Component {
     }
     render(){
         return(
-            <div className='user-login-view'>
-                <h1>User Login</h1>
-                <input placeholder = 'Email' onChange={e => this.handleChange("email", e.target.value)} /> 
-                <input type = "password" placeholder = 'Password' onChange={e => this.handleChange("password", e.target.value)} /> 
-                <button onClick={this.handleSubmit}>Login</button>
-                {
-                    this.state.loginError ? 
-                    <h3>Your login credentials are incorrect. Please try again</h3>: 
-                    <> </>
-                }
-                <button className='loginSwitch' onClick={() => this.props.history.push('/admin-login')}>Login as administrator</button>
-             </div> 
+            <div className='landingBack'>
+                <div className='user-login-view'>
+                    <h1>Applicant Login</h1>
+                    <input placeholder = ' email' onChange={e => this.handleChange("email", e.target.value)} /> 
+                    <input type = "password" placeholder = ' password' onChange={e => this.handleChange("password", e.target.value)} /> 
+                    <button type='button' className='landingBtn' onClick={this.handleSubmit}>Login</button>
+                    {
+                        this.state.loginError ? 
+                        <h3>Your login credentials are incorrect. Please try again</h3>: 
+                        <> </>
+                    }
+                    <Link to='/admin-login'>
+                        <a className='aTag'>Login as a hiring administrator</a>
+                    </Link>
+                </div> 
+            </div>
         )
     }
 }

@@ -55,6 +55,13 @@
   align-self: flex-start;
   margin-top: 5vh;
   margin-bottom: 30px;
+  color: white;
+  text-shadow: 1px 1px 1px $navbar;
+}
+
+.landingSec2 {
+  color: white;
+  text-shadow: 1px 1px 1px $navbar;
 }
 
 .landingPic {
@@ -73,29 +80,42 @@
 .landingParagraph {
   width: 100%;
   justify-self: flex-end;
-  color: rgb(31, 31, 31);
+  color: white;
+  line-height: 18px;
+}
+
+.beforeItalic {
+  color: white;
+  text-shadow: 1px 1px 1px $navbar;  
 }
 
 .flexRow {
   display: flex; 
 }
 
+.seeJobs {
+  margin-top: 20px;
+}
+
 .flexColumn {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-left: 10px;
 }
 
 .landingBtn {
-  margin-left: 10px;
   height: 40px;
-  color: $navbar;
+  color: white;
   background-color: $btnColor;
   border-color: $btnColorBorder;
+  border-radius: 5px;
+  border-width: 1px;
+  width: 120px;
 }
 
 .landingBtn:hover {
-  color: $navbar;
+  color: white;
   background-color: $btnColorHover;
   border-color: $btnColorBorder;
 }
@@ -103,6 +123,7 @@
 .landingUserBtn {
   margin-left: 10px;
   height: 30px;
+  width: 100px;
 }
 
 @media (max-height: 600px){
