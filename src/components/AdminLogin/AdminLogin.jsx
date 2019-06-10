@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import axios from 'axios'
-import {withRouter} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 import {updateUser} from '../../redux/reducer'
 import {connect} from 'react-redux'
 
@@ -35,17 +35,31 @@ class AdminLogin extends Component {
     }
     render() {
         return (
-            <div>
-                <h1>Admin Login</h1>
-                <input placeholder = 'email' onChange={e=> this.handleChange('email', e.target.value)} />
-                <input type='password' placeholder = 'password' onChange={e=> this.handleChange('password', e.target.value)} />
-                <button onClick={this.handleSubmit}>Login</button>
-                {
-                    this.state.loginError ? 
-                    <h3>Your login credentials are incorrect. Please try again</h3> :
-                    <> </>
-                }
-                <button className='loginSwitch' onClick={() => this.props.history.push('/user-login')}>Login as an applicant</button>
+            <div className='landingBack'>
+                <div className='user-login-view'>
+                    <h1 className='loginTitle'>Hiring Admin Login</h1>
+                    <div className='formDiv'>
+                        <p className='authSection'>Work email:</p>
+                        <input placeholder = 'email' onChange={e=> this.handleChange('email', e.target.value)} />
+                        <p className='authSection'>Password:</p>
+                        <input type='password' placeholder = 'password' onChange={e=> this.handleChange('password', e.target.value)} />
+                    </div>
+                    {
+                        this.state.loginError ? 
+                        <h3 className='wrongCred'>Incorrect credentials. Please try again.</h3> :
+                        <> </>
+                    }
+                    <Link to='/'>
+                        <a className='forgotPW'>Forgot password?</a>
+                    </Link>
+                    <button type='button' className='landingBtn' onClick={this.handleSubmit}>Login</button>
+                    <Link to='/register'>
+                        <a className='aTag'>Register new account</a>
+                    </Link>
+                    <Link to='/user-login'>
+                        <a className='aTag'>Job applicant login</a>
+                    </Link>
+                </div>
             </div>
         )
     }
