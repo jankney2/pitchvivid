@@ -11,6 +11,7 @@ import RegisterCompany from './components/RegisterCompany/RegisterCompany'
 import Dashboard from './components/Dashboard/Dashboard'
 import AdminJobPost from './components/AdminJobPost/AdminJobPost'
 import Profile from './components/Profile/Profile'
+import ResetPasswordRequest from './components/ResetPassword/Request/ResetPasswordRequest'
 
 export default (
     <Switch>
@@ -25,6 +26,7 @@ export default (
         <Route path='/dashboard' component={Dashboard} />
         <Route path='/post/admin-view/:id' component={AdminJobPost} />
         <Route path ='/profile' component = {Profile}/>
+        <Route path='/password-reset' component={ResetPasswordRequest} />
     </Switch>
 )
 

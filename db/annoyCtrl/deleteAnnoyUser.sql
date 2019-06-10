@@ -1,2 +1,2 @@
 delete from annoying_users
-where id = ${id} and admin_id = ${admin_id};
+where user_id = ${id} and admin_id = ${admin_id};

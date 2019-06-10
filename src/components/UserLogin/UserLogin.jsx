@@ -53,7 +53,7 @@ class UserLogin extends Component {
                         <h3 className='wrongCred'>Incorrect credentials. Please try again.</h3> :
                         <> </>
                     }
-                    <Link to='/'>
+                    <Link to='/password-reset'>
                         <a className='forgotPW'>Forgot password?</a>
                     </Link>
                     <button type='button' className='landingBtn' onClick={this.handleSubmit}>Login</button>
