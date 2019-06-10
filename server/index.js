@@ -9,6 +9,7 @@ const authCtrl = require('./controllers/authCtrl')
 const adminCtrl = require('./controllers/adminCtrl')
 const blockCtrl = require('./controllers/blockCtrl')
 const userCtrl = require('./controllers/userCtrl')
+const emailCtrl = require('./controllers/emailCtrl')
 const {SESSION_SECRET, CONNECTION_STRING, SERVER_PORT, S3_BUCKET, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY} = process.env
 
 const aws = require('aws-sdk')
@@ -119,3 +120,6 @@ app.delete('/api/annoy/:id', annoyCtrl.deleteAnnoyUser)
 
 // block users
 app.post('/api/block', blockCtrl.blockUser)
+
+// node-mailer 
+app.post('/send', emailCtrl.sendEmail)
