@@ -112,7 +112,7 @@ app.delete('/api/adminnotes/:admin_notes_id', adminNotesCtrl.deleteNote)
 
 // annoying users
 app.get('/api/annoy', annoyCtrl.getAll)
-app.get('/api/annoy/:id', annoyCtrl.getAnnoyUser)
+// app.get('/api/annoy/:id', annoyCtrl.getAnnoyUser)
 app.post('/api/annoy', annoyCtrl.newAnnoyUser)
 app.delete('/api/annoy/:id', annoyCtrl.deleteAnnoyUser)
 
