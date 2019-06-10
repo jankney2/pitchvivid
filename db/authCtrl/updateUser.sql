@@ -2,7 +2,7 @@ update users
 set email = ${email},
 first_name = ${firstName},
 last_name = ${lastName},
-hash = ${hash}
+hash = ${hash},
 resume = ${resume}
 where id = ${id}
 
