@@ -108,6 +108,7 @@ app.post('/api/userVideos', userCtrl.newVideo)
 // admin notes
 app.get('/api/adminnotes/getAll/:job_id', adminNotesCtrl.getAll)
 app.get('/api/adminnotes/liked/:job_id', adminNotesCtrl.getLiked)
+app.get('/api/company-name/:id', adminNotesCtrl.getCompanyName)
 app.get('/api/adminnotes/:admin_notes_id', adminNotesCtrl.getNote)
 app.post('/api/adminnotes', adminNotesCtrl.newUpdateNote)
 app.delete('/api/adminnotes/:admin_notes_id', adminNotesCtrl.deleteNote)
