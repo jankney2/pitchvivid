@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 
-export default class ResetPassword extends Component {
+export default class ResetPasswordRequest extends Component {
     constructor() {
         super()
         this.state = {
