@@ -27,6 +27,7 @@ class Dashboard extends Component {
 
         const session = await axios.get('/api/session') 
         try {
+            console.log(session)
             session.data.admin ? 
             await this.props.updateUser(session.data.admin) :
             await this.props.updateUser(session.data.user)
