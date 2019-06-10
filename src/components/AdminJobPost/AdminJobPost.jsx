@@ -20,6 +20,7 @@ class AdminJobPost extends Component {
             applicantId: '',
             // applicantBlocked: false, 
             note: '',
+            newNote: '',
             companyName: '',
             job_id: null,
             jobTitle: '',
@@ -112,6 +113,9 @@ class AdminJobPost extends Component {
     }
     handleAddNote=async(callback)=> {
         callback();
+        this.setState({
+            note: this.state.newNote
+        })
         this.updateUser();
         this.getVideos();
     }
@@ -171,7 +175,7 @@ class AdminJobPost extends Component {
                                 {
                                     close=> (
                                         <div>
-                                            <input onChange={e=>this.handleNoteChange(e)} type='text' name='note' value={this.state.note} placeholder='New Note' />
+                                            <input onChange={e=>this.handleNoteChange(e)} type='text' name='newNote' placeholder='New Note' />
                                             <button onClick={()=>this.handleAddNote(close)}>Post New Note</button>
                                         </div>
                                     )
