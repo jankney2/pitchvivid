@@ -7,6 +7,7 @@
     width: 100vw;
     height: 100vh;
     flex-direction: column;
+    z-index: 1000;
 }
 
 .loginTitle {
@@ -61,8 +62,7 @@ input {
 }
 
 .authBack {
-    background-image: url('https://i.ibb.co/9845frG/authBack.png'), linear-gradient(135deg, $brightBlue, $lightBlue 90%);
-    // background-image: linear-gradient(135deg, $brightBlueTrans, $lightBlueTrans 90%), url('http://productivityuncorked.com/wp-content/uploads/2018/09/Examiner-5554x2777.jpg');
+    background-image: url('https://i.ibb.co/VYrqgJ0/backgroundphoto.png'), linear-gradient(135deg, $brightBlue, $lightBlue 90%);
     width: 100vw;
     min-height: 100vh;
     background-repeat: no-repeat;
@@ -72,4 +72,19 @@ input {
     justify-content: center;  
     align-items: flex-start;
     margin: 0;
+    // position: fixed;
+    // left: 0;
+    // right: 0;
+    z-index: -1000;
+  
+    // display: block;
+    // // background-image: url('http://666a658c624a3c03a6b2-25cda059d975d2f318c03e90bcf17c40.r92.cf1.rackcdn.com/unsplash_527bf56961712_1.JPG');
+    // width: 1200px;
+    // height: 800px;
+  
+    // -webkit-filter: blur(5px);
+    // -moz-filter: blur(5px);
+    // -o-filter: blur(5px);
+    // -ms-filter: blur(5px);
+    // filter: blur(5px);
 }
