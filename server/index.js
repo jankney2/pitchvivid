@@ -104,6 +104,7 @@ app.get('/api/userVideos/:job_id', userCtrl.getVideo)
 app.delete('/api/userVideos/:job_id', userCtrl.deleteVideo)
 app.put('/api/userVideos', userCtrl.updateVideo)
 app.post('/api/userVideos', userCtrl.newVideo)
+app.put('/api/uploadResume', userCtrl.uploadResume)
 
 // admin notes
 app.get('/api/adminnotes/getAll/:job_id', adminNotesCtrl.getAll)

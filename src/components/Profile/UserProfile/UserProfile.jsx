@@ -4,6 +4,10 @@ import { withRouter } from 'react-router-dom'
 import { updateUser } from '../../../redux/reducer'
 import { connect } from 'react-redux'
 import Popup from 'reactjs-popup'
+import { v4 as randomString } from 'uuid';
+
+
+
 
 class UserProfile extends Component {
 
@@ -17,10 +21,104 @@ class UserProfile extends Component {
       editToggle: false,
       password: '',
       confirmPassword: false,
-      resume: '',
-      
+      resumeFile: false,
+     
+
     }
   }
+
+
+
+  //S3
+
+
+
+  getSignedRequest = (file) => {
+
+
+
+    console.log(file)
+
+    this.setState({ isUploading: true })
+
+    const fileName = `${randomString()}-${file.name.replace(/\s/g, '-')}`
+
+    axios.get('/sign-s3', {
+      params: {
+        'file-name': fileName,
+        'file-type': file.type
+      }
+    }).then(response => {
+      const { signedRequest, url } = response.data
+      console.log(response.data)
+      console.log(file)
+      this.uploadFile(file, signedRequest, url);
+    }).catch(err => {
+      console.log(err)
+    })
+  };
+
+
+
+  uploadFile = (file, signedRequest, url) => {
+    console.log(file, signedRequest, url)
+    const options = {
+      headers: {
+        'Content-Type': file.type,
+      },
+
+    }
+
+
+
+    console.log('this went through', options)
+    axios.put(signedRequest, file, options)
+      .then((response) => {
+        this.setState({ isUploading: false, url })
+        this.updateResume(url)
+        console.log('also went through', url)
+
+        axios.put('/api/uploadResume', {url}).then(res => {
+          console.log(res.data)
+         
+          this.setState({resumeFile: false})
+          console.log(this.state.resumeFile)
+          })
+        
+      }).catch(err => {
+        this.setState({
+          isUploading: false
+
+        })
+
+        if (err.response.status === 403) {
+          alert(`Your request for a signed URL failed with a status 403. Double check the CORS configuration and bucket policy in the README. You also will want to double check your AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY in your .env and ensure that they are the same as the ones that you created in the IAM dashboard. You may need to generate new keys\n${
+            err.stack
+            }`
+          )
+        } else {
+          alert(`Error: ${err.status}\n ${err.stack}`)
+        }
+      })
+  }
+
+
+  updateResume = (file) => {
+    this.setState({ resumeFile: file })
+    console.log(this.state.resumeFile)
+  }
+
+
+
+
+
+
+
+
+
+
+
+
   authenticateUser = (callback) => {
     callback()
     let password = this.state.password
@@ -31,6 +129,7 @@ class UserProfile extends Component {
   }
 
   componentDidMount() {
+
     const { email, firstName, lastName, resume } = this.props
     console.log(email, firstName, lastName, resume)
     this.setState({
@@ -59,27 +158,27 @@ class UserProfile extends Component {
 
   }
 
-  handleSubmit = ()=>{
-    const { email, firstName, lastName, newPassword, resume} = this.state
+  handleSubmit = () => {
+    const { email, firstName, lastName, newPassword} = this.state
+
     let password = newPassword
-    if (newPassword !== this.state.confirmPassword){
+    if (newPassword !== this.state.confirmPassword) {
       alert('Passwords do not match')
       return
     }
-    axios.put('/auth/updateUser', {email, firstName, lastName, password, resume}).then(res=>{
-      const { email, firstName, lastName, resume} = res.data
-      this.setState ({
+    axios.put('/auth/updateUser', { email, firstName, lastName, password}).then(res => {
+      const { email, firstName, lastName} = res.data
+      this.setState({
         email,
         firstName,
         lastName,
-        resume,
         password: '',
         confirmPassword: '',
         newPassword: '',
-        
+
       })
-      }
-    ).catch(err=>{
+    }
+    ).catch(err => {
       console.log(err)
     })
     this.toggleEdit()
@@ -87,62 +186,89 @@ class UserProfile extends Component {
   }
   render() {
     const state = Object.entries(this.state)
+    console.log(state)
     return (
 
       <div style={{ 'margin-top': '55px' }}>
         <h1>user Info:</h1>
 
-        {this.state.editToggle ? 
+        {this.state.editToggle ?
 
-        <div>
-          <p>email</p>
-          <input onChange={e => this.handleFormChange(e)} type='text' name='email' placeholder='email' value={this.state.email} />
-          <p>First Name</p>
-          <input onChange={e => this.handleFormChange(e)} type='text' name='firstName' placeholder='first name' value={this.state.firstName} />
-          <p>Last Name</p>
-          <input onChange={e => this.handleFormChange(e)} type='text' name='lastName' placeholder='last name' value={this.state.lastName} />
+          <div>
+            <p>email</p>
+            <input onChange={e => this.handleFormChange(e)} type='text' name='email' placeholder='email' value={this.state.email} />
+            <p>First Name</p>
+            <input onChange={e => this.handleFormChange(e)} type='text' name='firstName' placeholder='first name' value={this.state.firstName} />
+            <p>Last Name</p>
+            <input onChange={e => this.handleFormChange(e)} type='text' name='lastName' placeholder='last name' value={this.state.lastName} />
 
-          <p>Password</p>
-          <input onChange={e => this.handleFormChange(e)} type='password' name='confirmPassword' placeholder='password' value={this.state.confirmPassword} />
-          <p>Confirm Password</p>
-          <input onChange={e => this.handleFormChange(e)} type='password' name='newPassword' placeholder='confirm password' value={this.state.newPassword} />
-          
-          <button onClick = {()=>{this.handleSubmit()}}>Submit Changes</button>
-          <button onClick = {()=>{this.toggleEdit()}}>Cancel</button>
+            <p>Password</p>
+            <input onChange={e => this.handleFormChange(e)} type='password' name='confirmPassword' placeholder='password' value={this.state.confirmPassword} />
+            <p>Confirm Password</p>
+            <input onChange={e => this.handleFormChange(e)} type='password' name='newPassword' placeholder='confirm password' value={this.state.newPassword} />
 
-        </div>
-        :
-        <div>
-        {state.map(item => {
-          if (item[0] === 'password' || item[0] === 'newPassword' || item[0] === 'editToggle' || item[0] === 'owner' || item[0]==='confirmPassword'){
-            return
-          }
-          console.log(item)
-          return <div>
-
-            <div>{item[0]}</div>
-            <div>{item[1]}</div>
+            <button onClick={() => { this.handleSubmit() }}>Submit Changes</button>
+            <button onClick={() => { this.toggleEdit() }}>Cancel</button>
 
           </div>
-        })}
+          :
+          <div>
+            {state.map(item => {
+              if (item[0] === 'password' || item[0] === 'newPassword' || item[0] === 'editToggle' || item[0] === 'owner' || item[0] === 'confirmPassword' || item[0] === 'resumeFile' || item[0] === "url" || item[0] === 'isUploading') {
+                return
+              }
+              console.log(item)
+              return <div>
 
-        <Popup trigger={<button>Edit Info</button>} position='right center'>
-          {
-            close => (
-              <div>
-                <input onChange={e => this.handleFormChange(e)} type='password' name='password' placeholder='password' value={this.state.password} />
-               
-                <button onClick={() => {
-                  this.authenticateUser(close)
-                }}>Submit</button>
-                <button onClick = {()=>{close()}}> Cancel </button>
+                <div>{item[0]}</div>
+                <div>{item[1]}</div>
+
+
               </div>
-            )
-          }
-        </Popup>
-        </div>
-        
-      }
+
+
+            })}
+
+              {
+                this.state.url?
+                // eslint-disable-next-line react/jsx-no-target-blank
+                <a href={`${this.state.url}`} target='_blank'>
+                <h1>Resume Link</h1>
+                </a> : 
+
+                <> </> 
+              }
+
+            <div className='resume-upload'>
+              <input
+                className='choose-file'
+                onChange={e => this.updateResume(e.target.files[0])}
+                type='file' accept="application/pdf" />
+
+              <button
+                className='picture-upload'
+                onClick={() => this.getSignedRequest(this.state.resumeFile)}> Upload Picture </button>
+            </div>
+
+
+
+            <Popup trigger={<button>Edit Info</button>} position='right center'>
+              {
+                close => (
+                  <div>
+                    <input onChange={e => this.handleFormChange(e)} type='password' name='password' placeholder='password' value={this.state.password} />
+
+                    <button onClick={() => {
+                      this.authenticateUser(close)
+                    }}>Submit</button>
+                    <button onClick={() => { close() }}> Cancel </button>
+                  </div>
+                )
+              }
+            </Popup>
+          </div>
+
+        }
 
       </div>
 
@@ -158,7 +284,7 @@ class UserProfile extends Component {
   }
 }
 const mapStateToProps = state => {
-  const { email, firstName, lastName, resume} = state
+  const { email, firstName, lastName, resume } = state
   return {
 
     firstName,
