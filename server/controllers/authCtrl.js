@@ -150,9 +150,10 @@ module.exports = {
 
   updateAdmin: async (req, res) => {
     let {email, firstName, lastName, password, owner} = req.body
+    
     let {id} = req.session.admin
     const db = req.app.get('db')
-
+   
     const salt = bcrypt.genSaltSync(10)
     const hash = bcrypt.hashSync(password, salt)
     
@@ -176,10 +177,12 @@ module.exports = {
   },
   authenticateAdmin: async (req,res)=>{
     let { password} = req.body
+    console.log(password)
     const db = req.app.get('db')
     let email = req.session.admin.email
     let foundAdmin = await db.authCtrl.getAdmin({email})
     let admin = foundAdmin[0]
+    console.log(admin)
     
     if (!admin) {
       return res.status(401).send('User not found. Please register as a new user before logging in.')
@@ -189,6 +192,7 @@ module.exports = {
     if (!isAuthenticated){
       return res.status(403).send('Incorrect password')
     }
+    console.log('authenticated')
     res.sendStatus(200)
   },
   authenticateUser: async (req,res)=>{
