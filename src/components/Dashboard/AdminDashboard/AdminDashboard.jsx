@@ -4,6 +4,7 @@ import {withRouter} from 'react-router-dom'
 import {updateUser} from '../../../redux/reducer'
 import {connect} from 'react-redux'
 import Popup from 'reactjs-popup'
+import { async } from 'q';
 
 class AdminDashboard extends Component {
     constructor() {
@@ -133,7 +134,7 @@ class AdminDashboard extends Component {
         await axios.delete(`/api/annoy/${id}`)
         this.getBlockedUsers()
     }
-    // Owner Specific Actions
+    // Owner Specific Actions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     getAllListings=async ()=> {
         try {
             const listings = await axios.get('/api/postings/company')
@@ -162,6 +163,11 @@ class AdminDashboard extends Component {
         this.reassignAdminDuties(id);
         await axios.delete(`/api/admins/${id}`)
         this.getAdmins();
+    }
+    transferOwnership=async(id)=> {
+        await axios.put(`/api/transfer/${id}`)
+        await axios.delete('/auth/logout')
+        this.props.history.push('/admin-login')
     }
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -200,6 +206,7 @@ class AdminDashboard extends Component {
                 <div className='adminCard' key={admin.id}>
                     <p>{admin.first_name} {admin.last_name}</p>
                     <button onClick={() => this.deleteAdmin(admin.id)}>Remove as Admin</button>
+                    <button onClick={()=> this.transferOwnership(admin.id)}>Transfer Ownership</button>
                 </div>
             )
         })
