@@ -41,17 +41,27 @@ class UserLogin extends Component {
         return(
             <div className='landingBack'>
                 <div className='user-login-view'>
-                    <h1>Applicant Login</h1>
-                    <input placeholder = ' email' onChange={e => this.handleChange("email", e.target.value)} /> 
-                    <input type = "password" placeholder = ' password' onChange={e => this.handleChange("password", e.target.value)} /> 
-                    <button type='button' className='landingBtn' onClick={this.handleSubmit}>Login</button>
+                    <h1 className='loginTitle'>Job Applicant Login</h1>
+                    <div className='formDiv'>
+                        <p className='authSection'>Personal email:</p>
+                        <input placeholder = 'email' onChange={e => this.handleChange("email", e.target.value)} /> 
+                        <p className='authSection'>Password:</p>
+                        <input type = "password" placeholder = 'password' onChange={e => this.handleChange("password", e.target.value)} /> 
+                    </div>
                     {
                         this.state.loginError ? 
-                        <h3>Your login credentials are incorrect. Please try again</h3>: 
+                        <h3 className='wrongCred'>Incorrect credentials. Please try again.</h3> :
                         <> </>
                     }
+                    <Link to='/'>
+                        <a className='forgotPW'>Forgot password?</a>
+                    </Link>
+                    <button type='button' className='landingBtn' onClick={this.handleSubmit}>Login</button>
+                    <Link to='/register'>
+                        <a className='aTag'>Register new account</a>
+                    </Link>
                     <Link to='/admin-login'>
-                        <a className='aTag'>Login as a hiring administrator</a>
+                        <a className='aTag'>Hiring admin login</a>
                     </Link>
                 </div> 
             </div>
