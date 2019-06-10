@@ -39,7 +39,7 @@ class UserLogin extends Component {
     }
     render(){
         return(
-            <div className='landingBack'>
+            <div className='authBack'>
                 <div className='user-login-view'>
                     <h1 className='loginTitle'>Job Applicant Login</h1>
                     <div className='formDiv'>

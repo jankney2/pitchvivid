@@ -35,7 +35,7 @@ class AdminLogin extends Component {
     }
     render() {
         return (
-            <div className='landingBack'>
+            <div className='authBack'>
                 <div className='user-login-view'>
                     <h1 className='loginTitle'>Hiring Admin Login</h1>
                     <div className='formDiv'>
