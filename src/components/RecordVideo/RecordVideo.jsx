@@ -208,7 +208,7 @@ class RecordVideo extends Component {
                 }
                 
                 <div className='record-play-container'>
-                    <video id='record'></video>
+                    <video id='record' muted></video>
                     <br />
                     <video className ='hide' controls id='playback'></video>
                     <br />
