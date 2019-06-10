@@ -28,7 +28,6 @@ export default class SimpleSlider extends React.Component {
 
 
   render() {
-    console.log('this.slider:', this.slider)
     let {settings} = this.state
     return (
       <Slider {...settings} className='slider'>
