@@ -11,7 +11,7 @@ import RegisterCompany from './components/RegisterCompany/RegisterCompany'
 import Dashboard from './components/Dashboard/Dashboard'
 import AdminJobPost from './components/AdminJobPost/AdminJobPost'
 import Profile from './components/Profile/Profile'
-import ResetPasswordRequest from './components/ResetPassword/ResetPasswordRequest'
+import ResetPasswordRequest from './components/ResetPassword/Request/ResetPasswordRequest'
 
 export default (
     <Switch>
