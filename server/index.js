@@ -123,3 +123,4 @@ app.post('/api/block', blockCtrl.blockUser)
 
 // node-mailer 
 app.post('/send', emailCtrl.sendEmail)
+app.post('/reset', emailCtrl.resetPassword)
