@@ -4,7 +4,8 @@ const initialState = {
     email: '',
     id: null, 
     companyId: null, 
-    owner: false
+    owner: false,
+    resume: ''
 }
 
 const UPDATE_USER = 'UPDATE_USER';
@@ -34,7 +35,8 @@ export default function reducer(state=initialState, action) {
                 email: payload.email, 
                 id: payload.id,
                 companyId: payload.companyId,
-                owner: payload.owner
+                owner: payload.owner,
+                resume: payload.resume
             };
         case LOGOUT:
             return {

@@ -5,7 +5,7 @@ import {updateUser} from '../../redux/reducer'
 import {connect} from 'react-redux'
 import AdminProfile from './AdminProfile/AdminProfile'
 import UserProfile from './UserProfile/UserProfile'
-import Nav from './../Nav/Nav'
+import Nav from '../Nav/Nav'
 
 class Profile extends Component {
     constructor() {
@@ -18,21 +18,24 @@ class Profile extends Component {
 
     async componentDidMount() {
         // Dashboard component will need to grab session first
-
+        console.log('hitting profile')
         const session = await axios.get('/api/session') 
         try {
             session.data.admin ? 
             await this.props.updateUser(session.data.admin) :
             await this.props.updateUser(session.data.user)
+            
         } catch {
             this.props.history.push('/')
         }
 
         if(this.props.companyId) {
-           this.setState({
+           console.log('is admin')
+            this.setState({
                admin: true
            }) 
         } else {
+            console.log('is user')
             this.setState ({
                 user: true
             })
@@ -43,12 +46,13 @@ class Profile extends Component {
     }
 
     render() {
+
         return (
-            <div className='dashboardContainer'>
+            <div className='profile-Container'>
                 {/* <Nav /> */}
-                {
+                {   
                     this.state.admin ? 
-                    <AdminProfile />  :
+                     <AdminProfile />  :
                     this.state.user ?
                    <UserProfile /> :
                    <> </>
