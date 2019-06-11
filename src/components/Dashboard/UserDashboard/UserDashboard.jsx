@@ -103,7 +103,7 @@ class UserDashboard extends Component {
                 <div className='userDashContent'>
                     <div className='appliedJobApps-container'>
                         <span className='userDashHeaderSpan'>
-                            <h1>All Jobs</h1>
+                            <h1>Your Applications</h1>
                         </span>
                         <span className='searchSpan'>
                             <input className='appliedJobSearch' placeholder='Search All Your Applications' onChange={e => this.searchChange('appliedJobSearch', e.target.value)} />
@@ -114,7 +114,7 @@ class UserDashboard extends Component {
                     </div>
                     <div className='allJobs-container'>
                         <span className='userDashHeaderSpan'>
-                            <h1>Your Applications</h1>
+                            <h1>All Jobs</h1>
                         </span>
                         <span className='searchSpan'>
                             <input className='allJobSearch' placeholder='Search All Jobs' onChange={e => this.searchChange('allJobSearch', e.target.value)} />

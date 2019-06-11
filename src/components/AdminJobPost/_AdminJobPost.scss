@@ -2,10 +2,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    // margin: 1.5em;
-    // margin-top: 55px;
     padding-top: 75px;
     padding: 75px 1.5em;
+    height: 99vh;
 }
 
 .adminJobPostSelectedView{
@@ -45,8 +44,17 @@
 
 .carouselDisplay{
     display: flex;
+    flex-direction: column;
     margin: 1.5em;
     overflow: hidden;
+    align-items: center;
+    // margin-top: 15%;
+    border-radius: 10px;
+    background-color: #212529;
+    box-sizing: content-box;
+    h2 {
+        color: white;
+    }
 }
 
 .adminJobPostResumeCard{
@@ -76,6 +84,7 @@
     video {
         width: 70%;
     }
+    padding-top: 5em;
 }
 
 .resumeViewerButtons{
@@ -88,9 +97,12 @@
         border-radius: 10px;
     }
 }
-
 .slick-list{
-    margin-top: 15%;
+    border-radius: 5px;
+    .slick-track{
+        // background: #464e56;
+        padding: 1em 0em;
+    }
 }
 
 //code shamelessly stolen from www.bestcssbuttongenerator.com:
@@ -120,6 +132,7 @@
 	padding:12px 37px;
 	text-decoration:none;
     text-shadow:0px 1px 0px #283966;
+    box-sizing: content-box;
 }
 .myButton:hover {
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #476e9e), color-stop(1, #7892c2));
@@ -169,8 +182,10 @@
         width: 100%;
         margin-top: 3em;
     }
-    .myButton{
-        width: 4em;
-        min-height: 4em;
+    .carouselDisplay{
+        overflow: unset;
+    }
+    .postVidAndButtons{
+        padding-top: 0em;
     }
 }
