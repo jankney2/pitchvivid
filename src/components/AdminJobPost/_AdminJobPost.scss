@@ -12,23 +12,23 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-    .resumeViewerInfo{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        width: 60%;
-        p{
-            margin-left: 3em;
-            margin-bottom: 1em;
-        }
-        .noteButtonContainer{
-            display: flex;
-            justify-content: space-around;
-            button {
-                padding: 0.7em;
-                border-radius: 10px;
-            }
-        }
+}
+.resumeViewerInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 60%;
+    p{
+        margin-left: 3em;
+        margin-bottom: 1em;
+    }
+}
+.noteButtonContainer{
+    display: flex;
+    justify-content: space-around;
+    button {
+        padding: 0.7em;
+        border-radius: 10px;
     }
 }
 .resumeBlockButton{
@@ -89,6 +89,10 @@
     }
 }
 
+.slick-list{
+    margin-top: 15%;
+}
+
 //code shamelessly stolen from www.bestcssbuttongenerator.com:
 
 
@@ -115,7 +119,7 @@
 	font-size:19px;
 	padding:12px 37px;
 	text-decoration:none;
-	text-shadow:0px 1px 0px #283966;
+    text-shadow:0px 1px 0px #283966;
 }
 .myButton:hover {
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #476e9e), color-stop(1, #7892c2));
@@ -134,4 +138,39 @@
 
 .jobslider{
     width: 75vw;
+}
+
+
+@media(max-width:768px){
+    .adminJobPostContainer{
+        font-size: 0.8em;
+        button{
+            padding: 0.6em;
+        }
+    }
+    .noteButtonContainer{
+        flex-direction: column;
+        align-items: center;
+        button{
+            padding: 0.3em;
+            width: 40%;
+            margin-bottom: 0.3em;
+        }
+    }
+    .postVidAndButtons {
+        margin-top: 4em;
+    }
+}
+@media(max-width: 550px){
+    .adminJobPostSelectedView{
+        flex-direction: column;
+    }
+    .resumeViewerInfo{
+        width: 100%;
+        margin-top: 3em;
+    }
+    .myButton{
+        width: 4em;
+        min-height: 4em;
+    }
 }
