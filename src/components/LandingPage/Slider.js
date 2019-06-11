@@ -32,23 +32,23 @@ export default class SimpleSlider extends React.Component {
     return (
       <Slider {...settings} className='slider'>
         <div>
-          <img className='landingPic' src="https://pbs.twimg.com/media/DZNheP3U0AAq6F-.jpg" alt=""/>
+          <img className='landingPic' src="https://s3-us-west-1.amazonaws.com/pitchvivid/9.jpg" alt=""/>
         </div>
         <div>
-          <img className='landingPic' src="https://ak5.picdn.net/shutterstock/videos/10624415/thumb/9.jpg" alt=""/>
+          <img className='landingPic' src="https://s3-us-west-1.amazonaws.com/pitchvivid/1+(1).jpg" alt=""/>
         </div>
         <div>
-          <img className='landingPic' src="http://footage.framepool.com/shotimg/873694370-video-chat-agency-style-creativity.jpg" alt=""/>
+          <img className='landingPic' src="https://s3-us-west-1.amazonaws.com/pitchvivid/1.jpg" alt=""/>
         </div>
         <div>
-          <img className='landingPic' src="https://ak9.picdn.net/shutterstock/videos/4782959/thumb/1.jpg" alt=""/>
+          <img className='landingPic' src="https://s3-us-west-1.amazonaws.com/pitchvivid/2.jpg" alt=""/>
         </div>
-        <div>
+        {/* <div>
           <img className='landingPic' src="https://files.slack.com/files-pri/T039C2PUY-FK01T9WCS/admin_video_resume_view.jpg" alt=""/>
         </div>
         <div>
           <img className='landingPic' src="https://files.slack.com/files-pri/T039C2PUY-FK01T9WCS/admin_video_resume_view.jpg" alt=""/>
-        </div>
+        </div> */}
       </Slider>
     );
   }

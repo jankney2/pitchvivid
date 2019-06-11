@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import {withRouter} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 import {updateUser} from '../../redux/reducer'
 import {connect} from 'react-redux'
 
@@ -17,11 +17,17 @@ class Register extends Component {
             admin: true,
         }
     }
+    
+    componentWillMount = () => {
+        let {adminKey} = this.props.match.params
+        if (adminKey){
+            this.setState({adminKey})
+        }
+    }
 
     handleChange = (name, value) => {
         this.setState({ [name]: value })
     }
-
 
     checkBoxHandle = (name) => {
         this.setState({ [name]: !this.state[name] })
@@ -59,7 +65,10 @@ class Register extends Component {
                             {
                                 this.state.admin ? 
                                 <span className='owner-container'>
-                                    <input id='company-name-input' placeholder='Admin Key' onChange={e => this.handleChange("adminKey", e.target.value)} /> 
+                                    <input id='company-name-input' placeholder='Admin Key' onChange={e => this.handleChange("adminKey", e.target.value)} value={this.state.adminKey}/> 
+                                    <Link className='newCompanyLink' to='/company-register'>
+                                        <a className='aTag'>Create a new company</a>
+                                    </Link>
                                     <span className='checkboxes'>
                                         <p className='authSection'>I'm an executive in the company</p>
                                         <input className='checkbox' type='checkbox' onClick={() => this.checkBoxHandle('owner')} />
