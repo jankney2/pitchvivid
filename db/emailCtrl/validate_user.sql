@@ -1,4 +1,4 @@
-select email from users
+select id from users
 where email = ${email} 
 and
 first_name= ${firstname}

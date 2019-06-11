@@ -9,6 +9,7 @@ export default class ResetPasswordRequest extends Component {
             firstname: '',
             lastname: '',
             errorMessage: false,
+            successMessage: false
         }
     }
 
@@ -25,10 +26,31 @@ export default class ResetPasswordRequest extends Component {
         const {email, firstname, lastname} = this.state
         const validation = await axios.post(`/api/validate`, {email, firstname, lastname})
         validation.data.length === 1 ? 
-        console.log('this is where we need to hit the reset password endpoint')
+        this.handlePassChange(validation.data[0].id)
+        // console.log(validation.data)
         : 
         this.setState({
             errorMessage: true
+        })
+    }
+
+    handlePassChange=async(id)=> {
+        // may need to hit an axios request here to store the id, send that attached to the URL below
+        const {email:user_email} = this.state
+        const text = (`
+            <div>
+                <p>Dear <b>${this.state.firstname} ${this.state.lastname},</p>
+                <br/> <br/>
+                <p>This is your temporary password for PitchVivid: pitchit817C4 </p>
+                <br/>
+                <p>Enter your email and the temporary password <a href='http://localhost:4000/return-pass/${id}'> here </a> and you'll be prompted to enter a new, permanent password.</p>
+                <br /> <br/>
+                <p>Thank you for using PitchVivid, and good luck in your job hunt! </p>
+            </div>
+        `)
+        await axios.post('/reset', {user_email, text})
+        this.setState({
+            successMessage: true
         })
     }
 
@@ -43,6 +65,12 @@ export default class ResetPasswordRequest extends Component {
                 {
                     this.state.errorMessage ? 
                     <b>Your information isn't showing in our system. Please try again</b>
+                    :
+                    <> </>
+                }
+                {
+                    this.state.successMessage ? 
+                    <b>We've sent you an email with a temporary password. Follow the instructions to finish resetting your password!</b>
                     :
                     <> </>
                 }

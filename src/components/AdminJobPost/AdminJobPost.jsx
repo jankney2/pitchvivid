@@ -5,7 +5,6 @@ import {updateUser} from '../../redux/reducer'
 import {connect} from 'react-redux'
 import Popup from 'reactjs-popup'
 import JobPostSlider from './JobPostSlider'
-import { async } from 'q';
 
 class AdminJobPost extends Component {
     constructor() {
