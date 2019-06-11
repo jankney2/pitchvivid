@@ -2,7 +2,6 @@
 
 .landingBack {
   background-image: url('https://i.ibb.co/VYrqgJ0/backgroundphoto.png'), linear-gradient(135deg, $brightBlue, $lightBlue 90%);
-  // background-image: linear-gradient(135deg, $brightBlueTrans, $lightBlueTrans 90%), url('http://productivityuncorked.com/wp-content/uploads/2018/09/Examiner-5554x2777.jpg');
   width: 100vw;
   min-height: 100vh;
   background-repeat: no-repeat;
@@ -12,6 +11,8 @@
   justify-content: center;  
   align-items: flex-start;
   margin: 0;
+  position: relative;
+  transition: 3s;
 }
 
 .landing {
