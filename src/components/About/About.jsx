@@ -12,9 +12,9 @@ export default function About() {
                 </p>
             </div>
             <div>
-                <h1>About Us</h1>
+                <br/>
                 <p>
-                    At PitchVivid, we strive to connect employers with those who who truly want to work with them.<br/><br/>
+                    At PitchVivid, we strive to connect employers with those who who truly want to work with them.
                     
                     For every job opening, there are many applicants who care deeply about the mission and goals espoused by a company.  However, these job-seekers can get lost in the many applications sent by those who are just looking for a job.  At PitchVivid, we want to make finding the ideal candidate easier, by giving them the platform to stand out and set themselves apart.  
 
