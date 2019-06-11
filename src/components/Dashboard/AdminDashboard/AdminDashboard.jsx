@@ -203,13 +203,15 @@ class AdminDashboard extends Component {
             )
         })
         let adminDisplay = this.state.administrators.map(admin=> {
-            return (
-                <div className='adminCard' key={admin.id}>
-                    <p>{admin.first_name} {admin.last_name}</p>
-                    <button onClick={() => this.deleteAdmin(admin.id)}>Remove as Admin</button>
-                    <button onClick={()=> this.transferOwnership(admin.id)}>Transfer Ownership</button>
-                </div>
-            )
+            if (admin.id !== this.props.id){
+                return (
+                    <div className='adminCard' key={admin.id}>
+                        <p>{admin.first_name} {admin.last_name}</p>
+                        <button onClick={() => this.deleteAdmin(admin.id)}>Remove as Admin</button>
+                        <button onClick={()=> this.transferOwnership(admin.id)}>Transfer Ownership</button>
+                    </div>
+                )
+            }
         })
         let blockedUsersDisplay = this.state.blockedUsers.map(user => {
             return (
