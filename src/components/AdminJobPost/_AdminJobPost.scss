@@ -48,9 +48,10 @@
     margin: 1.5em;
     overflow: hidden;
     align-items: center;
-    margin-top: 15%;
+    // margin-top: 15%;
     border-radius: 10px;
     background-color: #212529;
+    box-sizing: content-box;
     h2 {
         color: white;
     }
@@ -130,6 +131,7 @@
 	padding:12px 37px;
 	text-decoration:none;
     text-shadow:0px 1px 0px #283966;
+    box-sizing: content-box;
 }
 .myButton:hover {
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #476e9e), color-stop(1, #7892c2));
@@ -179,8 +181,11 @@
         width: 100%;
         margin-top: 3em;
     }
-    .myButton{
-        width: 4em;
-        min-height: 4em;
+    .carouselDisplay{
+        overflow: unset;
     }
+    // .myButton{
+    //     width: 4em;
+    //     min-height: 4em;
+    // }
 }
