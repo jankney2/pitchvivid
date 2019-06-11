@@ -4,9 +4,6 @@ const nodemailer = require('nodemailer')
 module.exports = {
     sendEmail: (req, res)=> {
         const {company_name, user_email, text} = req.body
-        console.log(`Company Name: ${company_name}`)
-        console.log(`User Email: ${user_email}`)
-        console.log(`Email Body: ${text}`)
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
