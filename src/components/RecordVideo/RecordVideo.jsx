@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { v4 as randomString } from 'uuid';
 import axios from 'axios'
-import {withRouter} from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 class RecordVideo extends Component {
     constructor() {
@@ -13,10 +13,11 @@ class RecordVideo extends Component {
             recordingMessage: 'Now LIVE!',
             isUploading: false,
             url: false,
-            uploadFile:{},
-            finalVideo:'',
+            uploadFile: {},
+            finalVideo: '',
             liveShow: false,
-            stream: null
+            stream: null,
+
         }
     }
 
@@ -47,62 +48,79 @@ class RecordVideo extends Component {
         }).catch(err => console.log(`There appears to be an error. Here are some details: ${err}`))
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         // this will destroy the MediaStream/MediaRecorder connection that the browser makes upon recording a video- as soon as the component unmounts
-        this.state.stream.getTracks().forEach(track=>track.stop())
+        this.state.stream.getTracks().forEach(track => track.stop())
     }
 
-    countTillRecord = () => { 
-        let timeLeft = 1;
-        let elem = document.getElementById('some_div');
-        const countdown=() =>  {
-            // this.setState({liveShow: true})
-            if (timeLeft == -1) {
+    countTillRecord = () => {
+        let timeLeft = 5;
+        let video = document.getElementById('record')
+        let elem = document.getElementById('countdown-timer');
+        let fillerVideo = document.getElementById('filler-video')
+
+
+
+        const countdown = () => {
+            
+            if (timeLeft === 0) {
                 clearTimeout(timerId);
-                this.startRecording();
                 elem.innerHTML = '';
+                fillerVideo.classList.add('hide')
+                video.classList.remove('hide')
+                this.startRecording();
             } else {
-                elem.innerHTML = 'Recording in '+  timeLeft;
+                elem.innerHTML = 'Recording in ' + timeLeft;
                 timeLeft--;
+               
             }
         }
         let timerId = setInterval(countdown, 1000);
     }
 
-    startRecording = () => {
+    startRecording() {
         // if we're already recording, do nothing (or else it will error out)- else, begin recording (and, optionally, opt to display the video element)
+        this.setState({
+            recording: true,
+            liveShow: true,
+
+            })
         if (this.state.mediaRecorder.state === 'recording') {
+
             return
         } else {
-            this.setState({
-                recording: true
-            })
+           
+            let timeLeft = 30;
+            let elem = document.getElementById('record-timer');
+           
+            const countdown = () => {
+               
+                if (timeLeft == -1 || this.state.recording === false) {
+                    clearTimeout(timerId);
+                    this.stopRecording();
+                    elem.innerHTML = '';
+                } else {
+                    elem.innerHTML = timeLeft + ' seconds remaining';
+                    timeLeft--;
+                }
+            }
+            let timerId = setInterval(countdown, 1000);
+
+           
+
             let video = document.getElementById('record')
             let playback = document.getElementById('playback')
             playback.classList.add('hide')
             video.classList.remove('hide')
             video.play();
             this.state.mediaRecorder.start()
-            
+
         }
-        let timeLeft = 30;
-        let elem = document.getElementById('some_div');
-        const countdown=() =>  {
-            this.setState({liveShow: true})
-            if (timeLeft == -1 || this.state.recording === false) {
-                clearTimeout(timerId);
-                this.stopRecording();
-                elem.innerHTML = '';
-            } else {
-                elem.innerHTML = timeLeft + ' seconds remaining';
-                timeLeft--;
-            }
-        }
-        let timerId = setInterval(countdown, 1000);
+
     }
 
     stopRecording = e => {
-        this.setState({liveShow: false})
+        this.setState({ liveShow: false })
         // if we're not recording, do nothing (or else it will error out)- else, stop recording and pause record video element
         if (this.state.mediaRecorder.state === 'inactive') {
             return
@@ -123,11 +141,11 @@ class RecordVideo extends Component {
             // once we stop recording, save the vid as a Blob object, empty state, create a virtual URL for the blob,
             // and finally set the source of our 'playback' video element to the virtual URL we just created
             recorder.onstop = e => {
-                let blobVid = new File(this.state.video, { type: 'video/mp4'})
+                let blobVid = new File(this.state.video, { type: 'video/mp4' })
                 let videoUrl = window.URL.createObjectURL(blobVid)
                 this.setState({
                     video: [],
-                    blob: {blobVid, type: 'video/mp4'},
+                    blob: { blobVid, type: 'video/mp4' },
                     videoURL: videoUrl
                 })
                 const playback = document.getElementById('playback');
@@ -163,8 +181,8 @@ class RecordVideo extends Component {
             },
         }
         axios.put(signedRequest, file, options)
-            .then((response) => { 
-                this.setState({finalVideo: url})
+            .then((response) => {
+                this.setState({ finalVideo: url })
                 this.setState({ isUploading: false, url })
 
                 console.log(this.state)
@@ -187,10 +205,10 @@ class RecordVideo extends Component {
                 }
             })
     }
-    sendToDb = async () => { 
-        const {job_id} = this.props.job_id
+    sendToDb = async () => {
+        const { job_id } = this.props.job_id
         const video_url = this.state.url
-        await axios.post('/api/userVideos', {video_url, job_id});
+        await axios.post('/api/userVideos', { video_url, job_id });
         console.log(job_id, video_url)
         console.log('this works')
         this.props.history.push('/dashboard')
@@ -199,35 +217,47 @@ class RecordVideo extends Component {
     render() {
         return (
             <>
-                <div id="some_div"></div>
+                <div id="countdown-timer"></div>
                 {
-                    this.state.liveShow?<>
-                         <div id="some_div"></div>
-                        <h2>{this.state.recordingMessage}</h2></> :
+                    this.state.liveShow ? <>
+                        <div id="record-timer">
+                        </div>
+                            <h2>Now Recording</h2>
+
+                    </> :
                         <></>
                 }
-                
+
                 <div className='record-play-container'>
-                    <video id='record' muted></video>
+
+
+
+
+                    <iframe id='filler-video' title='video' width="560" height="315" src="https://www.youtube.com/embed/yo9RUgEauhM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                    <video className='hide' id='record' muted></video>
                     <br />
-                    <video className ='hide' controls id='playback'></video>
+                    <video className='hide' controls id='playback'></video>
                     <br />
+
+
+
                     <button onClick={this.countTillRecord}>Begin Recording</button>
                     <br />
                     <button onClick={e => this.stopRecording(e)}>Stop Recording</button>
-                  
-                   
-                   {
-                       this.state.isUploading?
-                       <div class="spinner"></div>:
-                    <button className='picture-upload' onClick={() => this.getSignedRequest(this.state.blob.blobVid)}> 
-                        Upload file
+
+
+                    {
+                        this.state.isUploading ?
+                            <div className="spinner"></div> :
+                            <button className='picture-upload' onClick={() => this.getSignedRequest(this.state.blob.blobVid)}>
+                                Upload file
                     </button>
 
-                   }
-                   
+                    }
+
                 </div>
-          
+
             </>
         )
     }
