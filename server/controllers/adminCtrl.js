@@ -114,6 +114,16 @@ module.exports={
       console.log(`There was an error updating ownership: ${err}`)
       res.sendStatus(500)
     })
-  }
+  },
 
+  newCompany: async (req, res) => {
+    const db = req.app.get('db')
+    const {companyName, adminKey} = req.body
+    let companyArr = await db.adminCtrl.newCompany({companyName, adminKey})
+    if (!companyArr[0]){
+      res.sendStatus(500)
+    } else {
+      res.sendStatus(201)
+    }
+  }
 }

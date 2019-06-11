@@ -47,6 +47,7 @@ module.exports = {
       email: user.email,
       firstName: user.first_name,
       lastName: user.last_name,
+      resume: user.resume
     }
     res.status(200).send(req.session.user)
   },

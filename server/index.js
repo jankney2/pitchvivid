@@ -100,6 +100,9 @@ app.delete('/api/admins/:id', adminCtrl.deleteAdmin)
 app.get('/api/admins/key', adminCtrl.getAdminKey)
 app.put('/api/transfer/:id', adminCtrl.makeOwner)
 
+// companies
+app.post('/api/newCompany', adminCtrl.newCompany)
+
 // videos
 app.get('/api/userVideos', userCtrl.getAllVideos)
 app.get('/api/userVideos/:job_id', userCtrl.getVideo)
