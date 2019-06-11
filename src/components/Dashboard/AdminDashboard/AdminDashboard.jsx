@@ -4,7 +4,6 @@ import {withRouter} from 'react-router-dom'
 import {updateUser} from '../../../redux/reducer'
 import {connect} from 'react-redux'
 import Popup from 'reactjs-popup'
-import { async } from 'q';
 
 class AdminDashboard extends Component {
     constructor() {
@@ -193,9 +192,11 @@ class AdminDashboard extends Component {
                             <p>Opening Date: {job.opening_date}</p>
                             <p>Closing Date: {job.closing_date}</p>
                             <p>Position Filled: {job.filled}</p>
-                            <button onClick={()=>this.viewJob(job.id)}>View Job</button>
-                            <button onClick={()=>this.handleEditJob(job.id, job.job_title, job.details, job.archived, job.opening_date, job.closing_date, job.filled)}>Edit Posting</button>
-                            <button onClick={()=> this.deleteJob(job.id)}>Delete Posting</button>
+                            <span className='jobButtonBlock'>
+                                <button onClick={()=>this.viewJob(job.id)}>View Job</button>
+                                <button onClick={()=>this.handleEditJob(job.id, job.job_title, job.details, job.archived, job.opening_date, job.closing_date, job.filled)}>Edit Posting</button>
+                                <button onClick={()=> this.deleteJob(job.id)}>Delete Posting</button>
+                            </span>
                         </span>
                     }
                 </div>

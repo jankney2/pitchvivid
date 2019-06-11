@@ -36,3 +36,7 @@
 .blockedUserCard{
     @include card();
 }
+
+.jobButtonBlock{
+    display: flex;
+}
