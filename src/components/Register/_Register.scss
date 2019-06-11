@@ -3,30 +3,34 @@
     grid-template-columns: 1fr;
 };
 
-.register-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.inputContainers {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(5, 1fr);
-    justify-items: center;
-    grid-gap: 1em;
-}
-
 .checkbox-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    span {
-        display: flex;
-    }
-    .owner-container {
-        display: flex;
-        flex-direction: column;
-    }
 }
 
+.checkboxes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.checkbox {
+    width: 20px;
+    margin-left: 15px;
+}
+
+.registerPlate {
+    height: 550px;
+    margin-top: 23px;
+}
+
+#company-name-input {
+    margin-bottom: 10px;
+}
+
+@media (max-height: 605px){
+    .registerPlate{
+        margin-top: 100px;
+    }
+}

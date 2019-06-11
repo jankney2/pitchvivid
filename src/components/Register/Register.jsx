@@ -14,7 +14,7 @@ class Register extends Component {
             lastName: '',
             adminKey: '',
             owner: false,
-            admin: false,
+            admin: true,
         }
     }
 
@@ -46,35 +46,40 @@ class Register extends Component {
     
     render() {
         return (
-            <div className='register-container'>
-                <div className='inputContainers'>
-                    <h2>Register New User</h2>
-                    <input placeholder='Email' onChange={e => this.handleChange("email", e.target.value)} />
-                    <input type='password' placeholder='Password' onChange={e => this.handleChange("password", e.target.value)} />
-                    <input placeholder="First Name" onChange={e => this.handleChange("firstName", e.target.value)} />
-                    <input placeholder='Last Name' onChange={e => this.handleChange("lastName", e.target.value)} />
+            <div className='authBack'>
+                <div className='authBackImg'></div>
+                <div className='user-login-view authPlate registerPlate'>
+                    <h1 className='loginTitle'>Register New {this.state.admin ? 'Admin' : 'User'}</h1>
+                    <div className='formDiv'>
+                        <div className='checkbox-container'>
+                            <span className='checkboxes'>
+                                <p className='authSection'>I'm hiring for a company</p>
+                                <input id='recruit-box' className='checkbox' type='checkbox' onClick={() => this.checkBoxHandle('admin')} checked={this.state.admin == true ? true : false}/>
+                            </span>
+                            {
+                                this.state.admin ? 
+                                <span className='owner-container'>
+                                    <input id='company-name-input' placeholder='Admin Key' onChange={e => this.handleChange("adminKey", e.target.value)} /> 
+                                    <span className='checkboxes'>
+                                        <p className='authSection'>I'm an executive in the company</p>
+                                        <input className='checkbox' type='checkbox' onClick={() => this.checkBoxHandle('owner')} />
+                                    </span>
+                                </span> : 
+                                <> </>
+                            }
+                        </div>
+                        <p className='authSection'>{`${this.state.admin ? 'Work' : 'Personal'} email:`}</p>
+                        <input placeholder='email' onChange={e => this.handleChange("email", e.target.value)} />
+                        <p className='authSection'>Password:</p>
+                        <input type='password' placeholder='password' onChange={e => this.handleChange("password", e.target.value)} />
+                        <p className='authSection'>First name:</p>
+                        <input placeholder="first name" onChange={e => this.handleChange("firstName", e.target.value)} />
+                        <p className='authSection'>Last name:</p>
+                        <input placeholder='last name' onChange={e => this.handleChange("lastName", e.target.value)} />
+                    </div>
+
+                    <button className='landingBtn' onClick ={this.handleSubmit}>Register</button>
                 </div>
-
-
-                <div className='checkbox-container'>
-                    <span>
-                        <p id='recruiting'>I am recruiting for a company</p>
-                        <input id='recruit-box' className='checkbox' type='checkbox' onClick={() => this.checkBoxHandle('admin')} />
-                    </span>
-                {
-                    this.state.admin ? 
-                    <span className='owner-container'>
-                        <input id='company-name-input' placeholder='Admin Key' onChange={e => this.handleChange("adminKey", e.target.value)} /> 
-                        <span>
-                            <p>I am the owner of the company</p>
-                            <input className='checkbox' type='checkbox' onClick={() => this.checkBoxHandle('owner')} />
-                        </span>
-                    </span> : 
-                    <> </>
-                }
-                </div>
-                <button id='register-button'onClick ={this.handleSubmit}>Register</button>
-
             </div>
         )
     }
