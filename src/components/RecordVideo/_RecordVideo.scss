@@ -53,3 +53,58 @@
         will-change: transform;
     }
 }
+
+
+
+@media only screen and (max-width: 600px){
+
+    #filler-video{
+        width: 200px;
+        height: 200px;
+    }
+
+    .hide{
+        display: none;
+
+    }
+    #record{
+        display: none;
+    }
+    
+    #playback{
+        height: 200px;
+        width: 200px;
+    }
+    #record-button{
+        display: none;
+    }
+
+    #stop-recording{
+        display: none;
+    }
+
+ 
+
+    .picture-upload{
+        display: none;
+    }
+
+
+    
+
+}
+
+
+@media only screen and (min-width: 601px){
+
+    .video-capture{
+        display: none; 
+    }
+
+    .mobile-upload{
+        display: none;
+    }
+    }
+
+
+
