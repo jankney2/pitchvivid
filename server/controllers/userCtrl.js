@@ -57,6 +57,27 @@ module.exports = {
     }
   },
 
+
+
+  uploadResume: async (req, res) => { 
+    console.log('this is the session', req.session)
+    let user_id = req.session.user.id
+    console.log('this is the user', user_id)
+    const {url} = req.body
+    const db = req.app.get('db')
+    console.log('this is the url', url)
+    let resume = await db.userCtrl.uploadResume({user_id, resume: url})
+    console.log(resume)
+    let resumeLink = resume[0]
+    
+    try {
+      res.status(200).send(resumeLink)
+    }
+    catch {
+      res.status(500).send('Internal server error')
+    }
+  },
+
   updateVideo: async (req, res) => {
     let user_id = req.session.user.id
     let {job_id, video_url} = req.body

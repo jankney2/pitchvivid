@@ -9,6 +9,7 @@ const authCtrl = require('./controllers/authCtrl')
 const adminCtrl = require('./controllers/adminCtrl')
 const blockCtrl = require('./controllers/blockCtrl')
 const userCtrl = require('./controllers/userCtrl')
+const emailCtrl = require('./controllers/emailCtrl')
 const {SESSION_SECRET, CONNECTION_STRING, SERVER_PORT, S3_BUCKET, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY} = process.env
 
 const aws = require('aws-sdk')
@@ -78,6 +79,7 @@ app.post('/auth/loginAdmin', authCtrl.loginAdmin)
 app.delete('/auth/logout', authCtrl.logout)
 app.put('/auth/updateUser', authCtrl.updateUser)
 app.put('/auth/updateAdmin', authCtrl.updateAdmin)
+app.put('/auth/reset-pass', authCtrl.resetPass)
 app.get('/api/session', authCtrl.checkForSession)
 app.post('/auth/admin', authCtrl.authenticateAdmin)
 app.post('/auth/user',authCtrl.authenticateUser)
@@ -96,6 +98,7 @@ app.get('/api/openpostings', userCtrl.getOpenJobs)
 app.get('/api/admins', adminCtrl.getAdmins)
 app.delete('/api/admins/:id', adminCtrl.deleteAdmin)
 app.get('/api/admins/key', adminCtrl.getAdminKey)
+app.put('/api/transfer/:id', adminCtrl.makeOwner)
 
 // videos
 app.get('/api/userVideos', userCtrl.getAllVideos)
@@ -103,10 +106,12 @@ app.get('/api/userVideos/:job_id', userCtrl.getVideo)
 app.delete('/api/userVideos/:job_id', userCtrl.deleteVideo)
 app.put('/api/userVideos', userCtrl.updateVideo)
 app.post('/api/userVideos', userCtrl.newVideo)
+app.put('/api/uploadResume', userCtrl.uploadResume)
 
 // admin notes
 app.get('/api/adminnotes/getAll/:job_id', adminNotesCtrl.getAll)
 app.get('/api/adminnotes/liked/:job_id', adminNotesCtrl.getLiked)
+app.get('/api/company-name/:id', adminNotesCtrl.getCompanyName)
 app.get('/api/adminnotes/:admin_notes_id', adminNotesCtrl.getNote)
 app.post('/api/adminnotes', adminNotesCtrl.newUpdateNote)
 app.delete('/api/adminnotes/:admin_notes_id', adminNotesCtrl.deleteNote)
@@ -119,3 +124,8 @@ app.delete('/api/annoy/:id', annoyCtrl.deleteAnnoyUser)
 
 // block users
 app.post('/api/block', blockCtrl.blockUser)
+
+// node-mailer 
+app.post('/send', emailCtrl.sendEmail)
+app.post('/reset', emailCtrl.resetPassword)
+app.post('/api/validate', emailCtrl.validateUser)

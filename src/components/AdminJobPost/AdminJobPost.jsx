@@ -17,11 +17,14 @@ class AdminJobPost extends Component {
             applicantResume: null,
             applicantName: '',
             applicantId: '',
-            // applicantBlocked: false, 
+            applicantPDFResume: null,
             note: '',
+            newNote: '',
+            companyName: '',
             job_id: null,
             jobTitle: '',
-            jobDescription: ''
+            jobDescription: '',
+            applicantContacted: false
         }
     }
 
@@ -37,10 +40,13 @@ class AdminJobPost extends Component {
         })
         const jobData = await axios.get(`/api/postings/${this.state.job_id}`)
         const videos= await axios.get(`/api/adminnotes/getAll/${this.state.job_id}`)
+        const companyData = await axios.get(`/api/company-name/${this.props.companyId}`)
+        console.log(companyData)
         this.setState ({
             videoResumes: videos.data,
             jobTitle: jobData.data[0].job_title,
-            jobDescription: jobData.data[0].details
+            jobDescription: jobData.data[0].details,
+            companyName: companyData.data[0].name
         })
         // if(this.state.videoResumes.length > 0){
         //     document.getElementById('resumeViewer').src= this.state.videoResumes[this.state.selectedVideo].video_url
@@ -59,6 +65,8 @@ class AdminJobPost extends Component {
             applicantDisliked: resume.disliked,
             applicantResume: resume.resume,
             applicantId: resume.userid,
+            applicantEmail: resume.email,
+            applicantPDFResume: resume.resume,
             note: resume.notes
         })
         this.setSelected()
@@ -93,7 +101,7 @@ class AdminJobPost extends Component {
     }
     handleBlock=async()=> {
         const {applicantId:user_id} = this.state
-        await axios.post(`/api/block`, {user_id})
+        await axios.post(`/api/annoy`, {user_id})
         this.updateUser();
         this.getVideos();
     }
@@ -105,54 +113,87 @@ class AdminJobPost extends Component {
     }
     handleAddNote=async(callback)=> {
         callback();
+        this.setState({
+            note: this.state.newNote
+        })
         this.updateUser();
         this.getVideos();
+    }
+    handleContactFurther=async()=> {
+        const {companyName:company_name, applicantEmail:user_email} = this.state
+        const text = (`
+            <div>
+                <p>Dear <b>${this.state.applicantName}</b>, </p>
+                <br /> <br/>
+                <p>Your video resume for ${this.state.companyName} has been reviewed! The hiring managers have expressed interest in your application. You should expect contact from them in the near future. </p>
+                <br/> <br/>
+                <p>Thank you for using PitchVivid, and good luck in your job hunt!</p>
+            </div>
+        `)
+        await axios.post('/send', {company_name, user_email, text})
+        this.setState({
+            applicantContacted: true
+        })
     }
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     render() {
         let displayVideoCarousel = this.state.videoResumes.map((resume, index)=> {
             return (
-                <div key={index} className='adminJobPostResumeCard'>
+                <div key={index} className='adminJobPostResumeCard' onClick={()=>this.handleSelect(resume, index)}>
                     <p>Applicant Name: {resume.firstname} {resume.lastname} </p>
-                    <button onClick={()=>this.handleSelect(resume, index)}>View Resume</button>
                 </div>
             )
         })
         return(
             <div className='adminJobPostContainer'>
                 <div className='adminJobPostSelectedView'>
-                    <video controls id='resumeViewer'></video>
-                    <div className='resumeViewerInfo'>
-                        <p><b>Applicant's Name:</b> {this.state.applicantName}</p>
-                        <p><b>Job Title:</b> {this.state.jobTitle}</p>
-                        <p><b>Job Description:</b> {this.state.jobDescription}</p>
-                        <p><b>Notes: </b> {this.state.note}</p>
+                    <div className='postVidAndButtons'>
+                        <video controls id='resumeViewer'></video>
                         <div className='resumeViewerButtons'>
                             {
                                 this.state.applicantLiked ? 
                                 <button className='likedVid'>Liked</button> :
                                 <button onClick={this.handleLike} className='likeButton'>Like</button>
                             }
-                            <button onClick={this.handleBlock} className='resumeBlockButton'>Block</button>
                             {
                                 this.state.applicantDisliked ? 
                                 <button className='dislikedVid'>Disliked</button> :
                                 <button onClick={this.handleDislike}>Dislike</button>
                             }
+                            <button onClick={this.handleBlock} className='resumeBlockButton'>Block</button>
                         </div>
+                    </div>
+                    <div className='resumeViewerInfo'>
+                        <p><b>Applicant's Name:</b> {this.state.applicantName}</p>
+                        {
+                            this.state.applicantPDFResume !== null ?
+                            <p>Applicant's Resume: <a target='_blank' href={this.state.applicantPDFResume}>click to view</a></p>
+                            :
+                            <> </>
+                        }
+                        <p><b>Job Title:</b> {this.state.jobTitle}</p>
+                        <p><b>Job Description:</b> {this.state.jobDescription}</p>
+                        <p><b>Notes: </b> {this.state.note}</p>
                         <div className='noteButtonContainer'>
                             {/* <button className='noteButton'>Add Note</button> */}
                             <Popup trigger={<button>Add Note</button>} position='top center'>
                                 {
                                     close=> (
                                         <div>
-                                            <input onChange={e=>this.handleNoteChange(e)} type='text' name='note' value={this.state.note} placeholder='New Note' />
+                                            <input onChange={e=>this.handleNoteChange(e)} type='text' name='newNote' placeholder='New Note' />
                                             <button onClick={()=>this.handleAddNote(close)}>Post New Note</button>
                                         </div>
                                     )
                                 }
                             </Popup>
+                            {
+                                !this.state.applicantContacted ? 
+                                <button onClick={()=> {this.handleContactFurther()}}>Contact Further</button>
+                                :
+                                <p>We've Notified This User of Your Interest!</p>
+
+                            }
                         </div>
                     </div>
                 </div>

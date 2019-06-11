@@ -35,8 +35,9 @@ class AdminLogin extends Component {
     }
     render() {
         return (
-            <div className='landingBack'>
-                <div className='user-login-view'>
+            <div className='authBack'>
+                <div className='authBackImg'></div>
+                <div className='user-login-view authPlate'>
                     <h1 className='loginTitle'>Hiring Admin Login</h1>
                     <div className='formDiv'>
                         <p className='authSection'>Work email:</p>
@@ -49,7 +50,7 @@ class AdminLogin extends Component {
                         <h3 className='wrongCred'>Incorrect credentials. Please try again.</h3> :
                         <> </>
                     }
-                    <Link to='/'>
+                    <Link to='/password-reset'>
                         <a className='forgotPW'>Forgot password?</a>
                     </Link>
                     <button type='button' className='landingBtn' onClick={this.handleSubmit}>Login</button>

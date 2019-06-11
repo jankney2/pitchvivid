@@ -2,8 +2,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 1.5em;
-    padding: 1.5em;
+    // margin: 1.5em;
+    // margin-top: 55px;
+    padding-top: 75px;
+    padding: 75px 1.5em;
 }
 
 .adminJobPostSelectedView{
@@ -14,26 +16,16 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        width: 40%;
+        width: 60%;
         p{
             margin-left: 3em;
             margin-bottom: 1em;
         }
-        .resumeViewerButtons{
-            display: flex;
-            justify-content: space-around;
-            margin: 1em;
-            button{
-                padding: 1.5em;
-                border-radius: 10px;
-            }
-        }
         .noteButtonContainer{
             display: flex;
-            justify-content: center;
-            .noteButton{
-                width: 60%;
-                padding: 1em;
+            justify-content: space-around;
+            button {
+                padding: 0.7em;
                 border-radius: 10px;
             }
         }
@@ -47,7 +39,6 @@
 }
 
 #resumeViewer{
-    width: 60%;
     height: 60%;
     max-height: 40vh;
 }
@@ -65,7 +56,7 @@
     border: 2px solid black;
     border-radius: 10px;
     padding: 1.5em;
-    margin: 1em;
+    cursor: pointer;
 }
 
 .likedVid {
@@ -75,4 +66,25 @@
 
 .dislikedVid {
     background: yellow;
+}
+
+.postVidAndButtons{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    video {
+        width: 70%;
+    }
+}
+
+.resumeViewerButtons{
+    display: flex;
+    justify-content: space-evenly;
+    width: 98%;
+    margin-top: 1em;
+    button{
+        padding: 1em 2.5em;
+        border-radius: 10px;
+    }
 }

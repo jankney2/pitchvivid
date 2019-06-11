@@ -74,5 +74,17 @@ module.exports = {
     catch {
       res.status(500).send('Internal server error')
     }
+  },
+  getCompanyName: (req, res) => {
+    const db = req.app.get('db')
+    const {id} = req.params
+
+    try {
+      db.adminNotesCtrl.getCompanyName({id}).then(name=> {
+        res.status(200).send(name)
+      })
+    } catch {
+      res.status(500).send('Error retrieving company name')
+    }
   }
 }

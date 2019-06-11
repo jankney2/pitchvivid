@@ -4,9 +4,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100vw;
+    min-width: 100vw;
     height: 100vh;
     flex-direction: column;
+}
+
+.authPlate {
+    background-color: rgba(77, 77, 77, 0.568);
+    min-width: 400px;
+    height: 375px;
+    align-self: center;
+    position: absolute;
+    z-index: 0;
+    border: none;
+    border-radius: 8px;
+    box-shadow: (inset 0px 2px 3px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(77, 77, 77, 0.8));   
 }
 
 .loginTitle {
@@ -16,16 +28,20 @@
 
 .formDiv {
     margin: 0 0 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .authSection {
     margin: 10px 0 0 0;
-    color: rgb(61, 61, 61);
-    // text-shadow: 1px 1px 1px $navbar;
+    color: rgb(46, 46, 46);
+    align-self: flex-start;
 }
 
 input { 
-    width: 100%;
+    width: 300px;
     height: 30px;
     margin: 0;
     border: solid 1px black;
@@ -58,4 +74,29 @@ input {
     color: $brightBlue;
     text-shadow: 1px 1px 1px $navbar;  
     margin: 0;
+}
+
+.authBack {
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;  
+    align-items: flex-start;
+    margin: 0;
+}
+
+.authBackImg {
+    background-image: url('https://i.ibb.co/VYrqgJ0/backgroundphoto.png'), linear-gradient(135deg, $brightBlue, $lightBlue 90%);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 0;
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
 }

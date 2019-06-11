@@ -27,3 +27,12 @@
 .adminCard {
     @include card();
 }
+
+.adminDashBlockedUsers{
+    background: greenyellow;
+    @include boxShadow();
+}
+
+.blockedUserCard{
+    @include card();
+}
