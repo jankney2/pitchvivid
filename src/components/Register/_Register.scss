@@ -21,12 +21,16 @@
 }
 
 .registerPlate {
-    height: 550px;
+    height: 570px;
     margin-top: 23px;
 }
 
 #company-name-input {
     margin-bottom: 10px;
+}
+
+.newCompanyLink {
+    display: block;
 }
 
 @media (max-height: 605px){
