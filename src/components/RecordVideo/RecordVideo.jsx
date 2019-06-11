@@ -251,7 +251,7 @@ class RecordVideo extends Component {
                         this.state.isUploading ?
                             <div className="spinner"></div> :
                             <button className='picture-upload' onClick={() => this.getSignedRequest(this.state.blob.blobVid)}>
-                                Upload file
+                                Upload Video
                     </button>
 
                     }
