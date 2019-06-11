@@ -108,5 +108,13 @@ module.exports = {
     catch {
       res.status(500).send('Internal server error')
     }
-  }
+  },
+
+  //demo functionality only.  In production, you'd need to get  a specific link to a job posting.
+  getOpenJobs: (req, res)=>{
+    const db = req.app.get('db')
+    db.userCtrl.getOpenJobs().then(data =>{
+      res.status(200).send(data)
+    }).catch(err=>{console.log(err); res.sendStatus(500)})
+  },
 }

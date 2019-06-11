@@ -1,0 +1,1 @@
+select * from jobs where filled = false and archived = false;
