@@ -177,7 +177,7 @@ class AdminJobPost extends Component {
                         <p><b>Notes: </b> {this.state.note}</p>
                         <div className='noteButtonContainer'>
                             {/* <button className='noteButton'>Add Note</button> */}
-                            <Popup trigger={<button>Add Note</button>} position='top center'>
+                            <Popup trigger={<button className='popupButton'>Add Note</button>} position='top center'>
                                 {
                                     close=> (
                                         <div>

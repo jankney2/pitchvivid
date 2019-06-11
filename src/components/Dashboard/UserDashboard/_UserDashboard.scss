@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-   
+    margin-top: 75px;
 }
 
 .dash-header{
@@ -13,7 +13,6 @@
     background-color: grey;
     position: relative;
     right:0;
-
 }
 
 .dash-left{
@@ -32,9 +31,6 @@
     padding-left: 1em;
     float: right;
     margin-bottom:1em;
-
-
-    // position: relative;
 }
 .appliedJobSearch{
     border: solid 1px black;
@@ -44,36 +40,49 @@
     padding-left: 1em;
     float: left;
     margin-bottom:1em;
-    // position: relative;
 }
 
 .appliedJobApps-container{
-    width: 50vw;
+    width: 48vw;
     height: auto;
     float: left;
 }
 
 .allJobs-container{
-    width: 50vw;
+    width: 48vw;
     height: auto;
     float: right;
 }
 .job-listing{
     display: flex;
-    // flex-direction: column;
-    // align-items: center;
-    // background-color: grey;
-    // height: 10em;
     width: 100%;
-    // margin: auto;
-    // margin-right: 20px;
     a {
         text-decoration: none;
         color: black;
     }
 }
 
+.jobMapSpan{
+    a:nth-of-type(even){
+        span{
+            background-color: #212529;
+            div{
+                color: white;
+            }
+        }
+    }
+}
 
+.allJobMapSpan{
+    a:nth-of-type(odd){
+        span{
+            background-color: #212529;
+            div{
+                color: white;
+            }
+        }
+    }
+}
 
 
 .job-title{
@@ -101,13 +110,74 @@
     justify-content: space-between;
     align-items: center;
     background-color: white;
-    width: 100%;
+    width: 98%;
     height: 60px;
     // margin: 10px;
     border: solid 1px black;
     margin:  1em  0 1em 0 ;
-    padding: 0 .5em 0 .5em;
-   
-   
+    padding: 0 .5em 0 .5em; 
 }
 
+.userDashHeader{
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+}
+.userDashContent {
+    display: flex;
+    justify-content: space-around;
+}
+.searchSpan{
+    display: flex;
+    justify-content: center;
+    input{
+        text-align: center;
+    }
+}
+.userDashHeaderSpan{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1em;
+    h1{
+        color: #212529
+    }
+}
+@media(max-width: 1100px){
+    .job-span{
+        font-size: 0.8em;
+    }
+}
+
+@media(max-width: 900px){
+    .userDashContent{
+        flex-direction: column;
+    }
+    .job-span{
+        font-size: 1em;
+    }
+    .appliedJobApps-container{
+        width: 80vw;
+        .appliedJobSearch{
+            float:none;
+        }
+    }
+    .allJobs-container{
+        width: 80vw;
+        .allJobSearch{
+            float:none;
+        }
+    }
+}
+@media(max-width:500px){
+    .userdash-view{
+        font-size: 0.8em;
+    }
+    .job-span{
+        font-size: 0.9em;
+    }
+}
+@media(max-width:400px){
+    .job-span{
+        font-size: 0.7em;
+    }
+}

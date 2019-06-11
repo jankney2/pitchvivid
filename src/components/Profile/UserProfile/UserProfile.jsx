@@ -189,8 +189,8 @@ class UserProfile extends Component {
     console.log(state)
     return (
 
-      <div style={{ 'margin-top': '55px' }}>
-        <h1>user Info:</h1>
+      <div className='profileContainer'>
+        <h1>Your Info:</h1>
 
         {this.state.editToggle ?
 
@@ -220,8 +220,8 @@ class UserProfile extends Component {
               console.log(item)
               return <div>
 
-                <div>{item[0]}</div>
-                <div>{item[1]}</div>
+                <div className='profileItem'>{item[0]}: {item[1]}</div>
+                {/* <div>{item[1]}</div> */}
 
 
               </div>

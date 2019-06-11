@@ -24,11 +24,8 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: flex-start;
-    // background-color: rgb(126, 122, 122);
-    // width: 100%;
     height: 20%;
-    // text-decoration: underline ;
-    
+    margin-top: 30%;
 }
 
 .jobpost-company-name{
@@ -107,4 +104,37 @@ border-bottom: solid 1px black;
 #playback{
     height: auto;
     width: 90%;
+}
+
+@media(max-width:1100px){
+    .jobpost-job-details{
+        width: 70%;
+    }
+}
+
+@media(max-width: 750px){
+    .jobpost-view{
+        font-size: 0.8em;
+    }
+}
+
+@media(max-width: 500px){
+    .jobpost-company-job-info{
+        margin-top:10em;
+    }
+    .jobpost-view{
+        flex-direction: column;
+    }
+    .left-side {
+        width: 100%;
+        .jobpost-company-job-info{
+            align-items: center;
+        }
+        .jobpost-job-details{
+            width: 100%;
+        }
+    }
+    .right-side{
+        width: 100%
+    }
 }

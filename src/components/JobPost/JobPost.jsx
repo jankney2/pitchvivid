@@ -46,7 +46,6 @@ class JobPost extends Component {
                             {this.state.jobPost.opening_date}-{this.state.jobPost.closing_date}
                         </div>
                     </div>
-Details for the JOB
                     <div className='jobpost-job-details'>
                         {this.state.jobPost.details}
                     </div>

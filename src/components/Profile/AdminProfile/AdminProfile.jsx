@@ -118,8 +118,8 @@ class AdminProfile extends Component {
           console.log(item)
           return <div>
 
-            <div>{item[0]}</div>
-            <div>{item[1]}</div>
+            <div className='profileItem'>{item[0]}: {item[1]}</div>
+            {/* <div>{item[1]}</div> */}
 
           </div>
         })}
