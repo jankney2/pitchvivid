@@ -94,45 +94,26 @@ class UserDashboard extends Component {
 
 
         return (
-            <>
-                <div className='userdash-view'>
-
-
-
-
-                    <h1>{`Welcome ${this.state.firstName}, to PitchVivid!`}</h1>
-                    <h1>Job Applications</h1>
-                    <div className='job-listing'>
-                        <div className='appliedJobApps-container'>
-                            <input className='appliedJobSearch' placeholder='Search All Your Applications' onChange={e => this.searchChange('appliedJobSearch', e.target.value)} />
-
-                            {appliedJobApps}
-
-
-                            {
-
-                                <> </>
-                            }
-                        </div>
-
-                        <div className='allJobs-container'>
-                            <input className='allJobSearch' placeholder='Search All Jobs' onChange={e => this.searchChange('allJobSearch', e.target.value)} />
-
-                            {allJobs}
-
-
-                            {
-
-                                <> </>
-                            }
-                        </div>
-                    </div>
-
-
-
+            <div className='userdash-view'>
+                <div className='userDashHeader'>
+                    <h1>{`Welcome to PitchVivid, ${this.state.firstName} `}</h1>
+                    <h1>Your Dashboard</h1>
                 </div>
-
-            </>
+                <div className='userDashContent'>
+                    <div className='appliedJobApps-container'>
+                        <span className='searchSpan'>
+                            <input className='appliedJobSearch' placeholder='Search All Your Applications' onChange={e => this.searchChange('appliedJobSearch', e.target.value)} />
+                        </span>
+                        {appliedJobApps}
+                    </div>
+                    <div className='allJobs-container'>
+                        <span className='searchSpan'>
+                            <input className='allJobSearch' placeholder='Search All Jobs' onChange={e => this.searchChange('allJobSearch', e.target.value)} />
+                        </span>
+                        {allJobs}
+                    </div>
+                </div>
+            </div>
         )
     }
 
