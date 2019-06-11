@@ -34,7 +34,8 @@ class UserDashboard extends Component {
             jobApps: [],
             allJobs: [],
             appliedJobSearch: '',
-            allJobSearch: ''
+            allJobSearch: '',
+            
         }
 
     }
