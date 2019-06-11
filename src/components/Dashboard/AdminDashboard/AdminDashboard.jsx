@@ -227,7 +227,7 @@ class AdminDashboard extends Component {
                 <h1>Administrator Dashboard</h1>
                 <div className='adminDashJobPanel'>
                     <h3>Company Administrator Key: {this.state.companyAdminKey}</h3>
-                    <Popup trigger={<button>Add a New Job Listing</button>} position='right center'>
+                    <Popup trigger={<button className='adminDashButtonPopup'>Add a New Job Listing</button>} position='right center'>
                             {
                                 close=> (
                                     <div>
