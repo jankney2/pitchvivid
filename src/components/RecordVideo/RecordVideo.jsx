@@ -245,7 +245,7 @@ class RecordVideo extends Component {
                     <button onClick={this.countTillRecord}>Begin Recording</button>
                     <br />
                     <button onClick={e => this.stopRecording(e)}>Stop Recording</button>
-
+                    <br/>
 
                     {
                         this.state.isUploading ?
