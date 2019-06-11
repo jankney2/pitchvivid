@@ -244,10 +244,14 @@ class UserProfile extends Component {
                 className='choose-file'
                 onChange={e => this.updateResume(e.target.files[0])}
                 type='file' accept="application/pdf" />
-
-              <button
+              {
+                this.state.resumeFile ? 
+                <button
                 className='picture-upload'
                 onClick={() => this.getSignedRequest(this.state.resumeFile)}> Upload Resume </button>
+                :
+                <p>Choose a File to Upload</p>  
+              }
             </div>
 
 
