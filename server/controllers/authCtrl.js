@@ -214,16 +214,12 @@ module.exports = {
     res.sendStatus(200)
   },
   resetPass: (req, res) => {
-    console.log('hit here')
     const db = req.app.get('db')
     const {password} = req.body
     let user_id = +req.body.user_id
-    console.log(`user_id: ${user_id}`)
-    console.log(`pass: ${password}`)
     // hash and salt the new pass
     const salt = bcrypt.genSaltSync(10)
     const hash = bcrypt.hashSync(password, salt)
-    console.log(hash)
     // db resets password to some generic thing here
     db.authCtrl.reset_pass({user_id, hash}).then(result => {
       res.sendStatus(200)

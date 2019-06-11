@@ -247,7 +247,7 @@ class UserProfile extends Component {
 
               <button
                 className='picture-upload'
-                onClick={() => this.getSignedRequest(this.state.resumeFile)}> Upload Picture </button>
+                onClick={() => this.getSignedRequest(this.state.resumeFile)}> Upload Resume </button>
             </div>
 
 

@@ -29,10 +29,7 @@ export default class ReturnLink extends Component {
         this.setState({
             errorMessage: false
         })
-        // check if temp pass is correct
-        // check if newPass and newPass2 are equal
         tempPass === 'pitchit817C4' && password === newPass2 ? 
-        // some axios request here to update their password
         axios.put('/auth/reset-pass', {user_id, password}).then(res => {
             this.setState({
                 successMessage: true
