@@ -22,7 +22,8 @@ class UserProfile extends Component {
       password: '',
       confirmPassword: false,
       resumeFile: false,
-      resume:''
+      resume:'',
+      resumeEditToggle: false
      
 
     }
@@ -102,7 +103,8 @@ console.log(this.props)
         axios.put('/api/uploadResume', {resume}).then(res => {
           console.log(res.data)
          
-          this.setState({resumeFile: false})
+          this.setState({resumeFile: false,
+          resumeEditToggle: false})
           console.log(this.state.resumeFile)
           })
         
@@ -195,6 +197,17 @@ console.log(this.props)
     this.toggleEdit()
 
   }
+
+
+  resumeUploadToggle = () => { 
+    this.setState({
+      resumeEditToggle:!this.state.resumeEditToggle
+    })
+  }
+
+
+
+
   render() {
     const state = Object.entries(this.state)
     console.log(state)
@@ -243,27 +256,63 @@ console.log(this.props)
               {
                 this.state.resume?
                 // eslint-disable-next-line react/jsx-no-target-blank
+                <div>
                 <a href={`${this.state.resume}`} target='_blank'>
                 <h1>Resume Link</h1>
-                </a> : 
+                </a>
+                
+                <button id='resume-toggle-button' onClick={e => this.resumeUploadToggle()}>Edit Resume</button>
+                
+                </div> : 
 
-                <> </> 
-              }
-
-            <div className='resume-upload'>
-              <input
+                <>  <input
                 className='choose-file'
                 onChange={e => this.updateResume(e.target.files[0])}
                 type='file' accept="application/pdf" />
-              {
-                this.state.resumeFile ? 
-                <button
-                className='picture-upload'
-                onClick={() => this.getSignedRequest(this.state.resumeFile)}> Upload Resume </button>
-                :
-                <p>Choose a File to Upload</p>  
+                 {
+                   !this.state.resumeFile?
+                   <></>:
+                   <button
+                   className='picture-upload'
+                   onClick={() => this.getSignedRequest(this.state.resumeFile)}> Upload Resume </button>
+                 }
+               
+               
+                 <p>Choose a File to Upload</p>   </> 
               }
-            </div>
+
+            
+
+              
+                {
+                this.state.resumeEditToggle?
+               <>
+                <input
+                className='choose-file'
+                onChange={e => this.updateResume(e.target.files[0])}
+                type='file' accept="application/pdf" />
+                
+                {
+                   !this.state.resumeFile?
+                   <></>:
+                   <button
+                   className='picture-upload'
+                   onClick={() => this.getSignedRequest(this.state.resumeFile)}> Upload Resume </button>
+                 }
+               
+               
+                 <p>Choose a File to Upload</p>
+                </>
+                :
+                <>  </> 
+             
+              }
+
+         {
+           this.state.isUploading?
+           <div className='spinner'></div>:
+           <></>
+         }
 
 
 

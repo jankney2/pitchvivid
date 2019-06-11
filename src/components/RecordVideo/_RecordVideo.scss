@@ -5,7 +5,7 @@
 
 .spinner {
     // The height here is just for demo purposes
-    height: 100vh;  
+    height: 100px;  
     position: relative;
     
     &::before {
@@ -14,7 +14,7 @@
         border-radius: 50%;
         content: "";
         height: 40px;
-        left: 50%;
+        left: 5%;
         position: absolute;
         top: 50%;
         transform: translate3d(-50%, -50%, 0);
@@ -32,7 +32,7 @@
 }
 .spinner {
     // The height here is just for demo purposes
-    height: 100vh;
+    height: 100px;
     opacity: 1;
     position: relative;
     transition: opacity linear 0.1s;    
@@ -43,7 +43,7 @@
         border-radius: 50%;
         content: "";
         height: 40px;
-        left: 50%;
+        left: 5%;
         opacity: inherit;
         position: absolute;
         top: 50%;
