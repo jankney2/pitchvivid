@@ -4,10 +4,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100vw;
+    min-width: 100vw;
     height: 100vh;
     flex-direction: column;
-    z-index: 1000;
+    
+}
+
+.authPlate {
+    background-color: rgba(77, 77, 77, 0.568);
+    min-width: 400px;
+    height: 375px;
+    align-self: center;
+    position: absolute;
+    z-index: 0;
+    border: none;
+    border-radius: 8px;
+    box-shadow: (inset 0px 2px 3px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(77, 77, 77, 0.8));   
 }
 
 .loginTitle {
@@ -62,29 +74,26 @@ input {
 }
 
 .authBack {
-    background-image: url('https://i.ibb.co/VYrqgJ0/backgroundphoto.png'), linear-gradient(135deg, $brightBlue, $lightBlue 90%);
     width: 100vw;
     min-height: 100vh;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    background-position: center;
     display: flex;
     justify-content: center;  
     align-items: flex-start;
     margin: 0;
-    // position: fixed;
-    // left: 0;
-    // right: 0;
-    z-index: -1000;
-  
-    // display: block;
-    // // background-image: url('http://666a658c624a3c03a6b2-25cda059d975d2f318c03e90bcf17c40.r92.cf1.rackcdn.com/unsplash_527bf56961712_1.JPG');
-    // width: 1200px;
-    // height: 800px;
-  
-    // -webkit-filter: blur(5px);
-    // -moz-filter: blur(5px);
-    // -o-filter: blur(5px);
-    // -ms-filter: blur(5px);
-    // filter: blur(5px);
+}
+
+.authBackImg {
+    background-image: url('https://i.ibb.co/VYrqgJ0/backgroundphoto.png'), linear-gradient(135deg, $brightBlue, $lightBlue 90%);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 0;
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
 }
