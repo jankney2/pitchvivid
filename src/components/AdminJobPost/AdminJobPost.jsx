@@ -198,6 +198,7 @@ class AdminJobPost extends Component {
                     </div>
                 </div>
                 <div className='carouselDisplay' >
+                    <h2>Applicants</h2>
                     <JobPostSlider handleSelect = {this.handleSelect} slideshow={this.state.videoResumes}/>
                 </div>
                 {/* <div className='carouselDisplay'>

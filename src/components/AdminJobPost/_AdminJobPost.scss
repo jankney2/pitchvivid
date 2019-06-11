@@ -2,10 +2,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    // margin: 1.5em;
-    // margin-top: 55px;
     padding-top: 75px;
     padding: 75px 1.5em;
+    height: 99vh;
 }
 
 .adminJobPostSelectedView{
@@ -45,8 +44,16 @@
 
 .carouselDisplay{
     display: flex;
+    flex-direction: column;
     margin: 1.5em;
     overflow: hidden;
+    align-items: center;
+    margin-top: 15%;
+    border-radius: 10px;
+    background-color: #212529;
+    h2 {
+        color: white;
+    }
 }
 
 .adminJobPostResumeCard{
@@ -88,9 +95,12 @@
         border-radius: 10px;
     }
 }
-
 .slick-list{
-    margin-top: 15%;
+    border-radius: 5px;
+    .slick-track{
+        background: #464e56;
+        padding: 1em 0em;
+    }
 }
 
 //code shamelessly stolen from www.bestcssbuttongenerator.com:
