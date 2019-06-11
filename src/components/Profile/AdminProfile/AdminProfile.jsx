@@ -87,12 +87,12 @@ class AdminProfile extends Component {
     const state = Object.entries(this.state)
     return (
 
-      <div style={{ 'margin-top': '55px' }}>
+      <div style={{ 'margin-top': '55px' }} className = 'landingBack'>
         <h1>Admin Info:</h1>
 
         {this.state.editToggle ? 
 
-        <div>
+        <div className = 'user-login-view authPlate'>
           <p>email</p>
           <input onChange={e => this.handleFormChange(e)} type='text' name='email' placeholder='email' value={this.state.email} />
           <p>First Name</p>
