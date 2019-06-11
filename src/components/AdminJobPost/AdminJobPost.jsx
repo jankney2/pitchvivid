@@ -5,7 +5,6 @@ import {updateUser} from '../../redux/reducer'
 import {connect} from 'react-redux'
 import Popup from 'reactjs-popup'
 import JobPostSlider from './JobPostSlider'
-import { async } from 'q';
 
 class AdminJobPost extends Component {
     constructor() {
@@ -18,7 +17,7 @@ class AdminJobPost extends Component {
             applicantResume: null,
             applicantName: '',
             applicantId: '',
-            // applicantBlocked: false, 
+            applicantPDFResume: null,
             note: '',
             newNote: '',
             companyName: '',
@@ -67,6 +66,7 @@ class AdminJobPost extends Component {
             applicantResume: resume.resume,
             applicantId: resume.userid,
             applicantEmail: resume.email,
+            applicantPDFResume: resume.resume,
             note: resume.notes
         })
         this.setSelected()
@@ -166,6 +166,12 @@ class AdminJobPost extends Component {
                     </div>
                     <div className='resumeViewerInfo'>
                         <p><b>Applicant's Name:</b> {this.state.applicantName}</p>
+                        {
+                            this.state.applicantPDFResume !== null ?
+                            <p>Applicant's Resume: <a target='_blank' href={this.state.applicantPDFResume}>click to view</a></p>
+                            :
+                            <> </>
+                        }
                         <p><b>Job Title:</b> {this.state.jobTitle}</p>
                         <p><b>Job Description:</b> {this.state.jobDescription}</p>
                         <p><b>Notes: </b> {this.state.note}</p>

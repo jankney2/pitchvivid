@@ -39,30 +39,33 @@ class UserLogin extends Component {
     }
     render(){
         return(
-            <div className='landingBack'>
-                <div className='user-login-view'>
-                    <h1 className='loginTitle'>Job Applicant Login</h1>
-                    <div className='formDiv'>
-                        <p className='authSection'>Personal email:</p>
-                        <input placeholder = 'email' onChange={e => this.handleChange("email", e.target.value)} /> 
-                        <p className='authSection'>Password:</p>
-                        <input type = "password" placeholder = 'password' onChange={e => this.handleChange("password", e.target.value)} /> 
-                    </div>
-                    {
-                        this.state.loginError ? 
-                        <h3 className='wrongCred'>Incorrect credentials. Please try again.</h3> :
-                        <> </>
-                    }
-                    <Link to='/password-reset'>
-                        <a className='forgotPW'>Forgot password?</a>
-                    </Link>
-                    <button type='button' className='landingBtn' onClick={this.handleSubmit}>Login</button>
-                    <Link to='/register'>
-                        <a className='aTag'>Register new account</a>
-                    </Link>
-                    <Link to='/admin-login'>
-                        <a className='aTag'>Hiring admin login</a>
-                    </Link>
+            <div className='authBack'>
+                <div className='authBackImg'></div>
+                <div className='user-login-view authPlate'>
+                    {/* <div className='authPlate'> */}
+                        <h1 className='loginTitle'>Job Applicant Login</h1>
+                        <div className='formDiv'>
+                            <p className='authSection'>Personal email:</p>
+                            <input placeholder = 'email' onChange={e => this.handleChange("email", e.target.value)} /> 
+                            <p className='authSection'>Password:</p>
+                            <input type = "password" placeholder = 'password' onChange={e => this.handleChange("password", e.target.value)} /> 
+                        </div>
+                        {
+                            this.state.loginError ? 
+                            <h3 className='wrongCred'>Incorrect credentials. Please try again.</h3> :
+                            <> </>
+                        }
+                        <Link to='/password-reset'>
+                            <a className='forgotPW'>Forgot password?</a>
+                        </Link>
+                        <button type='button' className='landingBtn' onClick={this.handleSubmit}>Login</button>
+                        <Link to='/register'>
+                            <a className='aTag'>Register new account</a>
+                        </Link>
+                        <Link to='/admin-login'>
+                            <a className='aTag'>Hiring admin login</a>
+                        </Link>
+                    {/* </div> */}
                 </div> 
             </div>
         )

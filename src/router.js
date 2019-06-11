@@ -12,6 +12,7 @@ import Dashboard from './components/Dashboard/Dashboard'
 import AdminJobPost from './components/AdminJobPost/AdminJobPost'
 import Profile from './components/Profile/Profile'
 import ResetPasswordRequest from './components/ResetPassword/Request/ResetPasswordRequest'
+import ReturnLink from './components/ResetPassword/ReturnLink/ReturnLink'
 
 export default (
     <Switch>
@@ -27,6 +28,7 @@ export default (
         <Route path='/post/admin-view/:id' component={AdminJobPost} />
         <Route path ='/profile' component = {Profile}/>
         <Route path='/password-reset' component={ResetPasswordRequest} />
+        <Route path='/return-pass/:id' component={ReturnLink} /> 
     </Switch>
 )
 
