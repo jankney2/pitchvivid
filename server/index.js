@@ -92,6 +92,7 @@ app.post('/api/postings/new', adminCtrl.newPosting)
 app.delete('/api/postings/:id', adminCtrl.deletePosting)
 app.put('/api/postings/:id', adminCtrl.updatePosting)
 app.put('/api/posts/all', adminCtrl.reassignPostings)
+app.get('/api/openpostings', userCtrl.getOpenJobs)
 
 // // admins
 app.get('/api/admins', adminCtrl.getAdmins)
