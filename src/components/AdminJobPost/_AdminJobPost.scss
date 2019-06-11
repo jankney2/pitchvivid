@@ -84,6 +84,7 @@
     video {
         width: 70%;
     }
+    padding-top: 5em;
 }
 
 .resumeViewerButtons{
@@ -184,8 +185,7 @@
     .carouselDisplay{
         overflow: unset;
     }
-    // .myButton{
-    //     width: 4em;
-    //     min-height: 4em;
-    // }
+    .postVidAndButtons{
+        padding-top: 0em;
+    }
 }
