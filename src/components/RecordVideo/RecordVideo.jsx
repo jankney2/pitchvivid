@@ -56,11 +56,11 @@ class RecordVideo extends Component {
 
     componentWillUnmount() {
 
-        var windowWidth = window.innerWidth
-        if(windowWidth > 600){
-
-       this.state.stream.getTracks().forEach(track => track.stop())
-   }
+        try {
+            this.state.stream.getTracks().forEach(track => track.stop())
+        } catch(err) {
+            console.log(err)
+        }
     }
 
     countTillRecord = () => {
