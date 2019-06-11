@@ -57,7 +57,7 @@ class AdminJobPost extends Component {
         video.src = this.state.videoResumes[this.state.selectedVideo].video_url
         // video.play()
     }
-    handleSelect=async (resume, index)=> {
+    handleSelect =async (resume, index)=> {
         await this.setState({
             selectedVideo: index,
             applicantName: `${this.state.videoResumes[index].firstname} ${this.state.videoResumes[index].lastname}`,
@@ -197,8 +197,8 @@ class AdminJobPost extends Component {
                         </div>
                     </div>
                 </div>
-                <div className='carouselDisplay'>
-                    <JobPostSlider slideshow={displayVideoCarousel}/>
+                <div className='carouselDisplay' >
+                    <JobPostSlider handleSelect = {this.handleSelect} slideshow={this.state.videoResumes}/>
                 </div>
                 {/* <div className='carouselDisplay'>
                     {displayVideoCarousel}  

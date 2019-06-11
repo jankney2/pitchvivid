@@ -1,35 +1,35 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Slider from 'react-slick'
 
-export default class SimpleSlider extends Component {
-    constructor(){
+export default class JobPostSlider extends Component {
+    constructor() {
         super()
         this.state = {
-            active: 6, 
+
             settings: {
                 dots: true,
-                infinite: false,
-                speed: 1500,
-                slidesToScroll: 1,
-                autoplay: false,
-                autoplaySpeed: 4000,
-                variableWidth: true,
+                infinite: true,
+                speed: 500,
+                slidesToShow: 3,
+                slidesToScroll: 3,
                 arrows: true,
-                rows: 1,
-                centerMode: true,
-                centerPadding: '0',
-                className:'center',
-                focusOnSelect: true,
-                pauseOnHover: false
             }
         }
     }
     render() {
-        let {settings} = this.state
+        let { settings } = this.state
+        console.log(this.props.slideshow)
         return (
-            <Slider {...settings} className='adminSlider'>
-                {this.props.slideshow}
-            </Slider>
+
+            <Slider {...settings} className = 'slider jobslider'>{
+                this.props.slideshow.map((slide, index) => {
+                console.log(slide)
+                return (
+                    <div key={index}>
+                        <button className = "myButton"onClick = {()=>{this.props.handleSelect(slide, index)}}>{slide.firstname} {slide.lastname}</button>
+                    </div>)
+
+            })}</Slider>
         )
     }
 }
