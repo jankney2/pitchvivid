@@ -24,23 +24,44 @@
     left: 0;
 }
 
-.search{
+.allJobSearch{
     border: solid 1px black;
     height: 4em;
     width: 30em;
     border-radius: 60px;
     padding-left: 1em;
+    float: right;
+    margin-bottom:1em;
+
+
+    // position: relative;
+}
+.appliedJobSearch{
+    border: solid 1px black;
+    height: 4em;
+    width: 30em;
+    border-radius: 60px;
+    padding-left: 1em;
+    float: left;
+    margin-bottom:1em;
     // position: relative;
 }
 
 .appliedJobApps-container{
     width: 50vw;
     height: auto;
+    float: left;
+}
+
+.allJobs-container{
+    width: 50vw;
+    height: auto;
+    float: right;
 }
 .job-listing{
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    // flex-direction: column;
+    // align-items: center;
     // background-color: grey;
     // height: 10em;
     width: 100%;

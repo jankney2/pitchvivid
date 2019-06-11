@@ -32,72 +32,79 @@ class UserDashboard extends Component {
             lastName: props.lastName,
             email: props.email,
             jobApps: [],
-            allJobs:[],
+            allJobs: [],
             appliedJobSearch: '',
-            allJobSearch:''
+            allJobSearch: ''
         }
 
     }
 
     async componentDidMount() {
         console.log(this.props)
-       await axios.get('/api/userVideos').then(res => { 
+        await axios.get('/api/userVideos').then(res => {
             this.setState({
-                jobApps:res.data
+                jobApps: res.data
             })
             console.log(res.data)
         })
+
+        await axios.get('api/openpostings').then(res => {
+            console.log(res.data)
+            this.setState({
+                allJobs: res.data
+            })
+        })
     }
 
-    
-    searchChange =(name,value) => {
-        this.setState({[name]:value})
+
+    searchChange = (name, value) => {
+        this.setState({ [name]: value })
     }
 
     render() {
-       //search and render for the applied jobs
+        //search and render for the applied jobs
 
-        const appliedJobApps = this.state.jobApps.filter((element) => { 
+        const appliedJobApps = this.state.jobApps.filter((element) => {
             return element.job_title.toLowerCase().includes(this.state.appliedJobSearch.toLowerCase()) || element.name.toLowerCase().includes(this.state.appliedJobSearch.toLowerCase())
-        }).map((element, index)=> { 
+        }).map((element, index) => {
             return <Link to={`/jobpost/${element.id}`} key={index}>
-            <span className = 'job-span'>
-                <div className='job-title'>{element.job_title}</div>
-                <div className='job-company'>{element.name}</div>
-                <div className='job-opening'>{element.opening_date}</div>
-            </span>
+                <span className='job-span'>
+                    <div className='job-title'>{element.job_title}</div>
+                    <div className='job-company'>{element.name}</div>
+                    <div className='job-opening'>{element.opening_date}</div>
+                </span>
             </Link>
         })
 
 
 
 
-        const allJobs = this.state.allJobs.filter((element) => { 
-            return element.job_title.toLowerCase().includes(this.state.allJobSearch.toLowerCase()) || element.name.toLowerCase().includes(this.state.allJobSearch.toLowerCase())
-        }).map((element, index)=> { 
-            return <Link to={`/jobpost/${element.id}`} key={index}>
-            <span className = 'job-span'>
-                <div className='job-title'>{element.job_title}</div>
-                <div className='job-company'>{element.name}</div>
-                <div className='job-opening'>{element.opening_date}</div>
-            </span>
+        const allJobs = this.state.allJobs.filter((ele) => {
+            return ele.job_title.toLowerCase().includes(this.state.allJobSearch.toLowerCase()) || ele.name.toLowerCase().includes(this.state.allJobSearch.toLowerCase())
+        }).map((ele, index) => {
+            return <Link to={`/jobpost/${ele.id}`} key={index}>
+                <span className='job-span'>
+                    <div className='job-title'>{ele.job_title}</div>
+                    <div className='job-company'>{ele.name}</div>
+                    <div className='job-opening'>{ele.opening_date}</div>
+                </span>
             </Link>
         })
 
 
-        
+
         return (
             <>
                 <div className='userdash-view'>
-               
-               
+
+
 
 
                     <h1>{`Welcome ${this.state.firstName}, to PitchVivid!`}</h1>
                     <h1>Job Applications</h1>
                     <div className='job-listing'>
                         <div className='appliedJobApps-container'>
-                            <input className='search' placeholder='search for job posting' onChange={e => this.searchChange('appliedJobSearch',e.target.value)} />
+                            <input className='appliedJobSearch' placeholder='Search All Your Applications' onChange={e => this.searchChange('appliedJobSearch', e.target.value)} />
 
                             {appliedJobApps}
 
@@ -109,9 +116,9 @@ class UserDashboard extends Component {
                         </div>
 
                         <div className='allJobs-container'>
-                            <input className='search' placeholder='search for job posting' onChange={e => this.searchChange('allJobSearch',e.target.value)} />
+                            <input className='allJobSearch' placeholder='Search All Jobs' onChange={e => this.searchChange('allJobSearch', e.target.value)} />
 
-                            {/* {allJobs} */}
+                            {allJobs}
 
 
                             {
