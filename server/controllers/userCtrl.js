@@ -63,12 +63,12 @@ module.exports = {
     console.log('this is the session', req.session)
     let user_id = req.session.user.id
     console.log('this is the user', user_id)
-    const {url} = req.body
+    const {resume} = req.body
     const db = req.app.get('db')
-    console.log('this is the url', url)
-    let resume = await db.userCtrl.uploadResume({user_id, resume: url})
-    console.log(resume)
-    let resumeLink = resume[0]
+    console.log('this is the url', resume)
+    let resumeVar = await db.userCtrl.uploadResume({user_id, resume: resume})
+    console.log(resumeVar)
+    let resumeLink = resumeVar[0]
     
     try {
       res.status(200).send(resumeLink)

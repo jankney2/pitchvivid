@@ -22,9 +22,29 @@ class UserProfile extends Component {
       password: '',
       confirmPassword: false,
       resumeFile: false,
+      resume:''
      
 
     }
+  }
+
+
+
+
+
+  componentDidMount= async ()=> {
+  
+
+
+console.log(this.props)
+    const { email, firstName, lastName, resume } = this.props
+    console.log(email, firstName, lastName, resume)
+    this.setState({
+      email,
+      firstName,
+      lastName,
+      resume
+    })
   }
 
 
@@ -52,7 +72,8 @@ class UserProfile extends Component {
       const { signedRequest, url } = response.data
       console.log(response.data)
       console.log(file)
-      this.uploadFile(file, signedRequest, url);
+      const resume = url 
+      this.uploadFile(file, signedRequest, resume);
     }).catch(err => {
       console.log(err)
     })
@@ -60,8 +81,8 @@ class UserProfile extends Component {
 
 
 
-  uploadFile = (file, signedRequest, url) => {
-    console.log(file, signedRequest, url)
+  uploadFile = (file, signedRequest, resume) => {
+    console.log(file, signedRequest, resume)
     const options = {
       headers: {
         'Content-Type': file.type,
@@ -74,11 +95,11 @@ class UserProfile extends Component {
     console.log('this went through', options)
     axios.put(signedRequest, file, options)
       .then((response) => {
-        this.setState({ isUploading: false, url })
-        this.updateResume(url)
-        console.log('also went through', url)
+        this.setState({ isUploading: false, resume })
+        this.updateResume(resume)
+        console.log('also went through', resume)
 
-        axios.put('/api/uploadResume', {url}).then(res => {
+        axios.put('/api/uploadResume', {resume}).then(res => {
           console.log(res.data)
          
           this.setState({resumeFile: false})
@@ -128,17 +149,7 @@ class UserProfile extends Component {
     }).catch((err) => { })
   }
 
-  componentDidMount() {
-
-    const { email, firstName, lastName, resume } = this.props
-    console.log(email, firstName, lastName, resume)
-    this.setState({
-      email,
-      firstName,
-      lastName,
-      resume
-    })
-  }
+  
 
   handleFormChange = e => {
     const { name, value } = e.target
@@ -189,8 +200,8 @@ class UserProfile extends Component {
     console.log(state)
     return (
 
-      <div style={{ 'margin-top': '55px' }}>
-        <h1>user Info:</h1>
+      <div className='profileContainer'>
+        <h1>Your Info:</h1>
 
         {this.state.editToggle ?
 
@@ -214,14 +225,14 @@ class UserProfile extends Component {
           :
           <div>
             {state.map(item => {
-              if (item[0] === 'password' || item[0] === 'newPassword' || item[0] === 'editToggle' || item[0] === 'owner' || item[0] === 'confirmPassword' || item[0] === 'resumeFile' || item[0] === "url" || item[0] === 'isUploading') {
+              if (item[0] === 'password' || item[0] === 'newPassword' || item[0] === 'editToggle' || item[0] === 'owner' || item[0] === 'confirmPassword' || item[0] === 'resumeFile' || item[0] === "resume" || item[0] === 'isUploading') {
                 return
               }
               console.log(item)
               return <div>
 
-                <div>{item[0]}</div>
-                <div>{item[1]}</div>
+                <div className='profileItem'>{item[0]}: {item[1]}</div>
+                {/* <div>{item[1]}</div> */}
 
 
               </div>
@@ -230,9 +241,9 @@ class UserProfile extends Component {
             })}
 
               {
-                this.state.url?
+                this.state.resume?
                 // eslint-disable-next-line react/jsx-no-target-blank
-                <a href={`${this.state.url}`} target='_blank'>
+                <a href={`${this.state.resume}`} target='_blank'>
                 <h1>Resume Link</h1>
                 </a> : 
 
@@ -288,6 +299,7 @@ class UserProfile extends Component {
   }
 }
 const mapStateToProps = state => {
+
   const { email, firstName, lastName, resume } = state
   return {
 

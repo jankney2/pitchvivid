@@ -107,4 +107,26 @@
     }
 
 
-
+@media(max-width:1100px){
+    iframe{
+        width: 450px;
+    }
+}
+@media(max-width: 1000px){
+    iframe{
+        width: 350px;
+    }
+}
+@media(max-width: 750px){
+    iframe{
+        width: 250px;
+    }
+    .video-capture{
+        width: 80%;
+    }
+}
+@media(max-width: 500px){
+    .videoContainer{
+        width: 100%;
+    }
+}
