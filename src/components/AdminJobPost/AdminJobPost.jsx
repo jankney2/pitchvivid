@@ -17,7 +17,7 @@ class AdminJobPost extends Component {
             applicantResume: null,
             applicantName: '',
             applicantId: '',
-            applicantPDFResume: '',
+            applicantPDFResume: null,
             note: '',
             newNote: '',
             companyName: '',
@@ -168,7 +168,7 @@ class AdminJobPost extends Component {
                         <p><b>Applicant's Name:</b> {this.state.applicantName}</p>
                         {
                             this.state.applicantPDFResume !== null ?
-                            <p>Applican't Resume: <a href={this.state.applicantPDFResume}>click to view</a></p>
+                            <p>Applicant's Resume: <a target='_blank' href={this.state.applicantPDFResume}>click to view</a></p>
                             :
                             <> </>
                         }
