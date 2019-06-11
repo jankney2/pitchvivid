@@ -265,6 +265,7 @@ class RecordVideo extends Component {
                    
                     <button id='record-button' onClick={this.countTillRecord}>Begin Recording</button>
                     <br />
+                    
                     <button id='stop-recording' onClick={e => this.stopRecording(e)}>Stop Recording</button>
 
                     <button className='mobile-upload' onClick={() => this.getSignedRequest(this.state.mobileVideo)}>
