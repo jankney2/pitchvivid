@@ -48,6 +48,7 @@ export default class ReturnLink extends Component {
     render() {
         return (
             <div className='resetPasswordContainer'>
+                <h1>Reset Password</h1>
                 <p>Enter your temporary password, followed by your new password</p>
                 <input onChange={e=>{this.handleFormChange(e)}} type='password' name='tempPass' value={this.state.tempPass} placeholder='Enter your temporary password' />
                 <input onChange={e=>{this.handleFormChange(e)}} type='password' name='newPass' value={this.state.newPass} placeholder='Enter your new pasword' />

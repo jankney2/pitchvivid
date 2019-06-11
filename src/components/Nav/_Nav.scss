@@ -54,3 +54,16 @@
 .navText {
     color: white;
 }
+
+
+@media(max-width:650px){
+    .logo{
+        display: none;
+    }
+}
+
+@media(max-width: 485px) {
+    .nav-menu {
+        padding: 0em 1.5em;
+    }
+}

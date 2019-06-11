@@ -38,3 +38,15 @@
         margin-top: 100px;
     }
 }
+
+@media(max-width: 425px){
+    input{
+        width: 70%;
+    }
+    .authPlate{
+        min-width: 300px;
+    }
+    .loginTitle {
+        font-size: 1.5em;
+    }
+}
