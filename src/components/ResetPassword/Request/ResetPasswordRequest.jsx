@@ -57,6 +57,7 @@ export default class ResetPasswordRequest extends Component {
     render() {
         return(
             <div className='resetPasswordContainer'>
+                <h1>Reset Password</h1>
                 <p>Please enter the following information so we can make sure it's you!</p>
                 <input onChange={e=>{this.handleFormChange(e)}} type='text' name='email' value={this.state.email} placeholder='Email' />
                 <input onChange={e=>{this.handleFormChange(e)}} type='text' name='firstname' value={this.state.firstname} placeholder='First Name' />

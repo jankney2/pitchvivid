@@ -17,6 +17,7 @@ class RecordVideo extends Component {
             finalVideo: '',
             liveShow: false,
             stream: null,
+            mobileVideo: false
 
         }
     }
@@ -33,24 +34,33 @@ class RecordVideo extends Component {
         // navigator is a global object that lets access getUserMedia (which gives me webcam access) and returns a promise
         // I take the promise and assign the webcam to the source of the video element labeled 'record'- then set it to play
         // finally, I assign the webcam on state as a new MediaRecorder object so that I can access it throughout the component
-        navigator.mediaDevices.getUserMedia(constraintObj).then(mediaStreamObj => {
-            let video = document.getElementById('record')
-            if ('srcObject' in video) {
-                video.srcObject = mediaStreamObj
-            } else {
-                video.src = window.URL.createObjectURL(mediaStreamObj)
-            }
-            video.play();
-            this.setState({
-                mediaRecorder: new MediaRecorder(mediaStreamObj),
-                stream: mediaStreamObj
-            })
-        }).catch(err => console.log(`There appears to be an error. Here are some details: ${err}`))
+       
+        var windowWidth = window.innerWidth
+        if(windowWidth > 600){
+            navigator.mediaDevices.getUserMedia(constraintObj).then(mediaStreamObj => {
+                let video = document.getElementById('record')
+                if ('srcObject' in video) {
+                    video.srcObject = mediaStreamObj
+                } else {
+                    video.src = window.URL.createObjectURL(mediaStreamObj)
+                }
+                video.play();
+                this.setState({
+                    mediaRecorder: new MediaRecorder(mediaStreamObj),
+                    stream: mediaStreamObj
+                })
+            }).catch(err => console.log(`There appears to be an error. Here are some details: ${err}`))
+        }
+       
     }
 
     componentWillUnmount() {
-        // this will destroy the MediaStream/MediaRecorder connection that the browser makes upon recording a video- as soon as the component unmounts
-        this.state.stream.getTracks().forEach(track => track.stop())
+
+        var windowWidth = window.innerWidth
+        if(windowWidth > 600){
+
+       this.state.stream.getTracks().forEach(track => track.stop())
+   }
     }
 
     countTillRecord = () => {
@@ -205,6 +215,15 @@ class RecordVideo extends Component {
                 }
             })
     }
+
+
+    mobileUpload = (file) => {
+        this.setState({mobileVideo: file})
+    }
+
+
+
+
     sendToDb = async () => {
         const { job_id } = this.props.job_id
         const video_url = this.state.url
@@ -241,10 +260,17 @@ class RecordVideo extends Component {
                     <br />
 
 
-
-                    <button onClick={this.countTillRecord}>Begin Recording</button>
+                    <input type='file' accept= 'video/*' className ='video-capture' onChange={e => this.mobileUpload(e.target.files[0])} /> 
+                   
+                   
+                    <button id='record-button' onClick={this.countTillRecord}>Begin Recording</button>
                     <br />
-                    <button onClick={e => this.stopRecording(e)}>Stop Recording</button>
+                    
+                    <button id='stop-recording' onClick={e => this.stopRecording(e)}>Stop Recording</button>
+
+                    <button className='mobile-upload' onClick={() => this.getSignedRequest(this.state.mobileVideo)}>
+                                Upload Video
+                    </button>
 
 
                     {

@@ -32,57 +32,93 @@ class UserDashboard extends Component {
             lastName: props.lastName,
             email: props.email,
             jobApps: [],
-            search: ''
+            allJobs: [],
+            appliedJobSearch: '',
+            allJobSearch: ''
         }
 
     }
 
     async componentDidMount() {
         console.log(this.props)
-       await axios.get('/api/userVideos').then(res => { 
+        await axios.get('/api/userVideos').then(res => {
             this.setState({
-                jobApps:res.data
+                jobApps: res.data
             })
             console.log(res.data)
         })
+
+        await axios.get('api/openpostings').then(res => {
+            console.log(res.data)
+            this.setState({
+                allJobs: res.data
+            })
+        })
     }
 
-    
-    searchChange =(value) => {
-        this.setState({search:value})
+
+    searchChange = (name, value) => {
+        this.setState({ [name]: value })
     }
 
     render() {
-        // const concatString = this.state.jobApps.concat()
-        // console.log(concatString)
-        const jobApps = this.state.jobApps.filter((element) => { 
-            return element.job_title.toLowerCase().includes(this.state.search.toLowerCase()) || element.name.toLowerCase().includes(this.state.search.toLowerCase())
-        }).map((element, index)=> { 
+        //search and render for the applied jobs
+
+        const appliedJobApps = this.state.jobApps.filter((element) => {
+            return element.job_title.toLowerCase().includes(this.state.appliedJobSearch.toLowerCase()) || element.name.toLowerCase().includes(this.state.appliedJobSearch.toLowerCase())
+        }).map((element, index) => {
             return <Link to={`/jobpost/${element.id}`} key={index}>
-            <span className = 'job-span'>
-                <div className='job-title'>{element.job_title}</div>
-                <div className='job-company'>{element.name}</div>
-                <div className='job-opening'>{element.opening_date}</div>
-            </span>
+                <span className='job-span'>
+                    <div className='job-title'>{element.job_title}</div>
+                    <div className='job-company'>{element.name}</div>
+                    <div className='job-opening'>{element.opening_date}</div>
+                </span>
             </Link>
         })
 
-        // be able to filter through job titles and then render a div that has the title and the company name next to it with the date posted. Once you clikc ont he title, you then get routed to the post page that then has all the details with the ability to click and add a recording to the post. 
+
+
+
+        const allJobs = this.state.allJobs.filter((ele) => {
+            return ele.job_title.toLowerCase().includes(this.state.allJobSearch.toLowerCase()) || ele.name.toLowerCase().includes(this.state.allJobSearch.toLowerCase())
+        }).map((ele, index) => {
+            return <Link to={`/jobpost/${ele.id}`} key={index}>
+                <span className='job-span'>
+                    <div className='job-title'>{ele.job_title}</div>
+                    <div className='job-company'>{ele.name}</div>
+                    <div className='job-opening'>{ele.opening_date}</div>
+                </span>
+            </Link>
+        })
+
+
 
         return (
             <>
                 <div className='userdash-view'>
-               
-               
+
+
 
 
                     <h1>{`Welcome ${this.state.firstName}, to PitchVivid!`}</h1>
                     <h1>Job Applications</h1>
                     <div className='job-listing'>
-                        <div className='jobApps-container'>
-                            <input className='search' placeholder='search for job posting' onChange={e => this.searchChange(e.target.value)} />
+                        <div className='appliedJobApps-container'>
+                            <input className='appliedJobSearch' placeholder='Search All Your Applications' onChange={e => this.searchChange('appliedJobSearch', e.target.value)} />
 
-                            {jobApps}
+                            {appliedJobApps}
+
+
+                            {
+
+                                <> </>
+                            }
+                        </div>
+
+                        <div className='allJobs-container'>
+                            <input className='allJobSearch' placeholder='Search All Jobs' onChange={e => this.searchChange('allJobSearch', e.target.value)} />
+
+                            {allJobs}
 
 
                             {
