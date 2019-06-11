@@ -7,9 +7,13 @@ class RegisterCompany extends Component {
         super()
         this.state = {
             companyName: '',
-            contactEmail: '',
-            adminKey: 'fdjaskl'
+            adminKey: '',
         }
+    }
+
+    componentWillMount = () => {
+        let randomAdminKey = Math.random().toString(36).slice(-8)
+        this.setState({adminKey: randomAdminKey})
     }
 
     handleChange=e=> {
@@ -20,12 +24,13 @@ class RegisterCompany extends Component {
     }
 
     handleSubmit=()=> {
-        // this will hit an axios request for nodemailer on the server eventually
-        console.log(`Email would be sent from here`)
+        axios.post('/api/newCompany', this.state).then(res => {
+            console.log(res.data)
+        })
     }
 
     render() {
-        let {adminKey} = this.state
+        console.log('this.state:', this.state)
         return (
             <div className='authBack'>
                 <div className='authBackImg'></div>
@@ -35,8 +40,8 @@ class RegisterCompany extends Component {
                         <p className='authSection'>Company name:</p>
                         <input type='text' onChange={e=>this.handleChange(e)}value={this.state.companyName} name='companyName' placeholder='company name' />
                         <p className='authSection'>Admin key:</p>
-                        <input type='text' onChange={e=>this.handleChange(e)}value={this.state.contactEmail} name='contactEmail' placeholder='admin key' />
-                        <Link to={`/register/${adminKey}`}>
+                        <input type='text' onChange={e=>this.handleChange(e)}value={this.state.adminKey} name='adminKey' placeholder='admin key' />
+                        <Link to={`/register/${this.state.adminKey}`}>
                             <button type='button' className='landingBtn' onClick={this.handleSubmit}>Submit Request</button>
                         </Link>
                     </div>

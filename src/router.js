@@ -22,11 +22,12 @@ export default (
         <Route path='/about' component={About} />
         <Route path='/user-login' component={UserLogin} /> 
         <Route path='/admin-login' component={AdminLogin} />
-        <Route path='/register' component={Register} /> 
+        <Route exact path='/register' component={Register} /> 
+        <Route path='/register/:adminKey' component={Register} /> 
         <Route path='/company-register' component={RegisterCompany} />
         <Route path='/dashboard' component={Dashboard} />
         <Route path='/post/admin-view/:id' component={AdminJobPost} />
-        <Route path ='/profile' component = {Profile}/>
+        <Route path ='/profile' component={Profile}/>
         <Route path='/password-reset' component={ResetPasswordRequest} />
         <Route path='/return-pass/:id' component={ReturnLink} /> 
     </Switch>

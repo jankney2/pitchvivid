@@ -17,11 +17,17 @@ class Register extends Component {
             admin: true,
         }
     }
+    
+    componentWillMount = () => {
+        let {adminKey} = this.props.match.params
+        if (adminKey){
+            this.setState({adminKey})
+        }
+    }
 
     handleChange = (name, value) => {
         this.setState({ [name]: value })
     }
-
 
     checkBoxHandle = (name) => {
         this.setState({ [name]: !this.state[name] })
@@ -59,7 +65,7 @@ class Register extends Component {
                             {
                                 this.state.admin ? 
                                 <span className='owner-container'>
-                                    <input id='company-name-input' placeholder='Admin Key' onChange={e => this.handleChange("adminKey", e.target.value)} /> 
+                                    <input id='company-name-input' placeholder='Admin Key' onChange={e => this.handleChange("adminKey", e.target.value)} value={this.state.adminKey}/> 
                                     <Link className='newCompanyLink' to='/company-register'>
                                         <a className='aTag'>Create a new company</a>
                                     </Link>
