@@ -18,7 +18,6 @@ class RecordVideo extends Component {
             liveShow: false,
             stream: null,
             mobileVideo: false
-
         }
     }
 
@@ -89,41 +88,46 @@ class RecordVideo extends Component {
 
     startRecording() {
         // if we're already recording, do nothing (or else it will error out)- else, begin recording (and, optionally, opt to display the video element)
-        this.setState({
-            recording: true,
-            liveShow: true,
-
-            })
-        if (this.state.mediaRecorder.state === 'recording') {
-
-            return
-        } else {
-           
-            let timeLeft = 30;
-            let elem = document.getElementById('record-timer');
-           
-            const countdown = () => {
+        try {
+            this.setState({
+                recording: true,
+                liveShow: true,
+    
+                })
+            if (this.state.mediaRecorder.state === 'recording') {
+    
+                return
+            } else {
                
-                if (timeLeft == -1 || this.state.recording === false) {
-                    clearTimeout(timerId);
-                    this.stopRecording();
-                    elem.innerHTML = '';
-                } else {
-                    elem.innerHTML = timeLeft + ' seconds remaining';
-                    timeLeft--;
+                let timeLeft = 30;
+                let elem = document.getElementById('record-timer');
+               
+                const countdown = () => {
+                   
+                    if (timeLeft == -1 || this.state.recording === false) {
+                        clearTimeout(timerId);
+                        this.stopRecording();
+                        elem.innerHTML = '';
+                    } else {
+                        elem.innerHTML = timeLeft + ' seconds remaining';
+                        timeLeft--;
+                    }
                 }
+                let timerId = setInterval(countdown, 1000);
+    
+               
+    
+                let video = document.getElementById('record')
+                let playback = document.getElementById('playback')
+                playback.classList.add('hide')
+                video.classList.remove('hide')
+                video.play();
+                this.state.mediaRecorder.start()
+    
             }
-            let timerId = setInterval(countdown, 1000);
-
-           
-
-            let video = document.getElementById('record')
-            let playback = document.getElementById('playback')
-            playback.classList.add('hide')
-            video.classList.remove('hide')
-            video.play();
-            this.state.mediaRecorder.start()
-
+        } catch(err) {
+            window.alert('There seems to be a problem. Please try either Mobile or Desktop view only. Swapping between may cause issues. ')
+            this.props.history.push('/dashboard')
         }
 
     }
