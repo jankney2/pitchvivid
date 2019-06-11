@@ -177,12 +177,16 @@ class AdminDashboard extends Component {
                     {
                         this.state.editJob === job.id? 
                         <span>
-                            <input onChange={e=>{this.handleFormChange(e)}} type='text' name='editJobTitle' placeholder={job.job_title} value={this.state.editJobTitle}/>
-                            <input onChange={e=>{this.handleFormChange(e)}} type='text' name='editJobDescription' placeholder={job.details} value={this.state.editJobDescription}/>
-                            <input onChange={e=>{this.handleFormChange(e)}} type='text' name='editJobOpenDate' value={this.state.editJobOpenDate} />
-                            <input onChange={e=>{this.handleFormChange(e)}} type='text' name='editJobCloseDate' value={this.state.editJobCloseDate} />
+                            <p>Job Title: </p><input onChange={e=>{this.handleFormChange(e)}} type='text' name='editJobTitle' placeholder={job.job_title} value={this.state.editJobTitle}/>
+                            <br/>
+                            <p>Job Details: </p><input onChange={e=>{this.handleFormChange(e)}} type='text' name='editJobDescription' placeholder={job.details} value={this.state.editJobDescription}/>
+                            <br/>
+                            <p>Open Date: </p><input onChange={e=>{this.handleFormChange(e)}} type='text' name='editJobOpenDate' value={this.state.editJobOpenDate} />
+                            <br/>
+                            <p>Close Date: </p><input onChange={e=>{this.handleFormChange(e)}} type='text' name='editJobCloseDate' value={this.state.editJobCloseDate} />
                             {/* <input onChange={e=>{this.handleFormChange(e)}} type='checkbox' name='editJobArchived' value={this.state.editJobArchived} checked={this.state.editJobArchived}/>
                             <input onChange={e=>{this.handleFormChange(e)}} type='checkbox' name='editJobFilled' value={this.state.editJobFilled} checked={this.state.editJobEdit}/> */}
+                            <br/>
                             <button onClick={()=>this.updateJob(job.id)}>Submit Edits</button>
                             <button onClick={this.handleCancel}>Cancel</button>
                         </span> :
@@ -230,7 +234,7 @@ class AdminDashboard extends Component {
                     <Popup trigger={<button className='adminDashButtonPopup'>Add a New Job Listing</button>} position='right center'>
                             {
                                 close=> (
-                                    <div>
+                                    <div className='popupDivAD'>
                                         <input onChange={e=>this.handleFormChange(e)} type='text' name='newJobTitle' placeholder='Job Title' value={this.state.newJobTitle} />
                                         <input onChange={e=>this.handleFormChange(e)} type='text' name='newJobDescription' placeholder='Job Description' value={this.state.newJobDescription}/>
                                         <input onChange={e=>this.handleFormChange(e)} type='date' name='newJobOpenDate' value={this.state.newJobOpenDate}/>

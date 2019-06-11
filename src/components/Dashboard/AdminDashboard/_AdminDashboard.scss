@@ -39,7 +39,12 @@
 .adminCard {
     @include card();
 }
-
+.popupDivAD{
+    height: 180px;
+    input{
+        width: 100%;
+    }
+}
 .adminDashBlockedUsers{
     background: rgb(250, 193, 108);
     @include boxShadow();
