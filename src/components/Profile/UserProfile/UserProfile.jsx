@@ -132,6 +132,7 @@ class UserProfile extends Component {
   updateResume = (file) => {
     this.setState({ resumeFile: file })
     console.log(this.state.resumeFile)
+    
   }
 
 
@@ -260,16 +261,20 @@ class UserProfile extends Component {
                 this.state.resume ?
 
                   <div id='resumeLink-button'>
-                    
+
                     <a href={`${this.state.resume}`} target='_blank'>
                       <h2>Resume Link</h2>
                     </a>
 
-                    <button id='resume-toggle-button' onClick={e => this.resumeUploadToggle()}>Edit Resume</button>
+                    <button 
+                   
+                    id='resume-toggle-button' onClick={e => this.resumeUploadToggle()}>Edit Resume</button>
 
                   </div> :
 
-                  <>  <input
+                  <> 
+                  <p style={{color: 'white'}}>Choose a File to Upload</p>
+                   <input style={{color: 'white'}}
                     className='choose-file'
                     onChange={e => this.updateResume(e.target.files[0])}
                     type='file' accept="application/pdf" />
@@ -277,12 +282,12 @@ class UserProfile extends Component {
                       !this.state.resumeFile ?
                         <></> :
                         <button
-                          className='picture-upload'
+                          className='resume-upload'
                           onClick={() => this.getSignedRequest(this.state.resumeFile)}> Upload Resume </button>
                     }
 
 
-                    <p>Choose a File to Upload</p>   </>
+                       </>
               }
 
 
@@ -292,6 +297,7 @@ class UserProfile extends Component {
                 this.state.resumeEditToggle ?
                   <>
                     <input
+                    style={{color: 'white'}}
                       className='choose-file'
                       onChange={e => this.updateResume(e.target.files[0])}
                       type='file' accept="application/pdf" />
@@ -300,59 +306,72 @@ class UserProfile extends Component {
                       !this.state.resumeFile ?
                         <></> :
                         <button
-                          className='picture-upload'
+                        style={{color: 'white'}}
+                          className='resume-upload'
                           onClick={() => this.getSignedRequest(this.state.resumeFile)}> Upload Resume </button>
                     }
 
 
-                    <p>Choose a File to Upload</p>
+                    <p style={{color: 'white'}}>Choose a File to Upload</p>
                   </>
                   :
                   <>  </>
 
               }
-              {
-                  this.state.isUploading ?
-                    <div className='spinner'></div> :
-                    <></>
-                }
 
 
 
 
 
-
-
-
-            
-
-
-
-             {
-                  this.state.resumeEditToggle ?
-                  <> </>:
 
              
-              <Popup trigger={<button>Edit Info</button>} position='right center'>
-                {
-                  close => (
-                    <div className='popup-box' >
-                      <input style={{ 'width': '10vw' }} onChange={e => this.handleFormChange(e)} type='password' name='password' placeholder='password' value={this.state.password} />
-                      <div className='button-box'>
-                        <button onClick={() => {
-                          this.authenticateUser(close)
-                        }}>Submit</button>
-                        <button onClick={() => { close() }}> Cancel </button></div>
-                    </div>
-                  )
-                }
-              </Popup>
-              }
 
-            </div>
+
+
+
+
+              {
+              this.state.isUploading ?
+                <div className='spinner'></div> :
+                <></>
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+            {
+              this.state.resumeEditToggle ?
+                <> </> :
+
+
+                <Popup trigger={<button>Edit Info</button>} position='right center'>
+                  {
+                    close => (
+                      <div className='popup-box' >
+                        <input style={{ 'width': '10vw' }} onChange={e => this.handleFormChange(e)} type='password' name='password' placeholder='password' value={this.state.password} />
+                        <div className='button-box'>
+                          <button onClick={() => {
+                            this.authenticateUser(close)
+                          }}>Submit</button>
+                          <button onClick={() => { close() }}> Cancel </button></div>
+                      </div>
+                    )
+                  }
+                </Popup>
+            }
+
+          </div>
           </div>
 
-        }
+      }
 
       </div>
 
