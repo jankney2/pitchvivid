@@ -1,5 +1,25 @@
 @import '../../variables';
 
+.landingBackFade {
+  background-image: url('https://s3-us-west-1.amazonaws.com/pitchvivid/backgroundphoto2.png');
+  width: 100vw;
+  min-height: 100vh;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center;
+  display: flex;
+  justify-content: center;  
+  align-items: flex-start;
+  margin: 0;
+  position: relative;
+  transition: 1s;  
+}
+
+.landingBackImg {
+  background-color: linear-gradient(135deg, $brightBlue, $lightBlue 90%);
+  position: absolute;
+}
+
 .landingBack {
   background-image: url('https://s3-us-west-1.amazonaws.com/pitchvivid/backgroundphoto2.png'), linear-gradient(135deg, $brightBlue, $lightBlue 90%);
   width: 100vw;
@@ -12,7 +32,7 @@
   align-items: flex-start;
   margin: 0;
   position: relative;
-  transition: 3s;
+  transition: 1s;
 }
 
 .landing {

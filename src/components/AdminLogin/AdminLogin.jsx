@@ -41,9 +41,9 @@ class AdminLogin extends Component {
                     <h1 className='loginTitle'>Hiring Admin Login</h1>
                     <div className='formDiv'>
                         <p className='authSection'>Work email:</p>
-                        <input placeholder = 'email' onChange={e=> this.handleChange('email', e.target.value)} />
+                        <input className='email 'placeholder = 'email' onChange={e=> this.handleChange('email', e.target.value)} />
                         <p className='authSection'>Password:</p>
-                        <input type='password' placeholder = 'password' onChange={e=> this.handleChange('password', e.target.value)} />
+                        <input className='password' type='password' placeholder = 'password' onChange={e=> this.handleChange('password', e.target.value)} />
                     </div>
                     {
                         this.state.loginError ? 

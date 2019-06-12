@@ -22,8 +22,10 @@ class UserProfile extends Component {
       password: '',
       confirmPassword: false,
       resumeFile: false,
-      resume:''
-     
+      resume: '',
+      resumeEditToggle: false
+
+
 
     }
   }
@@ -32,11 +34,11 @@ class UserProfile extends Component {
 
 
 
-  componentDidMount= async ()=> {
-  
+  componentDidMount = async () => {
 
 
-console.log(this.props)
+
+    console.log(this.props)
     const { email, firstName, lastName, resume } = this.props
     console.log(email, firstName, lastName, resume)
     this.setState({
@@ -72,7 +74,7 @@ console.log(this.props)
       const { signedRequest, url } = response.data
       console.log(response.data)
       console.log(file)
-      const resume = url 
+      const resume = url
       this.uploadFile(file, signedRequest, resume);
     }).catch(err => {
       console.log(err)
@@ -99,13 +101,16 @@ console.log(this.props)
         this.updateResume(resume)
         console.log('also went through', resume)
 
-        axios.put('/api/uploadResume', {resume}).then(res => {
+        axios.put('/api/uploadResume', { resume }).then(res => {
           console.log(res.data)
-         
-          this.setState({resumeFile: false})
-          console.log(this.state.resumeFile)
+
+          this.setState({
+            resumeFile: false,
+            resumeEditToggle: false
           })
-        
+          console.log(this.state.resumeFile)
+        })
+
       }).catch(err => {
         this.setState({
           isUploading: false
@@ -127,6 +132,7 @@ console.log(this.props)
   updateResume = (file) => {
     this.setState({ resumeFile: file })
     console.log(this.state.resumeFile)
+    
   }
 
 
@@ -149,7 +155,7 @@ console.log(this.props)
     }).catch((err) => { })
   }
 
-  
+
 
   handleFormChange = e => {
     const { name, value } = e.target
@@ -170,15 +176,15 @@ console.log(this.props)
   }
 
   handleSubmit = () => {
-    const { email, firstName, lastName, newPassword} = this.state
+    const { email, firstName, lastName, newPassword } = this.state
 
     let password = newPassword
     if (newPassword !== this.state.confirmPassword) {
       alert('Passwords do not match')
       return
     }
-    axios.put('/auth/updateUser', { email, firstName, lastName, password}).then(res => {
-      const { email, firstName, lastName} = res.data
+    axios.put('/auth/updateUser', { email, firstName, lastName, password }).then(res => {
+      const { email, firstName, lastName } = res.data
       this.setState({
         email,
         firstName,
@@ -195,95 +201,177 @@ console.log(this.props)
     this.toggleEdit()
 
   }
+
+
+  resumeUploadToggle = () => {
+    this.setState({
+      resumeEditToggle: !this.state.resumeEditToggle
+    })
+  }
+
   render() {
     const state = Object.entries(this.state)
     console.log(state)
     return (
 
-      <div className='profileContainer landingBack'>
+      <div className='profileContainer landingBack '>
         <h1>Your Info:</h1>
 
         {this.state.editToggle ?
 
-          <div className = 'authPlate'><div className = 'formDiv'>
-          <p>email</p>
-          <input onChange={e => this.handleFormChange(e)} type='text' name='email' placeholder='email' value={this.state.email} />
-          <p>First Name</p>
-          <input onChange={e => this.handleFormChange(e)} type='text' name='firstName' placeholder='first name' value={this.state.firstName} />
-          <p>Last Name</p>
-          <input onChange={e => this.handleFormChange(e)} type='text' name='lastName' placeholder='last name' value={this.state.lastName} />
-          
-          <p>Password</p>
-          <input onChange={e => this.handleFormChange(e)} type='password' name='confirmPassword' placeholder='password' value={this.state.confirmPassword} />
-          <p>Confirm Password</p>
-          <input onChange={e => this.handleFormChange(e)} type='password' name='newPassword' placeholder='confirm password' value={this.state.newPassword} />
-          
-          <button onClick={() => { this.handleSubmit() }}>Submit Changes</button>
-          <button onClick={() => { this.toggleEdit() }}>Cancel</button>
-          
-          </div></div>
-          :
-          <div className = 'authPlate'><div className = 'formDiv'>
-          <div>
-            <div>
-              <h2>Email:</h2>
-              <div>{this.state.email}</div>
-            </div>
-            <div>
-              <h2>First Name</h2>
-              <div>{this.state.firstName}</div>
-            </div>
-            <div>
-              <h2>Last Name</h2>
-              <div>{this.state.lastName}</div>
-            </div>
+          <div className='authPlate'>
+            <div className='formDiv'>
+              <p>email</p>
+              <input onChange={e => this.handleFormChange(e)} type='text' name='email' placeholder='email' value={this.state.email} />
+              <p>First Name</p>
+              <input onChange={e => this.handleFormChange(e)} type='text' name='firstName' placeholder='first name' value={this.state.firstName} />
+              <p>Last Name</p>
+              <input onChange={e => this.handleFormChange(e)} type='text' name='lastName' placeholder='last name' value={this.state.lastName} />
 
+              <p>Password</p>
+              <input onChange={e => this.handleFormChange(e)} type='password' name='confirmPassword' placeholder='password' value={this.state.confirmPassword} />
+              <p>Confirm Password</p>
+              <input onChange={e => this.handleFormChange(e)} type='password' name='newPassword' placeholder='confirm password' value={this.state.newPassword} />
+
+              <button onClick={() => { this.handleSubmit() }}>Submit Changes</button>
+              <button onClick={() => { this.toggleEdit() }}>Cancel</button>
+
+            </div>
           </div>
-          
-          {
-          this.state.resume?
-          // eslint-disable-next-line react/jsx-no-target-blank
-          <a href={`${this.state.resume}`} target='_blank'>
-          <h1>Resume Link</h1>
-          </a> :
-          
-          <> </>
-          }
-          
-          <div className='resume-upload'>
-          <input
-          className='choose-file'
-          onChange={e => this.updateResume(e.target.files[0])}
-          type='file' accept="application/pdf" />
-          {
-          this.state.resumeFile ?
-          <button
-          className='picture-upload'
-          onClick={() => this.getSignedRequest(this.state.resumeFile)}> Upload Resume </button>
           :
-          <p>Choose a File to Upload</p>
-          }
-          </div></div>
+          <div className='authPlate'>
+            <div className='formDiv'>
+              <div>
+                <div>
+                  <h2>Email:</h2>
+                  <div>{this.state.email}</div>
+                </div>
+                <div>
+                  <h2>First Name:</h2>
+                  <div>{this.state.firstName}</div>
+                </div>
+                <div>
+                  <h2>Last Name:</h2>
+                  <div>{this.state.lastName}</div>
+                </div>
 
+              </div>
 
-
-            <Popup trigger={<button>Edit Info</button>} position='right center'>
               {
-                close => (
-                  <div>
-                    <input onChange={e => this.handleFormChange(e)} type='password' name='password' placeholder='password' value={this.state.password} />
+                this.state.resume ?
 
-                    <button onClick={() => {
-                      this.authenticateUser(close)
-                    }}>Submit</button>
-                    <button onClick={() => { close() }}> Cancel </button>
-                  </div>
-                )
+                  <div id='resumeLink-button'>
+
+                    <a href={`${this.state.resume}`} target='_blank'>
+                      <h2>Resume Link</h2>
+                    </a>
+
+                    <button 
+                   
+                    id='resume-toggle-button' onClick={e => this.resumeUploadToggle()}>Edit Resume</button>
+
+                  </div> :
+
+                  <> 
+                  <p style={{color: 'white'}}>Choose a File to Upload</p>
+                   <input style={{color: 'white'}}
+                    className='choose-file'
+                    onChange={e => this.updateResume(e.target.files[0])}
+                    type='file' accept="application/pdf" />
+                    {
+                      !this.state.resumeFile ?
+                        <></> :
+                        <button
+                          className='resume-upload'
+                          onClick={() => this.getSignedRequest(this.state.resumeFile)}> Upload Resume </button>
+                    }
+
+
+                       </>
               }
-            </Popup>
+
+
+
+
+              {
+                this.state.resumeEditToggle ?
+                  <>
+                    <input
+                    style={{color: 'white'}}
+                      className='choose-file'
+                      onChange={e => this.updateResume(e.target.files[0])}
+                      type='file' accept="application/pdf" />
+
+                    {
+                      !this.state.resumeFile ?
+                        <></> :
+                        <button
+                        style={{color: 'white'}}
+                          className='resume-upload'
+                          onClick={() => this.getSignedRequest(this.state.resumeFile)}> Upload Resume </button>
+                    }
+
+
+                    <p style={{color: 'white'}}>Choose a File to Upload</p>
+                  </>
+                  :
+                  <>  </>
+
+              }
+
+
+
+
+
+
+             
+
+
+
+
+
+              {
+              this.state.isUploading ?
+                <div className='spinner'></div> :
+                <></>
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+            {
+              this.state.resumeEditToggle ?
+                <> </> :
+
+
+                <Popup trigger={<button>Edit Info</button>} position='right center'>
+                  {
+                    close => (
+                      <div className='popup-box' >
+                        <input style={{ 'width': '10vw' }} onChange={e => this.handleFormChange(e)} type='password' name='password' placeholder='password' value={this.state.password} />
+                        <div className='button-box'>
+                          <button onClick={() => {
+                            this.authenticateUser(close)
+                          }}>Submit</button>
+                          <button onClick={() => { close() }}> Cancel </button></div>
+                      </div>
+                    )
+                  }
+                </Popup>
+            }
+
+          </div>
           </div>
 
-        }
+      }
 
       </div>
 

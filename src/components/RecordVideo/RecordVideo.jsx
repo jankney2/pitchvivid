@@ -255,7 +255,7 @@ class RecordVideo extends Component {
 
 
 
-                    <iframe id='filler-video' title='video' width="560" height="315" src="https://www.youtube.com/embed/yo9RUgEauhM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe id='filler-video' title='video' width="560" height="315" src="https://s3-us-west-1.amazonaws.com/pitchvivid/f33b788c-e564-4520-943e-b6ecdfb909fa-%5Bobject-Object%5D" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
                     <video className='hide' id='record' muted></video>
                     <br />
