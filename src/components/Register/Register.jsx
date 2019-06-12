@@ -78,13 +78,13 @@ class Register extends Component {
                             }
                         </div>
                         <p className='authSection'>{`${this.state.admin ? 'Work' : 'Personal'} email:`}</p>
-                        <input placeholder='email' onChange={e => this.handleChange("email", e.target.value)} />
+                        <input id = 'email-box' placeholder='email' onChange={e => this.handleChange("email", e.target.value)} />
                         <p className='authSection'>Password:</p>
                         <input type='password' placeholder='password' onChange={e => this.handleChange("password", e.target.value)} />
                         <p className='authSection'>First name:</p>
-                        <input placeholder="first name" onChange={e => this.handleChange("firstName", e.target.value)} />
+                        <input id = 'first-name-box' placeholder="first name" onChange={e => this.handleChange("firstName", e.target.value)} />
                         <p className='authSection'>Last name:</p>
-                        <input placeholder='last name' onChange={e => this.handleChange("lastName", e.target.value)} />
+                        <input id = 'last-name-box' placeholder='last name' onChange={e => this.handleChange("lastName", e.target.value)} />
                     </div>
 
                     <button className='landingBtn' onClick ={this.handleSubmit}>Register</button>
