@@ -76,11 +76,11 @@ class Nav extends Component {
 
                     <>
                         {this.props.id ? 
-                            <div onClick={e => this.logOut()} className='button'>
+                            <div onClick={e => this.logOut()} className='button loginButton'>
                                 <img id='icon' src='https://i.ibb.co/Gxgd3jR/logout-icon.png' alt='log out'/>
                                 <p className='navText'>Logout</p>
                             </div> :
-                            <div onClick={e => this.logIn()} className='button'>
+                            <div onClick={e => this.logIn()} className='button loginButton'>
                                 <img id='icon' src='https://i.ibb.co/R9Y2Hyf/login-icon.png' alt='log in'/>
                                 <p className='navText'>Login</p>
                             </div>
