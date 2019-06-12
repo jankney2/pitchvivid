@@ -200,70 +200,70 @@ console.log(this.props)
     console.log(state)
     return (
 
-      <div className='profileContainer'>
+      <div className='profileContainer landingBack'>
         <h1>Your Info:</h1>
 
         {this.state.editToggle ?
 
+          <div className = 'authPlate'><div className = 'formDiv'>
+          <p>email</p>
+          <input onChange={e => this.handleFormChange(e)} type='text' name='email' placeholder='email' value={this.state.email} />
+          <p>First Name</p>
+          <input onChange={e => this.handleFormChange(e)} type='text' name='firstName' placeholder='first name' value={this.state.firstName} />
+          <p>Last Name</p>
+          <input onChange={e => this.handleFormChange(e)} type='text' name='lastName' placeholder='last name' value={this.state.lastName} />
+          
+          <p>Password</p>
+          <input onChange={e => this.handleFormChange(e)} type='password' name='confirmPassword' placeholder='password' value={this.state.confirmPassword} />
+          <p>Confirm Password</p>
+          <input onChange={e => this.handleFormChange(e)} type='password' name='newPassword' placeholder='confirm password' value={this.state.newPassword} />
+          
+          <button onClick={() => { this.handleSubmit() }}>Submit Changes</button>
+          <button onClick={() => { this.toggleEdit() }}>Cancel</button>
+          
+          </div></div>
+          :
+          <div className = 'authPlate'><div className = 'formDiv'>
           <div>
-            <p>email</p>
-            <input onChange={e => this.handleFormChange(e)} type='text' name='email' placeholder='email' value={this.state.email} />
-            <p>First Name</p>
-            <input onChange={e => this.handleFormChange(e)} type='text' name='firstName' placeholder='first name' value={this.state.firstName} />
-            <p>Last Name</p>
-            <input onChange={e => this.handleFormChange(e)} type='text' name='lastName' placeholder='last name' value={this.state.lastName} />
-
-            <p>Password</p>
-            <input onChange={e => this.handleFormChange(e)} type='password' name='confirmPassword' placeholder='password' value={this.state.confirmPassword} />
-            <p>Confirm Password</p>
-            <input onChange={e => this.handleFormChange(e)} type='password' name='newPassword' placeholder='confirm password' value={this.state.newPassword} />
-
-            <button onClick={() => { this.handleSubmit() }}>Submit Changes</button>
-            <button onClick={() => { this.toggleEdit() }}>Cancel</button>
+            <div>
+              <h2>Email:</h2>
+              <div>{this.state.email}</div>
+            </div>
+            <div>
+              <h2>First Name</h2>
+              <div>{this.state.firstName}</div>
+            </div>
+            <div>
+              <h2>Last Name</h2>
+              <div>{this.state.lastName}</div>
+            </div>
 
           </div>
+          
+          {
+          this.state.resume?
+          // eslint-disable-next-line react/jsx-no-target-blank
+          <a href={`${this.state.resume}`} target='_blank'>
+          <h1>Resume Link</h1>
+          </a> :
+          
+          <> </>
+          }
+          
+          <div className='resume-upload'>
+          <input
+          className='choose-file'
+          onChange={e => this.updateResume(e.target.files[0])}
+          type='file' accept="application/pdf" />
+          {
+          this.state.resumeFile ?
+          <button
+          className='picture-upload'
+          onClick={() => this.getSignedRequest(this.state.resumeFile)}> Upload Resume </button>
           :
-          <div>
-            {state.map(item => {
-              if (item[0] === 'password' || item[0] === 'newPassword' || item[0] === 'editToggle' || item[0] === 'owner' || item[0] === 'confirmPassword' || item[0] === 'resumeFile' || item[0] === "resume" || item[0] === 'isUploading') {
-                return
-              }
-              console.log(item)
-              return <div>
-
-                <div className='profileItem'>{item[0]}: {item[1]}</div>
-                {/* <div>{item[1]}</div> */}
-
-
-              </div>
-
-
-            })}
-
-              {
-                this.state.resume?
-                // eslint-disable-next-line react/jsx-no-target-blank
-                <a href={`${this.state.resume}`} target='_blank'>
-                <h1>Resume Link</h1>
-                </a> : 
-
-                <> </> 
-              }
-
-            <div className='resume-upload'>
-              <input
-                className='choose-file'
-                onChange={e => this.updateResume(e.target.files[0])}
-                type='file' accept="application/pdf" />
-              {
-                this.state.resumeFile ? 
-                <button
-                className='picture-upload'
-                onClick={() => this.getSignedRequest(this.state.resumeFile)}> Upload Resume </button>
-                :
-                <p>Choose a File to Upload</p>  
-              }
-            </div>
+          <p>Choose a File to Upload</p>
+          }
+          </div></div>
 
 
 
