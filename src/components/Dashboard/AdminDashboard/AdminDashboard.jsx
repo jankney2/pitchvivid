@@ -237,58 +237,55 @@ class AdminDashboard extends Component {
 
         let {opacity} = this.state
         return (
-            <div className='landingBackFade'>
-                <img style={{opacity: opacity}} className='landingBackImg' id='dashBackImg' src="" alt=""/>
-                <div className='adminDashboardContainer'>
-                    <h1>Administrator Dashboard</h1>
-                    <div className='adminDashJobPanel'>
-                        <h3>Company Administrator Key: {this.state.companyAdminKey}</h3>
-                        <Popup trigger={<button className='adminDashButtonPopup'>Add a New Job Listing</button>} position='right center'>
-                                {
-                                    close=> (
-                                        <div className='popupDivAD'>
-                                            <input onChange={e=>this.handleFormChange(e)} type='text' name='newJobTitle' placeholder='Job Title' value={this.state.newJobTitle} />
-                                            <input onChange={e=>this.handleFormChange(e)} type='text' name='newJobDescription' placeholder='Job Description' value={this.state.newJobDescription}/>
-                                            <input onChange={e=>this.handleFormChange(e)} type='date' name='newJobOpenDate' value={this.state.newJobOpenDate}/>
-                                            <input onChange={e=>this.handleFormChange(e)} type='date' name='newJobCloseDate' value={this.state.newJobCloseDate}/>
-                                            <button onClick={()=> {
-                                                this.addJob(close)
-                                            }}>Post New Job</button>
-                                        </div>
-                                    )
-                                }
-                            </Popup>
-                        <h3>Company Jobs: </h3>
-                        {
-                            this.state.jobListings.length > 0 ?
-                            jobDisplay :
-                            <p>... There are no job listings yet. Make one!</p>
-                        }
-                    </div>
-
-                    {
-                        this.props.owner ? 
-                        <div className='adminDashOwnerPanel'>
-                            <h3>Account Administrators: </h3>
+            <div className='adminDashboardContainer'>
+                <h1>Administrator Dashboard</h1>
+                <div className='adminDashJobPanel'>
+                    <h3>Company Administrator Key: {this.state.companyAdminKey}</h3>
+                    <Popup trigger={<button className='adminDashButtonPopup'>Add a New Job Listing</button>} position='right center'>
                             {
-                                this.state.administrators.length > 0 ?
-                                adminDisplay :
-                                <p>There are no administrators somehow. What's up with that?</p>
+                                close=> (
+                                    <div className='popupDivAD'>
+                                        <input onChange={e=>this.handleFormChange(e)} type='text' name='newJobTitle' placeholder='Job Title' value={this.state.newJobTitle} />
+                                        <input onChange={e=>this.handleFormChange(e)} type='text' name='newJobDescription' placeholder='Job Description' value={this.state.newJobDescription}/>
+                                        <input onChange={e=>this.handleFormChange(e)} type='date' name='newJobOpenDate' value={this.state.newJobOpenDate}/>
+                                        <input onChange={e=>this.handleFormChange(e)} type='date' name='newJobCloseDate' value={this.state.newJobCloseDate}/>
+                                        <button onClick={()=> {
+                                            this.addJob(close)
+                                        }}>Post New Job</button>
+                                    </div>
+                                )
                             }
-                        </div> : 
+                        </Popup>
+                    <h3>Company Jobs: </h3>
+                    {
+                        this.state.jobListings.length > 0 ?
+                        jobDisplay :
+                        <p>... There are no job listings yet. Make one!</p>
+                    }
+                </div>
+
+                {
+                    this.props.owner ? 
+                    <div className='adminDashOwnerPanel'>
+                        <h3>Account Administrators: </h3>
+                        {
+                            this.state.administrators.length > 0 ?
+                            adminDisplay :
+                            <p>There are no administrators somehow. What's up with that?</p>
+                        }
+                    </div> : 
+                    <> </>
+                }
+
+                <div className='adminDashBlockedUsers'>
+                    <h3>Blocked Users: </h3>
+                    {
+                        this.state.blockedUsers.length > 0 ?
+                        blockedUsersDisplay :
                         <> </>
                     }
-
-                    <div className='adminDashBlockedUsers'>
-                        <h3>Blocked Users: </h3>
-                        {
-                            this.state.blockedUsers.length > 0 ?
-                            blockedUsersDisplay :
-                            <> </>
-                        }
-                    </div>
-
                 </div>
+
             </div>
         )
     }
