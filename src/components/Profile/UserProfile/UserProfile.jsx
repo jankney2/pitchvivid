@@ -26,6 +26,7 @@ class UserProfile extends Component {
       resumeEditToggle: false
 
 
+
     }
   }
 
@@ -207,14 +208,12 @@ class UserProfile extends Component {
     })
   }
 
-
-
-
   render() {
     const state = Object.entries(this.state)
-  
+    console.log(state)
     return (
-      <div className='profileContainer landingBack'>
+
+      <div className='profileContainer landingBack '>
         <h1>Your Info:</h1>
 
         {this.state.editToggle ?
@@ -239,7 +238,6 @@ class UserProfile extends Component {
             </div>
           </div>
           :
-
           <div className='authPlate'>
             <div className='formDiv'>
               <div>
@@ -248,180 +246,142 @@ class UserProfile extends Component {
                   <div>{this.state.email}</div>
                 </div>
                 <div>
-                  <h2>First Name</h2>
+                  <h2>First Name:</h2>
                   <div>{this.state.firstName}</div>
                 </div>
                 <div>
-                  <h2>Last Name</h2>
+                  <h2>Last Name:</h2>
                   <div>{this.state.lastName}</div>
-
                 </div>
+
               </div>
-            </div>
-          </div>
-        }
 
-        {
-          this.state.resume ?
-            // eslint-disable-next-line react/jsx-no-target-blank
-            <a href={`${this.state.resume}`} target='_blank'>
-              <h1>Resume Link</h1>
-            </a> :
-
-            null
-        }
-
-        <div className='resume-upload'>
-          <input
-            className='choose-file'
-            onChange={e => this.updateResume(e.target.files[0])}
-            type='file' accept="application/pdf" />
-
-
-          {
-            this.state.resumeFile ?
-              <button
-                className='picture-upload'
-                onClick={() => this.getSignedRequest(this.state.resumeFile)}> Upload Resume </button>
-              :
-              <div>
-                {state.map(item => {
-                  if (item[0] === 'password' || item[0] === 'newPassword' || item[0] === 'editToggle' || item[0] === 'owner' || item[0] === 'confirmPassword' || item[0] === 'resumeFile' || item[0] === "resume" || item[0] === 'isUploading') {
-                    return
-                  }
-                  console.log(item)
-                  return <div>
-
-                    <div className='profileItem'>{item[0]}: {item[1]}</div>
-                    {/* <div>{item[1]}</div> */}
-
-
-                  </div>
-
-
-                })}
-                </div>
-                }
-    
               {
-                  this.state.resume ?
-                    // eslint-disable-next-line react/jsx-no-target-blank
-                    <div>
-                      <a href={`${this.state.resume}`} target='_blank'>
-                        <h1>Resume Link</h1>
-                      </a>
+                this.state.resume ?
 
-                      <button id='resume-toggle-button' onClick={e => this.resumeUploadToggle()}>Edit Resume</button>
+                  <div id='resumeLink-button'>
+                    
+                    <a href={`${this.state.resume}`} target='_blank'>
+                      <h2>Resume Link</h2>
+                    </a>
 
-                    </div> :
+                    <button id='resume-toggle-button' onClick={e => this.resumeUploadToggle()}>Edit Resume</button>
 
-                    <>  <input
+                  </div> :
+
+                  <>  <input
+                    className='choose-file'
+                    onChange={e => this.updateResume(e.target.files[0])}
+                    type='file' accept="application/pdf" />
+                    {
+                      !this.state.resumeFile ?
+                        <></> :
+                        <button
+                          className='picture-upload'
+                          onClick={() => this.getSignedRequest(this.state.resumeFile)}> Upload Resume </button>
+                    }
+
+
+                    <p>Choose a File to Upload</p>   </>
+              }
+
+
+
+
+              {
+                this.state.resumeEditToggle ?
+                  <>
+                    <input
                       className='choose-file'
                       onChange={e => this.updateResume(e.target.files[0])}
                       type='file' accept="application/pdf" />
-                      {
-                        !this.state.resumeFile ?
-                          <></> :
-                          <button
-                            className='picture-upload'
-                            onClick={() => this.getSignedRequest(this.state.resumeFile)}> Upload Resume </button>
-                      }
+
+                    {
+                      !this.state.resumeFile ?
+                        <></> :
+                        <button
+                          className='picture-upload'
+                          onClick={() => this.getSignedRequest(this.state.resumeFile)}> Upload Resume </button>
+                    }
 
 
-                      <p>Choose a File to Upload</p>   </>
-                }
+                    <p>Choose a File to Upload</p>
+                  </>
+                  :
+                  <>  </>
 
-
-
-
-                {
-                  this.state.resumeEditToggle ?
-                    <>
-                      <input
-                        className='choose-file'
-                        onChange={e => this.updateResume(e.target.files[0])}
-                        type='file' accept="application/pdf" />
-
-                      {
-                        !this.state.resumeFile ?
-                          <></> :
-                          <button
-                            className='picture-upload'
-                            onClick={() => this.getSignedRequest(this.state.resumeFile)}> Upload Resume </button>
-                      }
-
-
-                      <p>Choose a File to Upload</p>
-                    </>
-                    :
-                    <>  </>
-
-                }
-
-                {
+              }
+              {
                   this.state.isUploading ?
                     <div className='spinner'></div> :
                     <></>
                 }
-                <p>Choose a File to Upload</p>
 
 
 
 
 
-                <Popup trigger={<button>Edit Info</button>} position='right center'>
-                  {
-                    close => (
-                      <div>
-                        <input onChange={e => this.handleFormChange(e)} type='password' name='password' placeholder='password' value={this.state.password} />
 
+
+
+            
+
+
+
+             {
+                  this.state.resumeEditToggle ?
+                  <> </>:
+
+             
+              <Popup trigger={<button>Edit Info</button>} position='right center'>
+                {
+                  close => (
+                    <div className='popup-box' >
+                      <input style={{ 'width': '10vw' }} onChange={e => this.handleFormChange(e)} type='password' name='password' placeholder='password' value={this.state.password} />
+                      <div className='button-box'>
                         <button onClick={() => {
                           this.authenticateUser(close)
                         }}>Submit</button>
-                        <button onClick={() => { close() }}> Cancel </button>
-                      </div>
-                    )
-                  }
-                </Popup>
-              </div>
+                        <button onClick={() => { close() }}> Cancel </button></div>
+                    </div>
+                  )
+                }
+              </Popup>
+              }
 
-          }
+            </div>
+          </div>
 
-
-
-
-        </div>
-
-
-
-
-
-
-
-
-
-        )
-    
-      }
-    }
-    
-    
-    
-const mapStateToProps = state => {
-
-  const {email, firstName, lastName, resume } = state
-  return {
-
-          firstName,
-        lastName,
-        email,
-        resume
-    
-      }
-    }
-    
-const mapDispatchToProps = {
-          updateUser
         }
 
-        export default connect(mapStateToProps, mapDispatchToProps)(withRouter(UserProfile))
+      </div>
+
+
+
+
+
+
+
+
+
+    )
+  }
+}
+const mapStateToProps = state => {
+
+  const { email, firstName, lastName, resume } = state
+  return {
+
+    firstName,
+    lastName,
+    email,
+    resume
+
+  }
+}
+
+const mapDispatchToProps = {
+  updateUser
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(UserProfile))

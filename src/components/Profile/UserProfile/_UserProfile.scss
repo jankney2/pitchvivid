@@ -11,3 +11,23 @@
 #resume-toggle-button{
     
 }
+
+
+#resumeLink-button{
+display: flex;
+// justify-content: flex-end;
+align-items: center;
+// width: 100%;
+
+}
+#resumeLink-button button { 
+    // margin-left:
+    height: 2em;
+    margin-left: 1em;
+}
+#resumeLink-button a { 
+    color: rgb(178, 178, 211);
+}
+#resumeLink-button h2 { 
+    color: rgb(178, 178, 211);
+  }
