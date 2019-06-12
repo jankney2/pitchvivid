@@ -8,28 +8,48 @@
     border: 1px solid black;
     margin: 1em;
     padding: 1em;
+    border-radius: 10px;
 }
 
 .adminDashboardContainer {
     padding: 1em;
+    button {
+        border-radius: 10px;
+        padding: 0.3em;
+        margin: 1em;
+        color: white;
+        background: #212529;
+        border: 1px solid black;
+    }
 }
 .adminDashJobPanel{
-    background: orchid;
+    background: rgb(118, 125, 169);
     @include boxShadow();
+}
+.adminDashButtonPopup{
+    margin-bottom: 2em;
 }
 .jobCard {
     @include card();
 }
 .adminDashOwnerPanel {
-    background: salmon;
+    background: rgb(215, 217, 233);
     @include boxShadow();
 }
 .adminCard {
     @include card();
 }
-
+.popupDivAD{
+    height: 180px;
+    input{
+        width: 100%;
+    }
+    button{
+        margin-left: 3em;
+    }
+}
 .adminDashBlockedUsers{
-    background: greenyellow;
+    background: rgb(250, 193, 108);
     @include boxShadow();
 }
 

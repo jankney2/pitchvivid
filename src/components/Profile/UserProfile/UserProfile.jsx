@@ -22,9 +22,9 @@ class UserProfile extends Component {
       password: '',
       confirmPassword: false,
       resumeFile: false,
-      resume:'',
+      resume: '',
       resumeEditToggle: false
-     
+
 
     }
   }
@@ -33,11 +33,11 @@ class UserProfile extends Component {
 
 
 
-  componentDidMount= async ()=> {
-  
+  componentDidMount = async () => {
 
 
-console.log(this.props)
+
+    console.log(this.props)
     const { email, firstName, lastName, resume } = this.props
     console.log(email, firstName, lastName, resume)
     this.setState({
@@ -73,7 +73,7 @@ console.log(this.props)
       const { signedRequest, url } = response.data
       console.log(response.data)
       console.log(file)
-      const resume = url 
+      const resume = url
       this.uploadFile(file, signedRequest, resume);
     }).catch(err => {
       console.log(err)
@@ -100,14 +100,16 @@ console.log(this.props)
         this.updateResume(resume)
         console.log('also went through', resume)
 
-        axios.put('/api/uploadResume', {resume}).then(res => {
+        axios.put('/api/uploadResume', { resume }).then(res => {
           console.log(res.data)
-         
-          this.setState({resumeFile: false,
-          resumeEditToggle: false})
-          console.log(this.state.resumeFile)
+
+          this.setState({
+            resumeFile: false,
+            resumeEditToggle: false
           })
-        
+          console.log(this.state.resumeFile)
+        })
+
       }).catch(err => {
         this.setState({
           isUploading: false
@@ -151,7 +153,7 @@ console.log(this.props)
     }).catch((err) => { })
   }
 
-  
+
 
   handleFormChange = e => {
     const { name, value } = e.target
@@ -172,15 +174,15 @@ console.log(this.props)
   }
 
   handleSubmit = () => {
-    const { email, firstName, lastName, newPassword} = this.state
+    const { email, firstName, lastName, newPassword } = this.state
 
     let password = newPassword
     if (newPassword !== this.state.confirmPassword) {
       alert('Passwords do not match')
       return
     }
-    axios.put('/auth/updateUser', { email, firstName, lastName, password}).then(res => {
-      const { email, firstName, lastName} = res.data
+    axios.put('/auth/updateUser', { email, firstName, lastName, password }).then(res => {
+      const { email, firstName, lastName } = res.data
       this.setState({
         email,
         firstName,
@@ -199,9 +201,9 @@ console.log(this.props)
   }
 
 
-  resumeUploadToggle = () => { 
+  resumeUploadToggle = () => {
     this.setState({
-      resumeEditToggle:!this.state.resumeEditToggle
+      resumeEditToggle: !this.state.resumeEditToggle
     })
   }
 
@@ -210,131 +212,185 @@ console.log(this.props)
 
   render() {
     const state = Object.entries(this.state)
-    console.log(state)
+  
     return (
-
-      <div className='profileContainer'>
+      <div className='profileContainer landingBack'>
         <h1>Your Info:</h1>
 
         {this.state.editToggle ?
 
-          <div>
-            <p>email</p>
-            <input onChange={e => this.handleFormChange(e)} type='text' name='email' placeholder='email' value={this.state.email} />
-            <p>First Name</p>
-            <input onChange={e => this.handleFormChange(e)} type='text' name='firstName' placeholder='first name' value={this.state.firstName} />
-            <p>Last Name</p>
-            <input onChange={e => this.handleFormChange(e)} type='text' name='lastName' placeholder='last name' value={this.state.lastName} />
+          <div className='authPlate'>
+            <div className='formDiv'>
+              <p>email</p>
+              <input onChange={e => this.handleFormChange(e)} type='text' name='email' placeholder='email' value={this.state.email} />
+              <p>First Name</p>
+              <input onChange={e => this.handleFormChange(e)} type='text' name='firstName' placeholder='first name' value={this.state.firstName} />
+              <p>Last Name</p>
+              <input onChange={e => this.handleFormChange(e)} type='text' name='lastName' placeholder='last name' value={this.state.lastName} />
 
-            <p>Password</p>
-            <input onChange={e => this.handleFormChange(e)} type='password' name='confirmPassword' placeholder='password' value={this.state.confirmPassword} />
-            <p>Confirm Password</p>
-            <input onChange={e => this.handleFormChange(e)} type='password' name='newPassword' placeholder='confirm password' value={this.state.newPassword} />
+              <p>Password</p>
+              <input onChange={e => this.handleFormChange(e)} type='password' name='confirmPassword' placeholder='password' value={this.state.confirmPassword} />
+              <p>Confirm Password</p>
+              <input onChange={e => this.handleFormChange(e)} type='password' name='newPassword' placeholder='confirm password' value={this.state.newPassword} />
 
-            <button onClick={() => { this.handleSubmit() }}>Submit Changes</button>
-            <button onClick={() => { this.toggleEdit() }}>Cancel</button>
+              <button onClick={() => { this.handleSubmit() }}>Submit Changes</button>
+              <button onClick={() => { this.toggleEdit() }}>Cancel</button>
 
+            </div>
           </div>
           :
-          <div>
-            {state.map(item => {
-              if (item[0] === 'password' || item[0] === 'newPassword' || item[0] === 'editToggle' || item[0] === 'owner' || item[0] === 'confirmPassword' || item[0] === 'resumeFile' || item[0] === "resume" || item[0] === 'isUploading') {
-                return
-              }
-              console.log(item)
-              return <div>
 
-                <div className='profileItem'>{item[0]}: {item[1]}</div>
-                {/* <div>{item[1]}</div> */}
-
-
-              </div>
-
-
-            })}
-
-              {
-                this.state.resume?
-                // eslint-disable-next-line react/jsx-no-target-blank
+          <div className='authPlate'>
+            <div className='formDiv'>
+              <div>
                 <div>
-                <a href={`${this.state.resume}`} target='_blank'>
-                <h1>Resume Link</h1>
-                </a>
-                
-                <button id='resume-toggle-button' onClick={e => this.resumeUploadToggle()}>Edit Resume</button>
-                
-                </div> : 
+                  <h2>Email:</h2>
+                  <div>{this.state.email}</div>
+                </div>
+                <div>
+                  <h2>First Name</h2>
+                  <div>{this.state.firstName}</div>
+                </div>
+                <div>
+                  <h2>Last Name</h2>
+                  <div>{this.state.lastName}</div>
 
-                <>  <input
-                className='choose-file'
-                onChange={e => this.updateResume(e.target.files[0])}
-                type='file' accept="application/pdf" />
-                 {
-                   !this.state.resumeFile?
-                   <></>:
-                   <button
-                   className='picture-upload'
-                   onClick={() => this.getSignedRequest(this.state.resumeFile)}> Upload Resume </button>
-                 }
-               
-               
-                 <p>Choose a File to Upload</p>   </> 
-              }
-
-            
-
-              
-                {
-                this.state.resumeEditToggle?
-               <>
-                <input
-                className='choose-file'
-                onChange={e => this.updateResume(e.target.files[0])}
-                type='file' accept="application/pdf" />
-                
-                {
-                   !this.state.resumeFile?
-                   <></>:
-                   <button
-                   className='picture-upload'
-                   onClick={() => this.getSignedRequest(this.state.resumeFile)}> Upload Resume </button>
-                 }
-               
-               
-                 <p>Choose a File to Upload</p>
-                </>
-                :
-                <>  </> 
-             
-              }
-
-         {
-           this.state.isUploading?
-           <div className='spinner'></div>:
-           <></>
-         }
-
-
-
-            <Popup trigger={<button>Edit Info</button>} position='right center'>
-              {
-                close => (
-                  <div>
-                    <input onChange={e => this.handleFormChange(e)} type='password' name='password' placeholder='password' value={this.state.password} />
-
-                    <button onClick={() => {
-                      this.authenticateUser(close)
-                    }}>Submit</button>
-                    <button onClick={() => { close() }}> Cancel </button>
-                  </div>
-                )
-              }
-            </Popup>
+                </div>
+              </div>
+            </div>
           </div>
-
         }
 
-      </div>
+        {
+          this.state.resume ?
+            // eslint-disable-next-line react/jsx-no-target-blank
+            <a href={`${this.state.resume}`} target='_blank'>
+              <h1>Resume Link</h1>
+            </a> :
+
+            null
+        }
+
+        <div className='resume-upload'>
+          <input
+            className='choose-file'
+            onChange={e => this.updateResume(e.target.files[0])}
+            type='file' accept="application/pdf" />
+
+
+          {
+            this.state.resumeFile ?
+              <button
+                className='picture-upload'
+                onClick={() => this.getSignedRequest(this.state.resumeFile)}> Upload Resume </button>
+              :
+              <div>
+                {state.map(item => {
+                  if (item[0] === 'password' || item[0] === 'newPassword' || item[0] === 'editToggle' || item[0] === 'owner' || item[0] === 'confirmPassword' || item[0] === 'resumeFile' || item[0] === "resume" || item[0] === 'isUploading') {
+                    return
+                  }
+                  console.log(item)
+                  return <div>
+
+                    <div className='profileItem'>{item[0]}: {item[1]}</div>
+                    {/* <div>{item[1]}</div> */}
+
+
+                  </div>
+
+
+                })}
+                </div>
+                }
+    
+              {
+                  this.state.resume ?
+                    // eslint-disable-next-line react/jsx-no-target-blank
+                    <div>
+                      <a href={`${this.state.resume}`} target='_blank'>
+                        <h1>Resume Link</h1>
+                      </a>
+
+                      <button id='resume-toggle-button' onClick={e => this.resumeUploadToggle()}>Edit Resume</button>
+
+                    </div> :
+
+                    <>  <input
+                      className='choose-file'
+                      onChange={e => this.updateResume(e.target.files[0])}
+                      type='file' accept="application/pdf" />
+                      {
+                        !this.state.resumeFile ?
+                          <></> :
+                          <button
+                            className='picture-upload'
+                            onClick={() => this.getSignedRequest(this.state.resumeFile)}> Upload Resume </button>
+                      }
+
+
+                      <p>Choose a File to Upload</p>   </>
+                }
+
+
+
+
+                {
+                  this.state.resumeEditToggle ?
+                    <>
+                      <input
+                        className='choose-file'
+                        onChange={e => this.updateResume(e.target.files[0])}
+                        type='file' accept="application/pdf" />
+
+                      {
+                        !this.state.resumeFile ?
+                          <></> :
+                          <button
+                            className='picture-upload'
+                            onClick={() => this.getSignedRequest(this.state.resumeFile)}> Upload Resume </button>
+                      }
+
+
+                      <p>Choose a File to Upload</p>
+                    </>
+                    :
+                    <>  </>
+
+                }
+
+                {
+                  this.state.isUploading ?
+                    <div className='spinner'></div> :
+                    <></>
+                }
+                <p>Choose a File to Upload</p>
+
+
+
+
+
+                <Popup trigger={<button>Edit Info</button>} position='right center'>
+                  {
+                    close => (
+                      <div>
+                        <input onChange={e => this.handleFormChange(e)} type='password' name='password' placeholder='password' value={this.state.password} />
+
+                        <button onClick={() => {
+                          this.authenticateUser(close)
+                        }}>Submit</button>
+                        <button onClick={() => { close() }}> Cancel </button>
+                      </div>
+                    )
+                  }
+                </Popup>
+              </div>
+
+          }
+
+
+
+
+        </div>
 
 
 
@@ -344,24 +400,28 @@ console.log(this.props)
 
 
 
-    )
-  }
-}
+        )
+    
+      }
+    }
+    
+    
+    
 const mapStateToProps = state => {
 
-  const { email, firstName, lastName, resume } = state
+  const {email, firstName, lastName, resume } = state
   return {
 
-    firstName,
-    lastName,
-    email,
-    resume
-
-  }
-}
-
+          firstName,
+        lastName,
+        email,
+        resume
+    
+      }
+    }
+    
 const mapDispatchToProps = {
-  updateUser
-}
+          updateUser
+        }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(UserProfile))
+        export default connect(mapStateToProps, mapDispatchToProps)(withRouter(UserProfile))
