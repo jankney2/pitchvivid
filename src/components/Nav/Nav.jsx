@@ -58,7 +58,7 @@ class Nav extends Component {
                     </div>
                 </div>
 
-                <img className='logo' src="https://i.ibb.co/zrfy90x/pitchvivid.png" alt=""/>
+                <img className='logo' src="https://s3-us-west-1.amazonaws.com/pitchvivid/pitchvivid.png" alt=""/>
                 
                 <div className='navRight'>
                     <>
