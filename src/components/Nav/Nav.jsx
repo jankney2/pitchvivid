@@ -49,7 +49,7 @@ class Nav extends Component {
                 <div className='navLeft'>
                     <div onClick={e => this.handleClick('/dashboard')} className='button'>
                         <img id='icon' src='https://flaticons.net/gd/makefg.php?i=icons/Mobile%20Application/Home.png&r=255&g=255&b=255' alt='home' />
-                        <p className='navText'>Dashboard</p>
+                        <p className='navText' id='navHomeTest'>Dashboard</p>
                     </div>
 
                     <div onClick={e => this.handleClick('/about')} className='button about'>
@@ -80,7 +80,7 @@ class Nav extends Component {
                                 <img id='icon' src='https://i.ibb.co/Gxgd3jR/logout-icon.png' alt='log out'/>
                                 <p className='navText'>Logout</p>
                             </div> :
-                            <div onClick={e => this.logIn()} className='button loginButton'>
+                            <div onClick={e => this.logIn()} className='button loginButton' id ='navLoginTest'>
                                 <img id='icon' src='https://i.ibb.co/R9Y2Hyf/login-icon.png' alt='log in'/>
                                 <p className='navText'>Login</p>
                             </div>
