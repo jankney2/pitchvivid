@@ -1,1 +1,7 @@
-This is the repository for our DevMountain Group Project- Pitch Vivid. 
+Pitch Vivid is a recruitment platform designed to make recruiters' lives easier. Companies can register an account, and assign multiple hiring managers (each with their own accounts) whom can add job postings. Once an applicant has submitted their video application, a recruiter can watch it. In addition, recruiters can pull up the applicant's resume, and notify them if they think they would be a good fit for the company. 
+
+Job-seekers can register an account, see the jobs that are available at the time, upload their resumes to their profile page, and submit video resumes to the jobs they're interested in. If a recruiter is interested in them, they will be notified by email with the company name and job title- to refresh their memory in case they've applied to a multitude of positions. 
+
+This was a group effort- and the majority of my efforts went into the administrator dashboard, the recording functionality, email functionality (via NodeMailer), and the admin video resume view- where they can see the resume of the applicant, like/dislike/block them, or notify them to expect a call in the future. 
+
+We used React and Sass for our front end stylings and functionality. Videos are hosted on Amazon Web Services, and so are applicant resumes. The backend was constructed with Node, Express, and hooked to our PostGres database via Massive. Nodemailer is used to handle password resets and applicant notifications.
