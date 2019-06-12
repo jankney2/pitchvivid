@@ -180,7 +180,7 @@ class AdminJobPost extends Component {
                             <Popup trigger={<button className='popupButton'>Add Note</button>} position='top center'>
                                 {
                                     close=> (
-                                        <div>
+                                        <div className='popupDivJp'>
                                             <input onChange={e=>this.handleNoteChange(e)} type='text' name='newNote' placeholder='New Note' />
                                             <button onClick={()=>this.handleAddNote(close)}>Post New Note</button>
                                         </div>

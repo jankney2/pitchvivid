@@ -6,7 +6,17 @@
     padding: 75px 1.5em;
     height: 99vh;
 }
-
+.popupDivJp{
+    height: 100px;
+    input{
+        width: 100%;
+        text-align: center;
+    }
+    button{
+    margin-left: 2.5em;
+    margin-top: 1em;
+    }
+}
 .adminJobPostSelectedView{
     width: 100%;
     display: flex;
