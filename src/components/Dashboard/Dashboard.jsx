@@ -55,10 +55,10 @@ class Dashboard extends Component {
                 {/* <Nav /> */}
                 {
                     this.state.admin ? 
-                    <AdminDashboard />  :
-                    this.state.user ?
-                   <UserDashboard /> :
-                   <> </>
+                        <AdminDashboard />  :
+                        this.state.user ?
+                            <UserDashboard /> :
+                            <> </>
                 }
             </div>
         )
