@@ -218,12 +218,13 @@ console.log(this.props)
           <p>Confirm Password</p>
           <input onChange={e => this.handleFormChange(e)} type='password' name='newPassword' placeholder='confirm password' value={this.state.newPassword} />
           
-          <button onClick={() => { this.handleSubmit() }}>Submit Changes</button>
-          <button onClick={() => { this.toggleEdit() }}>Cancel</button>
+          <button className = 'landingBtn' onClick={() => { this.handleSubmit() }}>Submit Changes</button>
+          <button className = 'landingBtn' onClick={() => { this.toggleEdit() }}>Cancel</button>
           
           </div></div>
           :
-          <div className = 'authPlate'><div className = 'formDiv'>
+          <div className = 'authPlate'>
+            <div className = 'formDiv'>
           <div>
             <div>
               <h2>Email:</h2>
@@ -267,16 +268,16 @@ console.log(this.props)
 
 
 
-            <Popup trigger={<button>Edit Info</button>} position='right center'>
+            <Popup trigger={<button className = 'landingBtn'>Edit Info</button>} position='right center'>
             {
               close => (
                 <div className = 'popup-box' >
             <input style ={{'width':'10vw'}} onChange={e => this.handleFormChange(e)} type='password' name='password' placeholder='password' value={this.state.password} />
             <div className = 'button-box'>
-            <button onClick={() => {
+            <button className = 'landingBtn' onClick={() => {
             this.authenticateUser(close)
             }}>Submit</button>
-            <button onClick={() => { close() }}> Cancel </button></div>
+            <button className = 'landingBtn' onClick={() => { close() }}> Cancel </button></div>
             </div>
             )
           }
