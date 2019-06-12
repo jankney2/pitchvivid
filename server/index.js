@@ -14,6 +14,7 @@ const {SESSION_SECRET, CONNECTION_STRING, SERVER_PORT, S3_BUCKET, AWS_ACCESS_KEY
 
 const aws = require('aws-sdk')
 
+app.use(express.static(`${__dirname}/../build`))
 
 app.use(express.json())
 
