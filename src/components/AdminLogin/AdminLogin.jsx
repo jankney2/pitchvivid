@@ -58,7 +58,7 @@ class AdminLogin extends Component {
                         <a className='aTag'>Register new account</a>
                     </Link>
                     <Link to='/user-login'>
-                        <a className='aTag'>Job applicant login</a>
+                        <a className='aTag user-login-link'>Job applicant login</a>
                     </Link>
                 </div>
             </div>
