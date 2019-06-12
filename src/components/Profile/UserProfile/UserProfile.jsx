@@ -200,7 +200,7 @@ console.log(this.props)
     console.log(state)
     return (
 
-      <div className='profileContainer landingBack'>
+      <div className='profileContainer landingBack '>
         <h1>Your Info:</h1>
 
         {this.state.editToggle ?
@@ -230,11 +230,11 @@ console.log(this.props)
               <div>{this.state.email}</div>
             </div>
             <div>
-              <h2>First Name</h2>
+              <h2>First Name:</h2>
               <div>{this.state.firstName}</div>
             </div>
             <div>
-              <h2>Last Name</h2>
+              <h2>Last Name:</h2>
               <div>{this.state.lastName}</div>
             </div>
 
@@ -263,24 +263,25 @@ console.log(this.props)
           :
           <p>Choose a File to Upload</p>
           }
-          </div></div>
+          </div>
 
 
 
             <Popup trigger={<button>Edit Info</button>} position='right center'>
-              {
-                close => (
-                  <div>
-                    <input onChange={e => this.handleFormChange(e)} type='password' name='password' placeholder='password' value={this.state.password} />
-
-                    <button onClick={() => {
-                      this.authenticateUser(close)
-                    }}>Submit</button>
-                    <button onClick={() => { close() }}> Cancel </button>
-                  </div>
-                )
-              }
+            {
+              close => (
+                <div className = 'popup-box' >
+            <input style ={{'width':'10vw'}} onChange={e => this.handleFormChange(e)} type='password' name='password' placeholder='password' value={this.state.password} />
+            <div className = 'button-box'>
+            <button onClick={() => {
+            this.authenticateUser(close)
+            }}>Submit</button>
+            <button onClick={() => { close() }}> Cancel </button></div>
+            </div>
+            )
+          }
             </Popup>
+          </div>
           </div>
 
         }

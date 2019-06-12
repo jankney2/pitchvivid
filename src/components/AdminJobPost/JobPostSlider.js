@@ -11,8 +11,11 @@ export default class JobPostSlider extends Component {
                 infinite: true,
                 speed: 500,
                 slidesToShow: 3,
-                slidesToScroll: 3,
+                slidesToScroll: 1,
                 arrows: true,
+                // centerMode: true,
+                centerPadding: '50px',
+                className: 'center'
             }
         }
     }
@@ -20,14 +23,13 @@ export default class JobPostSlider extends Component {
         let { settings } = this.state
         console.log(this.props.slideshow)
         return (
-
+            // this.props.element.style.width = 50%
             <Slider {...settings} className = 'slider jobslider'>{
                 this.props.slideshow.map((slide, index) => {
                 console.log(slide)
                 return (
-                    <div key={index}>
-                        <button className = "myButton"onClick = {()=>{this.props.handleSelect(slide, index)}}>{slide.firstname} {slide.lastname}</button>
-                    </div>)
+                        <button className = "landingBtn"  onClick = {()=>{this.props.handleSelect(slide, index)}}>{slide.firstname} {slide.lastname}</button>
+                    )
 
             })}</Slider>
         )

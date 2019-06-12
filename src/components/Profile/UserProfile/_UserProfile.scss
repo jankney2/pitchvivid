@@ -6,3 +6,15 @@
 .profileItem {
     margin-bottom: 1em;
 }
+
+.button-box{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+.popup-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
