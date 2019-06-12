@@ -17,7 +17,9 @@ export default class LandingPage extends Component {
     }
 
     componentDidMount = () => {
-        this.fadeInColor()
+        setTimeout(() => {
+            this.fadeInColor()
+        }, 1);
     }
 
     fadeInColor = () => {
