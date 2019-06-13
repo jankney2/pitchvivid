@@ -12,7 +12,6 @@
   align-items: flex-start;
   margin: 0;
   position: relative;
-  transition: 1s;  
 }
 
 .landingBackImg {
@@ -81,8 +80,8 @@
   justify-content: center;
   align-items: flex-start;
   align-self: flex-start;
-  margin-top: 5vh;
-  margin-bottom: 30px;
+  // margin-top: 5vh;
+  // margin-bottom: 30px;
   color: white;
   text-shadow: 1px 1px 1px $navbar;
 }
@@ -95,7 +94,7 @@
 .landingPic {
   opacity: .4;
   height: 35vh;
-  margin: 25px;
+  margin: 0 25px;
   transition: 1.5s;
 }
 
@@ -140,7 +139,7 @@
   border-radius: 5px;
   border-width: 1px;
   width: 120px;
-  margin: 10px 0;
+  margin: 0;
 }
 
 .landingBtn:hover {
