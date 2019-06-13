@@ -306,7 +306,7 @@ class UserProfile extends Component {
                       !this.state.resumeFile ?
                         <></> :
                         <button
-                        style={{color: 'white'}}
+                       
                           className='resume-upload'
                           onClick={() => this.getSignedRequest(this.state.resumeFile)}> Upload Resume </button>
                     }

@@ -13,6 +13,8 @@
 
 .adminDashboardContainer {
     padding: 1em;
+    background-image: linear-gradient(rgb(31, 58, 211), rgb(150, 159, 238));
+    height: 100vh;
     button {
         border-radius: 10px;
         padding: 0.3em;
@@ -22,6 +24,7 @@
         border: 1px solid black;
     }
 }
+
 .adminDashJobPanel{
     background: rgb(118, 125, 169);
     @include boxShadow();

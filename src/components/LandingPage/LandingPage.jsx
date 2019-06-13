@@ -9,10 +9,28 @@ import Slider from './Slider'
 //add info about about what the site is in general and what you can do with the site. 
 
 export default class LandingPage extends Component {
+    constructor(){
+        super()
+        this.state = {
+            opacity: 0
+        }
+    }
+
+    componentDidMount = () => {
+        setTimeout(() => {
+            this.fadeInColor()
+        }, 1);
+    }
+
+    fadeInColor = () => {
+        this.setState({opacity: 100})
+    }
+
     render(){
+        let {opacity} = this.state
         return (
-            <div className='landingBack'>
-                {/* <img className='https://www.transparenttextures.com/patterns/asfalt-light.png' src="https://www.transparenttextures.com/patterns/asfalt-light.png" alt=""/> */}
+            <div className='landingBackFade'>
+                <img style={{opacity: opacity}} className='landingBackImg' src="" alt=""/>
                 <div className='landing'>
                     <h1 className='landingTitle'>PitchVivid</h1>
                     <h2 className='landingSubtitle'>Hiring made painless.</h2>
