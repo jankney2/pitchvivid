@@ -7,7 +7,7 @@ export default class SimpleSlider extends React.Component {
     this.state = {
       active: 2,
       settings: {
-        dots: true,
+        dots: false,
         infinite: true,
         speed: 1500,
         slidesToScroll: 1,
