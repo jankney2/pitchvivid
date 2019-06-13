@@ -113,7 +113,7 @@ class AdminJobPost extends Component {
     }
     handleAddNote=async(callback)=> {
         callback();
-        this.setState({
+        await this.setState({
             note: this.state.newNote
         })
         this.updateUser();
