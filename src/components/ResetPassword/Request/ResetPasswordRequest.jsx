@@ -43,7 +43,7 @@ export default class ResetPasswordRequest extends Component {
                 <br/> <br/>
                 <p>This is your temporary password for PitchVivid: pitchit817C4 </p>
                 <br/>
-                <p>Enter your email and the temporary password <a href='http://localhost:3000/#/return-pass/${id}'> here </a> and you'll be prompted to enter a new, permanent password.</p>
+                <p>Enter your email and the temporary password <a href='https://pitchvivid.com/#/return-pass/${id}'> here </a> and you'll be prompted to enter a new, permanent password.</p>
                 <br /> <br/>
                 <p>Thank you for using PitchVivid, and good luck in your job hunt! </p>
             </div>

@@ -26,11 +26,12 @@ class AdminDashboard extends Component {
             editJobOpenDate: '',
             editJobCloseDate: '',
             // blocked user state vars
-            blockedUsers: []
+            blockedUsers: [],
+            opacity: 0
         }
     }
             
-    async componentDidMount() {
+    componentDidMount = () => {
     // grab session if there is one- if not, push to login ~~~~~~~~~~
 
         if(!this.props.companyId){
@@ -48,6 +49,13 @@ class AdminDashboard extends Component {
             
         this.getAdminKey()
         this.getBlockedUsers()
+        setTimeout(() => {
+            this.fadeInColor()
+        }, 1);
+    }
+
+    fadeInColor = () => {
+        this.setState({opacity: 100})
     }
 
     // event handlers ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -226,6 +234,8 @@ class AdminDashboard extends Component {
                 </div>
             )
         })
+
+        let {opacity} = this.state
         return (
             <div className='adminDashboardContainer'>
                 <h1>Administrator Dashboard</h1>

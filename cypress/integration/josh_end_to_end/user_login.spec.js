@@ -1,3 +1,4 @@
+
 describe('User can hit splash page', ()=> {
     it('Loads', ()=> {
         cy.visit('http://localhost:3000/#/')

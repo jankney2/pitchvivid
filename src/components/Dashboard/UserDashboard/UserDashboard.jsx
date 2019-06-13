@@ -35,7 +35,7 @@ class UserDashboard extends Component {
             allJobs: [],
             appliedJobSearch: '',
             allJobSearch: '',
-            
+            opacity: 0
         }
 
     }
@@ -55,6 +55,14 @@ class UserDashboard extends Component {
                 allJobs: res.data
             })
         })
+
+        setTimeout(() => {
+            this.fadeInColor()
+        }, 1);
+    }
+
+    fadeInColor = () => {
+        this.setState({opacity: 100})
     }
 
 
@@ -77,9 +85,6 @@ class UserDashboard extends Component {
             </Link>
         })
 
-
-
-
         const allJobs = this.state.allJobs.filter((ele) => {
             return ele.job_title.toLowerCase().includes(this.state.allJobSearch.toLowerCase()) || ele.name.toLowerCase().includes(this.state.allJobSearch.toLowerCase())
         }).map((ele, index) => {
@@ -92,15 +97,14 @@ class UserDashboard extends Component {
             </Link>
         })
 
-
-
+        let {opacity} = this.state
         return (
             <div className='userdash-view'>
                 <div className='userDashHeader'>
                     <h1>{`Welcome to PitchVivid, ${this.state.firstName} `}</h1>
                     <h1>Your Dashboard</h1>
                 </div>
-                <div className='userDashContent'>
+                <div className='userDashContent' style={{height: "100vh"}} style={{marginBottom: '50px'}}>
                     <div className='appliedJobApps-container'>
                         <span className='userDashHeaderSpan'>
                             <h1>Your Applications</h1>
@@ -127,16 +131,12 @@ class UserDashboard extends Component {
             </div>
         )
     }
-
-
 }
-
 
 const mapStateToProps = state => {
     return {
         ...state
     }
 }
-
 
 export default connect(mapStateToProps)(withRouter(UserDashboard))
