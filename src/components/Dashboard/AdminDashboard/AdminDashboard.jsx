@@ -26,8 +26,7 @@ class AdminDashboard extends Component {
             editJobOpenDate: '',
             editJobCloseDate: '',
             // blocked user state vars
-            blockedUsers: [],
-            opacity: 0
+            blockedUsers: []
         }
     }
             
@@ -49,14 +48,9 @@ class AdminDashboard extends Component {
             
         this.getAdminKey()
         this.getBlockedUsers()
-        setTimeout(() => {
-            this.fadeInColor()
-        }, 1);
     }
 
-    fadeInColor = () => {
-        this.setState({opacity: 100})
-    }
+
 
     // event handlers ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     handleFormChange=e=> {
