@@ -105,39 +105,44 @@ class AdminProfile extends Component {
           <p>Confirm Password</p>
           <input onChange={e => this.handleFormChange(e)} type='password' name='newPassword' placeholder='confirm password' value={this.state.newPassword} />
           
-          <button onClick = {()=>{this.handleSubmit()}}>Submit Changes</button>
-          <button onClick = {()=>{this.toggleEdit()}}>Cancel</button>
+          <button className = 'landingBtn' onClick = {()=>{this.handleSubmit()}}>Submit Changes</button>
+          <button className = 'landingBtn' onClick = {()=>{this.toggleEdit()}}>Cancel</button>
 
         </div>
         :
-        <div>
-        {state.map(item => {
-          if (item[0] === 'password' || item[0] === 'newPassword' || item[0] === 'editToggle' || item[0] === 'owner' || item[0]==='confirmPassword'){
-            return
-          }
-          console.log(item)
-          return <div>
+        <div className = 'authPlate'>
+       <div className = 'formDiv'>
+         <div>
+         <div>
+              <h2>Email:</h2>
+              <div>{this.state.email}</div>
+            </div>
+            <div>
+              <h2>First Name:</h2>
+              <div>{this.state.firstName}</div>
+            </div>
+            <div>
+              <h2>Last Name:</h2>
+              <div>{this.state.lastName}</div>
+            </div>
 
-            <div className='profileItem'>{item[0]}: {item[1]}</div>
-            {/* <div>{item[1]}</div> */}
+       </div>
 
-          </div>
-        })}
-
-        <Popup trigger={<button>Edit Info</button>} position='right center'>
+        <Popup trigger={<button className = 'landingBtn'>Edit Info</button>} position='right center'>
           {
             close => (
               <div>
-                <input onChange={e => this.handleFormChange(e)} type='password' name='password' placeholder='password' value={this.state.password} />
+                <input style ={{'width':'10vw'}} onChange={e => this.handleFormChange(e)} type='password' name='password' placeholder='password' value={this.state.password} />
                
-                <button onClick={() => {
+                <button className = 'landingBtn' onClick={() => {
                   this.authenticateAdmin(close)
                 }}>Submit</button>
-                <button onClick = {()=>{close()}}> Cancel </button>
+                <button className = 'landingBtn' onClick = {()=>{close()}}> Cancel </button>
               </div>
             )
           }
         </Popup>
+          </div>
         </div>
         
       }
